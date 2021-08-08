@@ -1,0 +1,20 @@
+body {
+  color: #fff;
+  background-color: var(--background);
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Trebuchet MS';
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+  transition-duration: 500ms;
+
+  &:hover {
+    letter-spacing: 1.2px;
+    @include scale(1.02);
+    color: var(--light) !important;
+    text-transform: capitalize;
+  }
+}
