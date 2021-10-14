@@ -1,75 +1,85 @@
 .container {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  height: 100vh;
 }
 
 nav {
   font-size: 1.05em;
-  padding: 0 10%;
   display: flex;
-  flex: 1;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 10%;
 
   a#home {
-    color: #ececec;
     flex: 3;
+    margin-top: 30px;
+    color: #ececec;
 
     strong {
       color: #fff;
-    }
-
-    @media all and (max-width: 700px) {
-      display: none;
     }
   }
 
   ul {
     display: flex;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
     flex: 2;
     justify-content: space-around;
-  }
-}
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 
-main#me {
-  height: 65vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 5;
-  margin-top: 30px;
-
-  svg {
-    height: 100%;
+    li {
+      margin-top: 30px;
+    }
   }
 }
 
 header#description {
+  line-height: 1.4em;
   display: flex;
+  align-items: center;
+  flex: 4;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  line-height: 1.4em;
   color: #ececec;
-  flex: 2;
 
   h1 {
     font-size: 2.2em;
-    letter-spacing: 1.2px;
     font-weight: normal;
+    letter-spacing: 1.2px;
   }
 
   h2 {
     font-size: 1.5em;
+    font-weight: normal;
+    margin: 0;
+    padding: 10px;
     letter-spacing: -1.5px;
     word-spacing: 5px;
-    font-weight: normal;
 
+    &:hover + p {
+      height: 30%;
+      padding-top: 10px;
+    }
+  }
+
+  p {
+    font-size: .65em;
+    display: block;
+    overflow: hidden;
+    max-width: 375px;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    transition: 400ms height cubic-bezier(.35, 1.64, .41, .7), 100ms padding-top;
+
+    &:hover {
+      height: 30%;
+      padding-top: 10px;
+    }
   }
 
   #name {
@@ -79,5 +89,17 @@ header#description {
 
   #title {
     color: var(--light);
+  }
+}
+
+main#me {
+  display: flex;
+  align-items: center;
+  flex: 5;
+  justify-content: center;
+  height: 65vh;
+
+  svg {
+    height: 100%;
   }
 }

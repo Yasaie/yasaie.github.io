@@ -1,0 +1,15 @@
+@media all and (max-width: 700px) {
+  nav {
+    a#home {
+      display: none;
+    }
+  }
+}
+
+@media all and (min-width: 1100px) {
+  nav {
+    a#home {
+      flex: 5;
+    }
+  }
+}
