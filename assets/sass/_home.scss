@@ -1,9 +1,48 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 
-main#container {
+nav {
+  font-size: 1.05em;
+  padding: 0 10%;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+
+  a#home {
+    color: #ececec;
+    flex: 3;
+
+    strong {
+      color: #fff;
+    }
+
+    @media all and (max-width: 700px) {
+      display: none;
+    }
+  }
+
+  ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex: 2;
+    justify-content: space-around;
+  }
+}
+
+main#me {
   height: 65vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 5;
+  margin-top: 30px;
 
   svg {
     height: 100%;
@@ -11,11 +50,13 @@ main#container {
 }
 
 header#description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
   line-height: 1.4em;
-  margin-bottom: 50px;
-  padding-top: 15px;
   color: #ececec;
+  flex: 2;
 
   h1 {
     font-size: 2.2em;
