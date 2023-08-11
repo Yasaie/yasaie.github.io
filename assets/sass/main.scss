@@ -1,4 +1,8 @@
-@import "config";
-@import "tags";
-@import "home";
-@import "media";
+@import 'variables';
+@import 'base';
+@import 'header-footer';
+@import 'container';
+@import 'profile';
+@import 'timeline';
+@import 'typography';
+@import 'media-queries';

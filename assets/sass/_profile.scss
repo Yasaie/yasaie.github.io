@@ -1,0 +1,12 @@
+img.profile {
+    max-width: 200px;
+    border-radius: 50%;
+    display: block;
+    margin: 10px auto;
+    box-shadow: 0 4px 8px rgba(var(--shadow-color), 0.15);
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
