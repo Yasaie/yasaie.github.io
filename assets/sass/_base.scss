@@ -24,3 +24,12 @@ a {
         color: var(--secondary-color);
     }
 }
+
+.resume {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+
+    &:hover {
+        color: var(--primary-color);
+    }
+}
