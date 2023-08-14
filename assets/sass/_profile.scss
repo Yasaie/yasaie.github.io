@@ -6,7 +6,7 @@ img.profile {
     box-shadow: 0 4px 8px rgba(var(--shadow-color), 0.15);
     transition: transform 0.3s ease;
 
-    &:hover {
+    @include hover {
         transform: scale(1.05);
     }
 }

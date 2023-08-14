@@ -25,7 +25,7 @@
     padding: 24px 0;
     transition: transform 0.3s ease;
 
-    &:hover {
+    @include hover {
         transform: translateY(-5px);
 
         .story-content {
