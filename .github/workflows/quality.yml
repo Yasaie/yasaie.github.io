@@ -13,15 +13,15 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: lts/*
+          node-version-file: .nvmrc
           cache: pnpm
 
       - name: Install dependencies
@@ -34,4 +34,17 @@ jobs:
         run: pnpm typecheck
 
       - name: Test
-        run: pnpm test:coverage
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+      - name: Verify the disk shipped whole
+        run: |
+          test -s dist/.superblock.json
+          node --input-type=module -e "
+            const index = JSON.parse(await (await import('node:fs/promises')).readFile('dist/.superblock.json', 'utf8'))
+            const wanted = ['/etc/issue', '/home/payam/eindhoven/whoami.txt']
+            const missing = wanted.filter((path) => !index.some((entry) => entry.path === path))
+            if (missing.length > 0) throw new Error(\`missing from the volume index: \${missing}\`)
+          "
