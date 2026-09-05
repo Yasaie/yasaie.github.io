@@ -64,10 +64,17 @@ describe('the dot layers behind the terminal', () => {
   it('holds still for a visitor who asked for less movement', async () => {
     preferStillness(true)
     const view = render(<Layers />)
+    const settled = view.getByTestId('near').style.transform
 
     await moveTo(0, 0)
 
-    expect(view.getByTestId('near').style.transform).toBe('')
+    expect(view.getByTestId('near').style.transform).toBe(settled)
+  })
+
+  it('is already composited before the pointer moves, so nothing repaints on the first move', () => {
+    const view = render(<Layers />)
+
+    expect(view.getByTestId('near').style.transform).toBe('translate(0px,0px)')
   })
 
   it('stops following the pointer once the terminal is gone', async () => {

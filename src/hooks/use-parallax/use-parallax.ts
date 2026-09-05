@@ -40,6 +40,8 @@ export const useParallax = <T extends HTMLElement>(depth: number): RefObject<T |
   const settled = useMediaQuery(stillness)
 
   useEffect(() => {
+    const settledLayer = layer.current
+    if (settledLayer !== null) settledLayer.style.transform = 'translate(0px,0px)'
     if (settled) return
     return track(({ x, y }) => {
       const element = layer.current

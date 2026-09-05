@@ -11,7 +11,7 @@ import { stillGlowing, type Trace, traceGlow, traceReachPx, worthTracing } from 
 
 const gridPx = 28
 
-const dotPx = 1.6
+const dotPx = 2
 
 const ink = '255, 176, 32'
 
@@ -25,7 +25,15 @@ const caretCentre = (): { readonly x: number; readonly y: number } => {
   return { x: box.left + box.width / 2, y: box.top + box.height / 2 }
 }
 
-const alignedFrom = (edge: number): number => Math.max(0, Math.floor(edge / gridPx) * gridPx)
+const dotsDrawnAt = (): { readonly x: number; readonly y: number } => {
+  const printed = document.querySelector('[data-dots]')
+  if (printed === null) return { x: gridPx / 2, y: gridPx / 2 }
+  const box = printed.getBoundingClientRect()
+  return { x: box.left + gridPx / 2, y: box.top + gridPx / 2 }
+}
+
+const firstDotFrom = (edge: number, origin: number): number =>
+  origin + Math.ceil((edge - origin) / gridPx) * gridPx
 
 type Spread = {
   readonly x: number
@@ -52,8 +60,9 @@ const paint = (
   brush.clearRect(0, 0, canvas.width, canvas.height)
   const spread = spreadOf(ripples, traces, now)
   if (spread.length === 0) return
-  const left = alignedFrom(Math.min(...spread.map((one) => one.x - one.reach)))
-  const top = alignedFrom(Math.min(...spread.map((one) => one.y - one.reach)))
+  const origin = dotsDrawnAt()
+  const left = firstDotFrom(Math.min(...spread.map((one) => one.x - one.reach)), origin.x)
+  const top = firstDotFrom(Math.min(...spread.map((one) => one.y - one.reach)), origin.y)
   const right = Math.min(canvas.width, Math.max(...spread.map((one) => one.x + one.reach)))
   const bottom = Math.min(canvas.height, Math.max(...spread.map((one) => one.y + one.reach)))
   for (let x = left; x <= right; x += gridPx) {
