@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { isTestPath, type SourceFile, sourceFilesIn } from '@/test/tree/tree'
+import { isTestPath, type SourceFile, sourceFilesIn } from '@/testing/tree/tree'
 
 const layers = ['src/kernel', 'src/fs', 'src/tty', 'src/session', 'src/hooks', 'src/ui'] as const
 

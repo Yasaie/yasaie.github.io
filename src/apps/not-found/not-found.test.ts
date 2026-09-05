@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { notFound } from '@/apps/not-found/not-found'
 import { execute } from '@/kernel/execute/execute'
-import { mountRealDisk } from '@/test/disk/disk'
-import { invocation } from '@/test/invocation/invocation'
-import { coloursOf, textOf } from '@/test/rows/rows'
+import { mountRealDisk } from '@/testing/disk/disk'
+import { invocation } from '@/testing/invocation/invocation'
+import { coloursOf, textOf } from '@/testing/rows/rows'
 
 const volume = await mountRealDisk()
 

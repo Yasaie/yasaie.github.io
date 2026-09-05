@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { filesIn, foldersIn } from '@/test/tree/tree'
+import { filesIn, foldersIn } from '@/testing/tree/tree'
 
 const appFolders = foldersIn('src/apps')
 

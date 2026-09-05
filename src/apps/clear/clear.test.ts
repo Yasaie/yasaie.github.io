@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { clear } from '@/apps/clear/clear'
-import { mountRealDisk } from '@/test/disk/disk'
-import { invocation } from '@/test/invocation/invocation'
-import { textOf } from '@/test/rows/rows'
+import { mountRealDisk } from '@/testing/disk/disk'
+import { invocation } from '@/testing/invocation/invocation'
+import { textOf } from '@/testing/rows/rows'
 
 const volume = await mountRealDisk()
 

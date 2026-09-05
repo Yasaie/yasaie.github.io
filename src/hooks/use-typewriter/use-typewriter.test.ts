@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Action } from '@/session/actions/actions'
 import { lineDrained } from '@/session/actions/actions'
 import { createSession, queuedLines, type TerminalState } from '@/session/state/state'
-import { mountRealDisk } from '@/test/disk/disk'
+import { mountRealDisk } from '@/testing/disk/disk'
 import { blank, text } from '@/tty/line/line'
 import { useTypewriter } from './use-typewriter'
 

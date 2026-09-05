@@ -1,4 +1,4 @@
-import { coloursOf, type Layout, textOf } from '@/test/rows/rows'
+import { coloursOf, type Layout, textOf } from '@/testing/rows/rows'
 import type { Line } from '@/tty/line/line'
 import type { Colour } from '@/tty/palette/palette'
 

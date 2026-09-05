@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { browserSource } from '@/fs/browser-source/browser-source'
 import type { DiskEntry } from '@/fs/source/source'
-import { diskPaths, realBytes, realDiskSource, realText, serveRealDisk } from '@/test/disk/disk'
+import { diskPaths, realBytes, realDiskSource, realText, serveRealDisk } from '@/testing/disk/disk'
 
 const whoami = '/home/payam/eindhoven/whoami.txt'
 

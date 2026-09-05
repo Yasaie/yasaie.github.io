@@ -7,7 +7,7 @@ import {
   diskRoot,
   realBytes,
   realText,
-} from '@/test/disk/disk'
+} from '@/testing/disk/disk'
 
 const source = nodeSource(diskRoot)
 

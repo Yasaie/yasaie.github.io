@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { columnPairs, documentBlocks, documentLines } from '@/fs/document/document'
-import { realText } from '@/test/disk/disk'
+import { realText } from '@/testing/disk/disk'
 
 const home = '/home/payam/eindhoven'
 

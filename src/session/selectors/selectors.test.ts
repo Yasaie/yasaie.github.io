@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { mountRealDisk } from '@/test/disk/disk'
+import { mountRealDisk } from '@/testing/disk/disk'
 import { blank, text } from '@/tty/line/line'
 import { createSession, queuedLines, type TerminalState } from '../state/state'
 import { ghostText, nextDelayMs, progressLabel, prompt, statusLine, suggestion } from './selectors'

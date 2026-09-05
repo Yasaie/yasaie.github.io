@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { mountRealDisk } from '@/test/disk/disk'
-import { screenColours, screenText } from '@/test/screen/screen'
+import { mountRealDisk } from '@/testing/disk/disk'
+import { screenColours, screenText } from '@/testing/screen/screen'
 import { text } from '@/tty/line/line'
 import type { Action } from '../actions/actions'
 import {

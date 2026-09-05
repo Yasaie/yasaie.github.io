@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { homePath, parentOf, parentOfHomePath, pathOf, resolve, workPath } from '@/fs/path/path'
 import type { Volume } from '@/fs/volume/volume'
-import { mountRealDisk } from '@/test/disk/disk'
+import { mountRealDisk } from '@/testing/disk/disk'
 
 let volume: Volume
 

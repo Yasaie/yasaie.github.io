@@ -4,7 +4,7 @@ import type { Action } from '@/session/actions/actions'
 import { scheduleConsumed } from '@/session/actions/actions'
 import type { Scheduled, TerminalState } from '@/session/state/state'
 import { createSession } from '@/session/state/state'
-import { mountRealDisk } from '@/test/disk/disk'
+import { mountRealDisk } from '@/testing/disk/disk'
 import { useScheduledEffects } from './use-scheduled-effects'
 
 const volume = await mountRealDisk()

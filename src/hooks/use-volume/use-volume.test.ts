@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { realText, serveRealDisk } from '@/test/disk/disk'
+import { realText, serveRealDisk } from '@/testing/disk/disk'
 import type { VolumeMount } from './use-volume'
 
 const whoamiPath = '/home/payam/eindhoven/whoami.txt'

@@ -1,10 +1,10 @@
 import { act, renderHook } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { submitted, typed } from '@/session/actions/actions'
-import { mountRealDisk } from '@/test/disk/disk'
-import { screenText } from '@/test/screen/screen'
-import { settle } from '@/test/settle/settle'
-import { setViewportWidth } from '@/test/viewport/viewport'
+import { mountRealDisk } from '@/testing/disk/disk'
+import { screenText } from '@/testing/screen/screen'
+import { settle } from '@/testing/settle/settle'
+import { setViewportWidth } from '@/testing/viewport/viewport'
 import { useTerminal } from './use-terminal'
 
 const volume = await mountRealDisk()

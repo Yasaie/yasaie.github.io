@@ -20,7 +20,7 @@ export const diskFiles: readonly string[] = [
   '/.nojekyll',
   '/boot/favicon.svg',
   '/etc/issue',
-  '/etc/os-release',
+  '/etc/yasaie-release',
   '/home/payam/eindhoven/.secrets',
   '/home/payam/eindhoven/contact.txt',
   '/home/payam/eindhoven/stack.txt',
