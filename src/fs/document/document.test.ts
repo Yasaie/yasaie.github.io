@@ -40,15 +40,10 @@ describe('documentBlocks', () => {
     expect(first[1]).toBe('senior software engineer · GoodHabitz · Eindhoven, NL')
   })
 
-  it('reads a chapter as its heading, its credits and its bullets', () => {
-    expect(documentBlocks(realText(`${home}/work/1-goodhabitz.md`))).toEqual([
-      ['# GoodHabitz'],
-      ['2024 – now · senior software engineer · Eindhoven'],
-      [
-        '- learning platform used by millions of learners across Europe.',
-        '- full stack, mostly TypeScript.',
-      ],
-    ])
+  it('reads a document as the blocks its blank lines divide it into', () => {
+    expect(
+      documentBlocks('# Somewhere\n\n2025 – now · a role · a place\n\n- one.\n- two.'),
+    ).toEqual([['# Somewhere'], ['2025 – now · a role · a place'], ['- one.', '- two.']])
   })
 
   it('treats a line of whitespace as the break it looks like on screen', () => {
@@ -71,14 +66,10 @@ describe('documentBlocks', () => {
 })
 
 describe('columnPairs', () => {
-  it('reads stack.txt as the six keys and values it prints', () => {
-    expect(columnPairs(realText(`${home}/stack.txt`))).toEqual([
-      { key: 'languages', value: 'typescript · php · python · java' },
-      { key: 'frontend', value: 'react · vue · next · remix' },
-      { key: 'backend', value: 'node · laravel · django · spring' },
-      { key: 'data', value: 'postgres · mysql · mongodb · redis' },
-      { key: 'infra', value: 'docker · aws · vercel · ci/cd · linux' },
-      { key: 'platforms', value: 'shopify · odoo · moodle' },
+  it('reads an aligned file as the keys and values it lines up', () => {
+    expect(columnPairs('languages  typescript · php\nfrontend   react · vue')).toEqual([
+      { key: 'languages', value: 'typescript · php' },
+      { key: 'frontend', value: 'react · vue' },
     ])
   })
 

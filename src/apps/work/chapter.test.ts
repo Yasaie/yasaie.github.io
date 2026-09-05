@@ -4,7 +4,7 @@ import { parseChapter } from './chapter'
 const goodhabitz = [
   '# GoodHabitz',
   '',
-  '2024 – now · senior software engineer · Eindhoven',
+  '2025 – now · senior software engineer · Eindhoven',
   '',
   '- learning platform used by millions of learners across Europe.',
   '- full stack, mostly TypeScript.',
@@ -15,7 +15,7 @@ describe('a chapter of the work history', () => {
     const chapter = parseChapter(1, '/work/1-goodhabitz.md', goodhabitz)
 
     expect(chapter.company).toBe('GoodHabitz')
-    expect(chapter.years).toBe('2024 – now')
+    expect(chapter.years).toBe('2025 – now')
     expect(chapter.role).toBe('senior software engineer')
     expect(chapter.place).toBe('Eindhoven')
   })
@@ -50,9 +50,9 @@ describe('a chapter file that has lost part of its shape', () => {
   })
 
   it('reads a credits line with nothing after the years as having no role or place', () => {
-    const chapter = parseChapter(2, '/work/2-somewhere.md', '# Somewhere\n\n2024 – now')
+    const chapter = parseChapter(2, '/work/2-somewhere.md', '# Somewhere\n\n2025 – now')
 
-    expect(chapter.years).toBe('2024 – now')
+    expect(chapter.years).toBe('2025 – now')
     expect(chapter.role).toBe('')
     expect(chapter.place).toBe('')
   })

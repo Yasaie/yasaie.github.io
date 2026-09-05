@@ -1,6 +1,6 @@
 # Tas'hil Gostar
 
-2019 – 2021 · team lead, senior Python dev · Tabriz
+2019 – 2021 · team lead, senior Python developer · Tabriz
 
 - led ten developers customising and rolling out Odoo ERP.
 - 20+ custom modules: accounting, payroll, inventory.

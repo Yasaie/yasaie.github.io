@@ -68,7 +68,7 @@ describe('a visitor arriving at the terminal', () => {
 
     await visitor.runs('work')
     await settleUntil(
-      hasPrinted('[2]  2021 – 2024  OWOW Agency          senior software developer'),
+      hasPrinted('[2]  2021 – 2025  OWOW Agency          software developer, then senior'),
     )
 
     await visitor.runs('work 2')
@@ -76,8 +76,8 @@ describe('a visitor arriving at the terminal', () => {
       hasPrinted('- headless Shopify builds; custom Shopify apps that lifted sales 30%.'),
     )
 
-    expect(printed()).toContain('2021 – 2024  OWOW Agency')
-    expect(printed()).toContain('senior software developer · Eindhoven')
+    expect(printed()).toContain('2021 – 2025  OWOW Agency')
+    expect(printed()).toContain('software developer, then senior · Eindhoven')
   })
 
   it('is thanked with an address to reply to once all nine commands are found', async () => {

@@ -13,11 +13,11 @@ const listing = work.run(invocation('work'), volume)
 describe('work', () => {
   it('lists all six chapters newest first, in aligned year and company columns', () => {
     expect(textOf(listing)).toEqual([
-      '[1]  2024 – now   GoodHabitz           senior software engineer',
-      '[2]  2021 – 2024  OWOW Agency          senior software developer',
-      "[3]  2019 – 2021  Tas'hil Gostar       team lead, senior Python dev",
+      '[1]  2025 – now   GoodHabitz           senior software engineer',
+      '[2]  2021 – 2025  OWOW Agency          software developer, then senior',
+      "[3]  2019 – 2021  Tas'hil Gostar       team lead, senior Python developer",
       '[4]  2018 – 2019  Tahlilgaran          senior full stack developer',
-      '[5]  2016 – 2017  Tabesh Rayan Energy  full stack developer',
+      '[5]  2017         Tabesh Rayan Energy  full stack developer',
       '[6]  2010 – 2016  freelance            full stack developer',
       '',
       'work <n> for details. all of it shipped behind logins; nothing to click.',
@@ -40,15 +40,15 @@ describe('work', () => {
   it('drops the years under the company, indented, when the screen is narrow', () => {
     expect(textOf(listing, 'narrow')).toEqual([
       '[1]  GoodHabitz',
-      '2024 – now · senior software engineer',
+      '2025 – now · senior software engineer',
       '[2]  OWOW Agency',
-      '2021 – 2024 · senior software developer',
+      '2021 – 2025 · software developer, then senior',
       "[3]  Tas'hil Gostar",
-      '2019 – 2021 · team lead, senior Python dev',
+      '2019 – 2021 · team lead, senior Python developer',
       '[4]  Tahlilgaran',
       '2018 – 2019 · senior full stack developer',
       '[5]  Tabesh Rayan Energy',
-      '2016 – 2017 · full stack developer',
+      '2017 · full stack developer',
       '[6]  freelance',
       '2010 – 2016 · full stack developer',
       '',
@@ -75,20 +75,32 @@ describe('work', () => {
   it('opens the chapter a visitor asks for by number, bullets indented under its credits', () => {
     const chapter = work.run(invocation('work 1'), volume)
     expect(textOf(chapter)).toEqual([
-      '2024 – now  GoodHabitz',
+      '2025 – now  GoodHabitz',
       'senior software engineer · Eindhoven',
       '',
       '- learning platform used by millions of learners across Europe.',
-      '- full stack, mostly TypeScript.',
+      '- learner-facing work for the learning experience team, in Vue, React and Nuxt.',
+      '- led the refactoring that let it scale, and kept it stable while it did.',
+      '- raised test coverage and reshaped the front-end architecture behind it.',
+      '- initiatives owned end to end, from the idea to the thing that ships.',
     ])
-    expect(coloursOf(chapter)).toEqual([['text'], ['muted'], [], ['body'], ['body']])
-    expect(indentsOf(chapter)).toEqual(['0', '0', '0', '2ch', '2ch'])
+    expect(coloursOf(chapter)).toEqual([
+      ['text'],
+      ['muted'],
+      [],
+      ['body'],
+      ['body'],
+      ['body'],
+      ['body'],
+      ['body'],
+    ])
+    expect(indentsOf(chapter)).toEqual(['0', '0', '0', '2ch', '2ch', '2ch', '2ch', '2ch'])
   })
 
   it('keeps a role that carries its own comma out of the place it was held in', () => {
     expect(textOf(work.run(invocation('work 3'), volume))).toEqual([
       "2019 – 2021  Tas'hil Gostar",
-      'team lead, senior Python dev · Tabriz',
+      'team lead, senior Python developer · Tabriz',
       '',
       '- led ten developers customising and rolling out Odoo ERP.',
       '- 20+ custom modules: accounting, payroll, inventory.',
@@ -112,7 +124,7 @@ describe('work', () => {
     expect(
       textOf(work.run(invocation(`work ${workPath}/5-tabesh-rayan-energy.md`), volume)),
     ).toEqual([
-      '2016 – 2017  Tabesh Rayan Energy',
+      '2017  Tabesh Rayan Energy',
       'full stack developer · Tabriz',
       '',
       '- legacy C++ HVAC calculator rebuilt as a Laravel + Vue web app.',

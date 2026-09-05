@@ -11,6 +11,13 @@ const volume = await mountRealDisk()
 
 const bytesOf = (path: string): number => statSync(join('disk', path)).size
 
+const home = '/home/payam/eindhoven'
+
+const sized = (path: string, width: number): string => String(bytesOf(path)).padStart(width)
+
+const chapterRow = (name: string, year: string): string =>
+  `-rw-r--r--  1 payam yasaie ${sized(`${home}/work/${name}`, 3)} ${year}  ${name}`
+
 describe('ls', () => {
   it('names what is in the home directory in the order it was written, not alphabetically', () => {
     const listing = ls.run(invocation('ls'), volume)
@@ -28,10 +35,10 @@ describe('ls', () => {
   it('reports the real size and date of every file in the long format', () => {
     expect(textOf(ls.run(invocation('ls -l'), volume))).toEqual([
       'total 4',
-      '-rw-r--r--  1 payam yasaie  399 2010  whoami.txt',
+      `-rw-r--r--  1 payam yasaie ${sized(`${home}/whoami.txt`, 4)} 2010  whoami.txt`,
       'drwxr-xr-x  1 payam yasaie 4096 2024  work/',
-      '-rw-r--r--  1 payam yasaie  274 2026  stack.txt',
-      '-rw-r--r--  1 payam yasaie  125 2026  contact.txt',
+      `-rw-r--r--  1 payam yasaie ${sized(`${home}/stack.txt`, 4)} 2026  stack.txt`,
+      `-rw-r--r--  1 payam yasaie ${sized(`${home}/contact.txt`, 4)} 2026  contact.txt`,
     ])
   })
 
@@ -54,10 +61,10 @@ describe('ls', () => {
       'drwxr-xr-x  1 payam yasaie    4096 2010  ./',
       'd---------  1 root  root      4096 1993  ../',
       '-r--------  1 payam yasaie 2040832 2010  .secrets',
-      '-rw-r--r--  1 payam yasaie     399 2010  whoami.txt',
+      `-rw-r--r--  1 payam yasaie ${sized(`${home}/whoami.txt`, 7)} 2010  whoami.txt`,
       'drwxr-xr-x  1 payam yasaie    4096 2024  work/',
-      '-rw-r--r--  1 payam yasaie     274 2026  stack.txt',
-      '-rw-r--r--  1 payam yasaie     125 2026  contact.txt',
+      `-rw-r--r--  1 payam yasaie ${sized(`${home}/stack.txt`, 7)} 2026  stack.txt`,
+      `-rw-r--r--  1 payam yasaie ${sized(`${home}/contact.txt`, 7)} 2026  contact.txt`,
     ])
   })
 
@@ -67,20 +74,20 @@ describe('ls', () => {
       'drwxr-xr-x  1 payam yasaie   4K 2010  ./',
       'd---------  1 root  root     4K 1993  ../',
       '-r--------  1 payam yasaie 1.9M 2010  .secrets',
-      '-rw-r--r--  1 payam yasaie  399 2010  whoami.txt',
+      `-rw-r--r--  1 payam yasaie ${sized(`${home}/whoami.txt`, 4)} 2010  whoami.txt`,
       'drwxr-xr-x  1 payam yasaie   4K 2024  work/',
-      '-rw-r--r--  1 payam yasaie  274 2026  stack.txt',
-      '-rw-r--r--  1 payam yasaie  125 2026  contact.txt',
+      `-rw-r--r--  1 payam yasaie ${sized(`${home}/stack.txt`, 4)} 2026  stack.txt`,
+      `-rw-r--r--  1 payam yasaie ${sized(`${home}/contact.txt`, 4)} 2026  contact.txt`,
     ])
   })
 
   it('keeps only the permissions, size and name on a narrow screen', () => {
     expect(textOf(ls.run(invocation('ls -l'), volume), 'narrow')).toEqual([
       'total 4',
-      '-rw-r--r--  399 whoami.txt',
+      `-rw-r--r-- ${sized(`${home}/whoami.txt`, 4)} whoami.txt`,
       'drwxr-xr-x 4096 work/',
-      '-rw-r--r--  274 stack.txt',
-      '-rw-r--r--  125 contact.txt',
+      `-rw-r--r-- ${sized(`${home}/stack.txt`, 4)} stack.txt`,
+      `-rw-r--r-- ${sized(`${home}/contact.txt`, 4)} contact.txt`,
     ])
   })
 
@@ -108,12 +115,12 @@ describe('ls', () => {
   it('dates each work chapter by the year written inside it', () => {
     expect(textOf(ls.run(invocation('ls -l', '~/work'), volume))).toEqual([
       'total 6',
-      '-rw-r--r--  1 payam yasaie 166 2024  1-goodhabitz.md',
-      '-rw-r--r--  1 payam yasaie 291 2021  2-owow-agency.md',
-      '-rw-r--r--  1 payam yasaie 305 2019  3-tas-hil-gostar.md',
-      '-rw-r--r--  1 payam yasaie 258 2018  4-tahlilgaran.md',
-      '-rw-r--r--  1 payam yasaie 265 2016  5-tabesh-rayan-energy.md',
-      '-rw-r--r--  1 payam yasaie 357 2010  6-freelance.md',
+      chapterRow('1-goodhabitz.md', '2025'),
+      chapterRow('2-owow-agency.md', '2021'),
+      chapterRow('3-tas-hil-gostar.md', '2019'),
+      chapterRow('4-tahlilgaran.md', '2018'),
+      chapterRow('5-tabesh-rayan-energy.md', '2017'),
+      chapterRow('6-freelance.md', '2010'),
     ])
   })
 

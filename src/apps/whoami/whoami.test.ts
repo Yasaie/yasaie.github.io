@@ -17,8 +17,8 @@ describe('whoami', () => {
       '',
       'before GoodHabitz: headless Shopify at OWOW Agency, a ten-person Odoo team in Tabriz, a legacy C++ HVAC tool rebuilt for the web, Moodle made fast for five universities.',
       '',
-      'persian native · english fluent · dutch intermediate',
-      'bsc information technology, payam noor university, 2015',
+      'Persian native · English fluent · Dutch intermediate',
+      'BSc Information Technology, Payam Noor University, 2015',
     ])
   })
 
@@ -44,10 +44,10 @@ describe('whoami', () => {
       '',
       'before GoodHabitz: headless Shopify at OWOW Agency, a ten-person Odoo team in Tabriz, a legacy C++ HVAC tool rebuilt for the web, Moodle made fast for five universities.',
       '',
-      'persian native',
-      'english fluent',
-      'dutch intermediate',
-      'bsc information technology, payam noor university, 2015',
+      'Persian native',
+      'English fluent',
+      'Dutch intermediate',
+      'BSc Information Technology, Payam Noor University, 2015',
     ])
   })
 

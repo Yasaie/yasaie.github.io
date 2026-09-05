@@ -12,7 +12,7 @@ describe('stack', () => {
   it('names every layer the author works at, values aligned in one column', () => {
     expect(textOf(tools)).toEqual([
       'languages  typescript · php · python · java',
-      'frontend   react · vue · next · remix',
+      'frontend   react · vue · nuxt · next',
       'backend    node · laravel · django · spring',
       'data       postgres · mysql · mongodb · redis',
       'infra      docker · aws · vercel · ci/cd · linux',
@@ -36,7 +36,7 @@ describe('stack', () => {
       'languages',
       'typescript · php · python · java',
       'frontend',
-      'react · vue · next · remix',
+      'react · vue · nuxt · next',
       'backend',
       'node · laravel · django · spring',
       'data',
