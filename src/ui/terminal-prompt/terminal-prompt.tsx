@@ -34,6 +34,8 @@ const bindings: Readonly<Record<string, (stroke: Keystroke) => Action | undefine
   },
 )
 
+const asBinding = (key: string): string => (key.length === 1 ? key.toLowerCase() : key)
+
 const caretIn = (field: HTMLInputElement): number => field.selectionStart ?? field.value.length
 
 const inputLabel = 'command'
@@ -47,7 +49,7 @@ export const TerminalPrompt = ({ terminal, inputRef }: TerminalPromptProps): Rea
   const { state, dispatch } = terminal
 
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
-    const binding = bindings[event.key]
+    const binding = bindings[asBinding(event.key)]
     if (binding === undefined) return
     const action = binding({
       suggestion: terminal.suggestion,

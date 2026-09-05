@@ -8,6 +8,7 @@ const amsterdam = new Intl.DateTimeFormat('en-GB', {
   hour: '2-digit',
   minute: '2-digit',
   hourCycle: 'h23',
+  timeZoneName: 'short',
 })
 
 const readClock = (): string => amsterdam.format(new Date())

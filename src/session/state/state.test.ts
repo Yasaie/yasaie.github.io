@@ -2,6 +2,7 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { nodeSource } from '@/fs/node-source/node-source'
 import { mount } from '@/fs/volume/volume'
+import { totalCounted } from '@/session/progress/progress'
 import { diskRoot, mountRealDisk, realText } from '@/testing/disk/disk'
 import { screenColours, screenText } from '@/testing/screen/screen'
 import { createSession, rewardSequence } from './state'
@@ -98,6 +99,14 @@ describe('the reward for finding everything', () => {
       '',
     ])
     expect(screenColours(rewardSequence.map((queued) => queued.line)).at(0)).toEqual(['accent'])
+  })
+
+  it('congratulates the visitor on as many commands as the game actually counts', () => {
+    const spelled = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+
+    expect(screenText(rewardSequence.map((queued) => queued.line)).at(0)).toContain(
+      `all ${spelled.at(totalCounted)}.`,
+    )
   })
 
   it('prints at the same speed as any other command output', () => {

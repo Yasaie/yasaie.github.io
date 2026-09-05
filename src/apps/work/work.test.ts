@@ -97,9 +97,15 @@ describe('work', () => {
     ])
   })
 
-  it('falls back to the listing when the chapter asked for does not exist', () => {
-    expect(textOf(work.run(invocation('work 9'), volume))).toEqual(textOf(listing))
-    expect(textOf(work.run(invocation('work later'), volume))).toEqual(textOf(listing))
+  it('says so when the chapter asked for does not exist, rather than quietly listing again', () => {
+    const missing = work.run(invocation('work 9'), volume)
+
+    expect(textOf(missing)).toEqual(['work: no chapter 9'])
+    expect(coloursOf(missing)).toEqual([['muted']])
+  })
+
+  it('quotes the argument as typed when it is not a chapter number at all', () => {
+    expect(textOf(work.run(invocation('work later'), volume))).toEqual(['work: no chapter later'])
   })
 
   it('opens the chapter another program hands it by its path on the volume', () => {

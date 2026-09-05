@@ -55,18 +55,19 @@ const detail = (chapter: Chapter): readonly Line[] => [
   ...chapter.bullets.map((point) => text(`- ${point}`, 'body', '2ch')),
 ]
 
-const chapterFor = (
-  requested: string | undefined,
-  chapters: readonly Chapter[],
-): Chapter | undefined => {
-  const numbered = Number.parseInt(requested ?? '', 10)
+const chapterFor = (requested: string, chapters: readonly Chapter[]): Chapter | undefined => {
+  const numbered = Number.parseInt(requested, 10)
   return chapters.find((chapter) => chapter.index === numbered || chapter.path === requested)
 }
 
 const render = (invocation: Invocation, volume: Volume): Output => {
   const chapters = chaptersOf(volume)
-  const chosen = chapterFor(invocation.args[0], chapters)
-  return { lines: chosen === undefined ? listing(chapters) : detail(chosen), effects: [] }
+  const requested = invocation.args[0]
+  if (requested === undefined) return { lines: listing(chapters), effects: [] }
+  const chosen = chapterFor(requested, chapters)
+  return chosen === undefined
+    ? { lines: [text(`work: no chapter ${requested}`, 'muted')], effects: [] }
+    : { lines: detail(chosen), effects: [] }
 }
 
 export const work: App = {
