@@ -5,6 +5,8 @@ import { useAutoScroll } from './use-auto-scroll'
 
 const scrollbackHeight = 500
 
+const almostTheBottom = scrollbackHeight - 10
+
 const measured = (element: HTMLElement): void => {
   Object.defineProperty(element, 'scrollHeight', { configurable: true, value: scrollbackHeight })
   Object.defineProperty(element, 'clientHeight', { configurable: true, value: 0 })
@@ -63,14 +65,13 @@ describe('a region that prints line after line', () => {
     expect(scrollback.scrollTop).toBe(scrollbackHeight)
   })
 
-  it('follows again once the visitor scrolls back to the newest line', () => {
+  it('follows again once the visitor scrolls back within reach of the newest line', () => {
     const { rerender } = render(<Scrollback lines={['first']} />)
     const scrollback = screen.getByTestId('scrollback')
     measured(scrollback)
 
     fireEvent.wheel(scrollback)
-    scrollback.scrollTop = 0
-    scrollback.scrollTop = scrollbackHeight
+    scrollback.scrollTop = almostTheBottom
     fireEvent.scroll(scrollback)
     rerender(<Scrollback lines={['first', 'second']} />)
 

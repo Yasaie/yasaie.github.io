@@ -1,6 +1,7 @@
-import { configure, render, screen } from '@testing-library/react'
+import { configure, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { withoutACanvasEngine } from '#tests/helpers/canvas'
 import { mountRealDisk } from '#tests/helpers/disk'
 import { settle, settleUntil } from '#tests/helpers/settle'
 import { TerminalScreen } from './terminal-screen'
@@ -11,8 +12,11 @@ configure({ asyncWrapper: withoutWaitingOnRealTime })
 
 const volume = await mountRealDisk()
 
-const printed = (): readonly string[] =>
-  [...document.querySelectorAll('[data-row]')].map((row) => row.textContent ?? '')
+const lineHeight = 20
+
+const rowsOnScreen = (): readonly Element[] => [...document.querySelectorAll('[data-row]')]
+
+const printed = (): readonly string[] => rowsOnScreen().map((row) => row.textContent ?? '')
 
 const hasPrinted = (line: string) => (): boolean => printed().includes(line)
 
@@ -22,6 +26,8 @@ const arrives = () => {
   return {
     types: (keys: string) => visitor.keyboard(keys),
     runs: (command: string) => visitor.type(screen.getByLabelText('command'), `${command}{Enter}`),
+    clicks: (line: string) =>
+      visitor.click(rowsOnScreen().find((row) => row.textContent === line) as Element),
     presses: (label: string) =>
       visitor.click(
         screen
@@ -33,7 +39,11 @@ const arrives = () => {
 
 beforeEach(() => vi.useFakeTimers())
 
-afterEach(() => vi.useRealTimers())
+afterEach(() => {
+  vi.useRealTimers()
+  vi.unstubAllGlobals()
+  vi.restoreAllMocks()
+})
 
 describe('a visitor arriving at the terminal', () => {
   it('watches the machine boot and introduce the person it belongs to', async () => {
@@ -123,5 +133,38 @@ describe('a visitor arriving at the terminal', () => {
     )
 
     expect(screen.getByText('9/9')).toBeInTheDocument()
+  })
+})
+
+describe('the terminal a visitor is looking at', () => {
+  it('takes a click anywhere on its output as a click into the prompt', async () => {
+    const visitor = arrives()
+    await settleUntil(hasPrinted('name    Payam Yasaie'))
+
+    await visitor.clicks('name    Payam Yasaie')
+
+    expect(screen.getByLabelText('command')).toHaveFocus()
+  })
+
+  it('stirs the field of dots behind it as the pointer crosses the page', async () => {
+    const field = withoutACanvasEngine()
+    arrives()
+    await settle(2)
+
+    fireEvent.pointerMove(window, { clientX: 300, clientY: 200 })
+    field.drawOneFrame()
+
+    expect(field.painted.length).toBeGreaterThan(0)
+  })
+
+  it('answers a turn of the wheel by whole lines, never by pixels', async () => {
+    arrives()
+    await settle(20)
+    const scrollback = screen.getByRole('log')
+    scrollback.style.lineHeight = `${lineHeight}px`
+
+    fireEvent.wheel(scrollback, { deltaY: lineHeight * 2 + 5 })
+
+    expect(scrollback.scrollTop).toBe(lineHeight * 2)
   })
 })

@@ -52,6 +52,6 @@ describe('the scrollback under a wheel', () => {
 
     fireEvent.wheel(scrollback, { deltaY: lineHeight * 2 + 5 })
 
-    expect(scrollback.scrollTop % lineHeight).toBe(0)
+    expect(scrollback.scrollTop).toBe(lineHeight * 2)
   })
 })

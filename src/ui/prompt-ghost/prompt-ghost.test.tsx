@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { PromptGhost } from './prompt-ghost'
 
+const caret = (): Element | null => document.querySelector('[data-caret]')
+
 describe('the block cursor and the suggestion behind the prompt', () => {
   it('shows the rest of the suggested command after the cursor', () => {
     const { container } = render(<PromptGhost beforeCaret="sta" ghost="ck" focused={true} />)
@@ -18,12 +20,13 @@ describe('the block cursor and the suggestion behind the prompt', () => {
     expect(container.firstElementChild).toHaveAttribute('aria-hidden', 'true')
   })
 
-  it('draws the cursor differently once the prompt loses focus, so the screen looks asleep', () => {
-    const caretOf = (focused: boolean): string | undefined =>
-      render(<PromptGhost beforeCaret="" ghost="" focused={focused} />).container.querySelector(
-        'span:last-of-type',
-      )?.className
+  it('draws the cursor at full strength while the prompt has the keyboard', () => {
+    render(<PromptGhost beforeCaret="" ghost="" focused={true} />)
+    expect(caret()).toHaveClass('opacity-100')
+  })
 
-    expect(caretOf(true)).not.toBe(caretOf(false))
+  it('dims the cursor once the prompt loses focus, so the screen looks asleep', () => {
+    render(<PromptGhost beforeCaret="" ghost="" focused={false} />)
+    expect(caret()).toHaveClass('opacity-35')
   })
 })
