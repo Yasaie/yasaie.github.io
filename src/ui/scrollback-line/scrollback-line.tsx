@@ -1,14 +1,9 @@
-import type { ReactElement } from 'react'
+import type { ReactElement, ReactNode } from 'react'
 import { cn } from '@/lib/cn/cn'
 import type { Line, Row } from '@/tty/line/line'
 import { LineSegment } from '@/ui/line-segment/line-segment'
 
 type LineOf<Kind extends Line['kind']> = Extract<Line, { readonly kind: Kind }>
-
-const block = '█'
-
-const blocksAndShadow = (art: string): readonly string[] =>
-  art.split(/(█+)/).filter((run) => run !== '')
 
 type Renderers = {
   readonly [Kind in Line['kind']]: (line: LineOf<Kind>) => ReactElement
@@ -18,6 +13,11 @@ type SegmentRowProps = {
   readonly row: Row
   readonly className?: string
 }
+
+const block = '█'
+
+const blocksAndShadow = (art: string): readonly string[] =>
+  art.split(/(█+)/).filter((run) => run !== '')
 
 const SegmentRow = ({ row, className }: SegmentRowProps): ReactElement => (
   <div
@@ -60,9 +60,27 @@ const renderers: Renderers = Object.freeze({
 const render = <Kind extends Line['kind']>(kind: Kind, line: LineOf<Kind>): ReactElement =>
   renderers[kind](line)
 
+const commandOf = (line: Line): string | undefined =>
+  line.kind === 'wordmark' ? undefined : line.runs
+
 export type ScrollbackLineProps = {
   readonly line: Line
+  readonly onRun: (command: string) => void
 }
 
-export const ScrollbackLine = ({ line }: ScrollbackLineProps): ReactElement =>
-  render(line.kind, line)
+export const ScrollbackLine = ({ line, onRun }: ScrollbackLineProps): ReactElement => {
+  const drawn: ReactNode = render(line.kind, line)
+  const command = commandOf(line)
+
+  return command === undefined ? (
+    <>{drawn}</>
+  ) : (
+    <button
+      type="button"
+      className="block w-full cursor-pointer text-left"
+      onClick={() => onRun(command)}
+    >
+      {drawn}
+    </button>
+  )
+}

@@ -2,7 +2,7 @@ import { workPath } from '@/fs/path/path'
 import type { Volume } from '@/fs/volume/volume'
 import type { App, Invocation, Output } from '@/kernel/contract/contract'
 import { padRight, widestLength } from '@/tty/align/align'
-import { blank, type Line, responsive, row, segment, text } from '@/tty/line/line'
+import { blank, type Line, responsive, row, runnable, segment, text } from '@/tty/line/line'
 import type { Colour } from '@/tty/palette/palette'
 import { type Chapter, parseChapter } from './chapter'
 
@@ -32,17 +32,20 @@ const listing = (chapters: readonly Chapter[]): readonly Line[] => {
   const entryOf = (chapter: Chapter): Line => {
     const colour: Colour = chapter.index === 1 ? 'text' : 'body'
     const marker = `[${chapter.index}]  `
-    return responsive(
-      row([
-        segment(
-          `${marker}${padRight(chapter.years, yearsWidth)}  ${padRight(chapter.company, companyWidth)}${chapter.role}`,
-          colour,
-        ),
-      ]),
-      [
-        row([segment(`${marker}${chapter.company}`, colour)]),
-        row([segment(`${chapter.years} · ${chapter.role}`, 'muted')], stackedCreditsIndent),
-      ],
+    return runnable(
+      responsive(
+        row([
+          segment(
+            `${marker}${padRight(chapter.years, yearsWidth)}  ${padRight(chapter.company, companyWidth)}${chapter.role}`,
+            colour,
+          ),
+        ]),
+        [
+          row([segment(`${marker}${chapter.company}`, colour)]),
+          row([segment(`${chapter.years} · ${chapter.role}`, 'muted')], stackedCreditsIndent),
+        ],
+      ),
+      `work ${chapter.index}`,
     )
   }
   return [...chapters.map(entryOf), blank, text(invitation, 'muted')]

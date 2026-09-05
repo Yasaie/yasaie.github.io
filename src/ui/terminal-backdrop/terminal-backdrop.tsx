@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react'
 import { useParallax } from '@/hooks/use-parallax/use-parallax'
+import { TerminalField } from '@/ui/terminal-field/terminal-field'
 
 const nearDepth = 10
 const middleDepth = 24
@@ -12,7 +13,7 @@ const near =
 const middle =
   '[background-image:radial-gradient(color-mix(in_srgb,var(--color-terminal-text)_12%,transparent)_1px,transparent_1px)] [background-size:64px_64px]'
 const far =
-  '[background-image:radial-gradient(color-mix(in_srgb,var(--color-terminal-accent)_34%,transparent)_1.5px,transparent_1.5px)] [background-size:180px_180px]'
+  '[background-image:radial-gradient(color-mix(in_srgb,var(--color-terminal-accent)_16%,transparent)_1.5px,transparent_1.5px)] [background-size:180px_180px]'
 
 const vignette =
   'absolute inset-0 [background:radial-gradient(ellipse_at_50%_50%,color-mix(in_srgb,var(--color-terminal-bg)_55%,transparent)_20%,var(--color-terminal-bg)_90%)]'
@@ -28,6 +29,7 @@ export const TerminalBackdrop = (): ReactElement => {
       <div ref={middleRef} className={`${layer} ${middle}`} />
       <div ref={farRef} className={`${layer} ${far}`} />
       <div className={vignette} />
+      <TerminalField />
     </div>
   )
 }

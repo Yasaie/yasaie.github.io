@@ -41,8 +41,14 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  input {
+  input,
+  button {
     font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    text-align: inherit;
   }
 
   a {

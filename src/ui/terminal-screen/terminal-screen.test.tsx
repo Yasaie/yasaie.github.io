@@ -22,6 +22,12 @@ const arrives = () => {
   return {
     types: (keys: string) => visitor.keyboard(keys),
     runs: (command: string) => visitor.type(screen.getByLabelText('command'), `${command}{Enter}`),
+    presses: (label: string) =>
+      visitor.click(
+        screen
+          .getAllByRole('button')
+          .filter((row) => row.textContent?.includes(label))[0] as Element,
+      ),
   }
 }
 
@@ -77,7 +83,23 @@ describe('a visitor arriving at the terminal', () => {
     )
 
     expect(printed()).toContain('2021 – 2025  OWOW Agency')
+    ;(await import('node:fs')).writeFileSync('/tmp/clicked.txt', printed().join('\n'))
     expect(printed()).toContain('software developer, then senior · Eindhoven')
+  })
+
+  it('opens a chapter when the visitor presses the line naming it, without typing', async () => {
+    const visitor = arrives()
+    await settle(20)
+
+    await visitor.runs('work')
+    await settleUntil(
+      hasPrinted('work <n> for details. all of it shipped behind logins; nothing to click.'),
+    )
+    await visitor.presses('[2]')
+    await settleUntil(hasPrinted('software developer, then senior · Eindhoven'))
+
+    expect(printed()).toContain('payam@yasaie ~ $ work 2')
+    expect(printed()).toContain('2021 – 2025  OWOW Agency')
   })
 
   it('is thanked with an address to reply to once all nine commands are found', async () => {

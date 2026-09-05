@@ -5,9 +5,10 @@ import { ScrollbackLine } from '@/ui/scrollback-line/scrollback-line'
 
 export type TerminalScrollbackProps = {
   readonly lines: readonly Line[]
+  readonly onRun: (command: string) => void
 }
 
-export const TerminalScrollback = ({ lines }: TerminalScrollbackProps): ReactElement => {
+export const TerminalScrollback = ({ lines, onRun }: TerminalScrollbackProps): ReactElement => {
   const scroller = useAutoScroll<HTMLDivElement>(lines)
 
   return (
@@ -17,7 +18,7 @@ export const TerminalScrollback = ({ lines }: TerminalScrollbackProps): ReactEle
       className="min-h-0 flex-1 overflow-auto px-gutter pt-6 pb-2 [mask-image:linear-gradient(transparent,black_24px,black_calc(100%_-_24px),transparent)]"
     >
       {lines.map((line, position) => (
-        <ScrollbackLine key={position} line={line} />
+        <ScrollbackLine key={position} line={line} onRun={onRun} />
       ))}
     </div>
   )

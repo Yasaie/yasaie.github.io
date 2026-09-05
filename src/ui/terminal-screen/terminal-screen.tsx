@@ -3,6 +3,7 @@ import type { Volume } from '@/fs/volume/volume'
 import { useClickToFocus } from '@/hooks/use-click-to-focus/use-click-to-focus'
 import { useTerminal } from '@/hooks/use-terminal/use-terminal'
 import { useTypeToFocus } from '@/hooks/use-type-to-focus/use-type-to-focus'
+import { submitted, typed } from '@/session/actions/actions'
 import { TerminalBackdrop } from '@/ui/terminal-backdrop/terminal-backdrop'
 import { TerminalPrompt } from '@/ui/terminal-prompt/terminal-prompt'
 import { TerminalScrollback } from '@/ui/terminal-scrollback/terminal-scrollback'
@@ -20,6 +21,10 @@ export type TerminalScreenProps = {
 
 export const TerminalScreen = ({ volume }: TerminalScreenProps): ReactElement => {
   const terminal = useTerminal(volume)
+  const run = (command: string): void => {
+    terminal.dispatch(typed(command, command.length))
+    terminal.dispatch(submitted())
+  }
   const input = useTypeToFocus<HTMLInputElement>()
   useClickToFocus(input)
 
@@ -28,7 +33,7 @@ export const TerminalScreen = ({ volume }: TerminalScreenProps): ReactElement =>
       <TerminalBackdrop />
       <div className={shell}>
         <TerminalTitleBar />
-        <TerminalScrollback lines={terminal.state.lines} />
+        <TerminalScrollback lines={terminal.state.lines} onRun={run} />
         <TerminalPrompt terminal={terminal} inputRef={input} />
       </div>
     </div>
