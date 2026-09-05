@@ -9,7 +9,7 @@
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "types": ["vite/client", "node"],
-    "paths": { "@/*": ["./src/*"] },
+    "paths": { "@/*": ["./src/*"], "#tests/*": ["./tests/*"] },
 
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -29,5 +29,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }

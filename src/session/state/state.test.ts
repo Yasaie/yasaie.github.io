@@ -1,22 +1,22 @@
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { diskRoot, mountRealDisk, realText } from '#tests/helpers/disk'
+import { pinnedYear } from '#tests/helpers/pinned-year'
+import { coloursOf, textOf } from '#tests/helpers/rows'
 import { nodeSource } from '@/fs/node-source/node-source'
 import { mount } from '@/fs/volume/volume'
 import { totalCounted } from '@/session/progress/progress'
-import { diskRoot, mountRealDisk, realText } from '@/testing/disk/disk'
-import { screenColours, screenText } from '@/testing/screen/screen'
-import { thisYear } from '@/testing/year/year'
 import { createSession, rewardSequence } from './state'
 
 const volume = await mountRealDisk()
 
-const splash = createSession(volume, thisYear).queue
+const splash = createSession(volume, pinnedYear).queue
 
 const splashLines = splash.map((queued) => queued.line)
 
 describe('a fresh session', () => {
   it('starts with an empty screen, an empty prompt and none of the game found', () => {
-    const session = createSession(volume, thisYear)
+    const session = createSession(volume, pinnedYear)
     expect(session.lines).toEqual([])
     expect(session.typed).toBe('')
     expect(session.caret).toBe(0)
@@ -28,21 +28,21 @@ describe('a fresh session', () => {
 
   it('has the whole boot splash waiting to be typed out, nothing of it printed yet', () => {
     expect(splashLines.length).toBeGreaterThan(0)
-    expect(createSession(volume, thisYear).lines).toEqual([])
+    expect(createSession(volume, pinnedYear).lines).toEqual([])
   })
 })
 
 describe('the boot splash', () => {
   it('opens with the banner the machine keeps in /etc/issue, byte for byte', () => {
     const banner = realText('/etc/issue').split('\n').slice(0, -1)
-    expect(screenText(splashLines).slice(0, banner.length)).toEqual(banner)
+    expect(textOf(splashLines).slice(0, banner.length)).toEqual(banner)
     expect(splashLines.slice(0, banner.length).map((line) => line.kind)).toEqual(
       banner.map(() => 'wordmark'),
     )
   })
 
   it('introduces the machine from /etc/yasaie-release, in the order the file declares', () => {
-    expect(screenText(splashLines).slice(7, 14)).toEqual([
+    expect(textOf(splashLines).slice(7, 14)).toEqual([
       'name    Payam Yasaie',
       'role    senior software engineer',
       'at      GoodHabitz',
@@ -54,7 +54,7 @@ describe('the boot splash', () => {
   })
 
   it('brightens the name above the rest of the block', () => {
-    expect(screenColours(splashLines).slice(7, 14)).toEqual([
+    expect(coloursOf(splashLines).slice(7, 14)).toEqual([
       ['muted', 'text'],
       ['muted', 'body'],
       ['muted', 'body'],
@@ -66,7 +66,7 @@ describe('the boot splash', () => {
   })
 
   it('separates the banner, the introduction and the hint with blank lines', () => {
-    const printed = screenText(splashLines)
+    const printed = textOf(splashLines)
     expect(printed.at(6)).toBe('')
     expect(printed.at(14)).toBe('')
     expect(printed.at(16)).toBe('')
@@ -74,8 +74,8 @@ describe('the boot splash', () => {
 
   it('closes by telling the visitor what to type, shortened when the screen is narrow', () => {
     const hint = splashLines.slice(15, 16)
-    expect(screenText(hint)).toEqual(['type  help  or press tab'])
-    expect(screenText(hint, 'narrow')).toEqual(['type  help'])
+    expect(textOf(hint)).toEqual(['type  help  or press tab'])
+    expect(textOf(hint, 'narrow')).toEqual(['type  help'])
   })
 
   it('types itself out faster than ordinary command output', () => {
@@ -84,25 +84,28 @@ describe('the boot splash', () => {
 
   it('still boots on a disk that carries neither banner nor release block', async () => {
     const bootOnly = await mount(nodeSource(join(diskRoot, 'boot')))
-    expect(
-      screenText(createSession(bootOnly, thisYear).queue.map((queued) => queued.line)),
-    ).toEqual(['', '', 'type  help  or press tab', ''])
+    expect(textOf(createSession(bootOnly, pinnedYear).queue.map((queued) => queued.line))).toEqual([
+      '',
+      '',
+      'type  help  or press tab',
+      '',
+    ])
   })
 })
 
 describe('the reward for finding everything', () => {
   it('thanks the visitor in accent and leaves an address to reply to', () => {
-    expect(screenText(rewardSequence.map((queued) => queued.line))).toEqual([
+    expect(textOf(rewardSequence.map((queued) => queued.line))).toEqual([
       'all nine. you read the whole thing. that deserves a reply: payam@yasaie.com',
       '',
     ])
-    expect(screenColours(rewardSequence.map((queued) => queued.line)).at(0)).toEqual(['accent'])
+    expect(coloursOf(rewardSequence.map((queued) => queued.line)).at(0)).toEqual(['accent'])
   })
 
   it('congratulates the visitor on as many commands as the game actually counts', () => {
     const spelled = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
-    expect(screenText(rewardSequence.map((queued) => queued.line)).at(0)).toContain(
+    expect(textOf(rewardSequence.map((queued) => queued.line)).at(0)).toContain(
       `all ${spelled.at(totalCounted)}.`,
     )
   })

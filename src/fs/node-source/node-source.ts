@@ -1,8 +1,8 @@
 import type { Dirent } from 'node:fs'
 import { readdir, readFile, stat } from 'node:fs/promises'
 import { join, relative, sep } from 'node:path'
-import type { DiskEntry, DiskSource } from '@/fs/source/source'
-import { byPath } from '@/fs/source/source'
+import type { DiskEntry, DiskSource } from '@/fs/disk-source/disk-source'
+import { byPath } from '@/fs/disk-source/disk-source'
 
 const machinePath = (root: string, absolute: string): string =>
   `/${relative(root, absolute).split(sep).join('/')}`

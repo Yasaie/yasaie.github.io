@@ -1,5 +1,5 @@
-import type { DiskEntry, DiskSource } from '@/fs/source/source'
-import { byPath, diskIndexPath } from '@/fs/source/source'
+import type { DiskEntry, DiskSource } from '@/fs/disk-source/disk-source'
+import { byPath, diskIndexPath } from '@/fs/disk-source/disk-source'
 
 type IndexRecord =
   | { readonly path: string; readonly directory: true }

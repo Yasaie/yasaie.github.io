@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
+import { mountRealDisk } from '#tests/helpers/disk'
 import { installedApps } from '@/kernel/registry/registry'
-import { mountRealDisk } from '@/testing/disk/disk'
 
 const volume = await mountRealDisk()
 

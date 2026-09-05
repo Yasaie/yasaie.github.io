@@ -1,17 +1,17 @@
 import { renderHook } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { mountRealDisk } from '#tests/helpers/disk'
+import { pinnedYear } from '#tests/helpers/pinned-year'
 import type { Action } from '@/session/actions/actions'
 import { lineDrained } from '@/session/actions/actions'
 import { createSession, queuedLines, type TerminalState } from '@/session/state/state'
-import { mountRealDisk } from '@/testing/disk/disk'
-import { thisYear } from '@/testing/year/year'
 import { blank, text } from '@/tty/line/line'
 import { useTypewriter } from './use-typewriter'
 
 const volume = await mountRealDisk()
 
 const session = (over: Partial<TerminalState> = {}): TerminalState => ({
-  ...createSession(volume, thisYear),
+  ...createSession(volume, pinnedYear),
   queue: [],
   ...over,
 })

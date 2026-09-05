@@ -16,26 +16,31 @@ const rowsIn = (line: Line, layout: Layout): readonly Row[] => {
   }
 }
 
-const rowsOf = (output: Output, layout: Layout = 'wide'): readonly Row[] =>
-  output.lines.flatMap((line) => rowsIn(line, layout))
+export type Printed = Output | readonly Line[]
 
-export const textOf = (output: Output, layout: Layout = 'wide'): readonly string[] =>
-  rowsOf(output, layout).map((each) => each.segments.map((part) => part.text).join(''))
+const linesOf = (printed: Printed): readonly Line[] =>
+  'lines' in printed ? printed.lines : printed
+
+const rowsOf = (printed: Printed, layout: Layout = 'wide'): readonly Row[] =>
+  linesOf(printed).flatMap((line) => rowsIn(line, layout))
+
+export const textOf = (printed: Printed, layout: Layout = 'wide'): readonly string[] =>
+  rowsOf(printed, layout).map((each) => each.segments.map((part) => part.text).join(''))
 
 export const coloursOf = (
-  output: Output,
+  printed: Printed,
   layout: Layout = 'wide',
 ): readonly (readonly Colour[])[] =>
-  rowsOf(output, layout).map((each) => each.segments.map((part) => part.colour))
+  rowsOf(printed, layout).map((each) => each.segments.map((part) => part.colour))
 
-export const indentsOf = (output: Output, layout: Layout = 'wide'): readonly string[] =>
-  rowsOf(output, layout).map((each) => each.indent)
+export const indentsOf = (printed: Printed, layout: Layout = 'wide'): readonly string[] =>
+  rowsOf(printed, layout).map((each) => each.indent)
 
 export const linksOf = (
-  output: Output,
+  printed: Printed,
   layout: Layout = 'wide',
 ): readonly (readonly [string, string])[] =>
-  rowsOf(output, layout).flatMap((each) =>
+  rowsOf(printed, layout).flatMap((each) =>
     each.segments.flatMap((part) =>
       part.href === undefined ? [] : [[part.text, part.href] as const],
     ),

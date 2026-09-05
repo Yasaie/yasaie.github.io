@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { mountRealDisk } from '@/testing/disk/disk'
-import { thisYear } from '@/testing/year/year'
+import { mountRealDisk } from '#tests/helpers/disk'
+import { pinnedYear } from '#tests/helpers/pinned-year'
 import { blank, text } from '@/tty/line/line'
 import { createSession, queuedLines, type TerminalState } from '../state/state'
 import { ghostText, nextDelayMs, progressLabel, prompt, statusLine, suggestion } from './selectors'
@@ -8,7 +8,7 @@ import { ghostText, nextDelayMs, progressLabel, prompt, statusLine, suggestion }
 const volume = await mountRealDisk()
 
 const session = (over: Partial<TerminalState> = {}): TerminalState => ({
-  ...createSession(volume, thisYear),
+  ...createSession(volume, pinnedYear),
   queue: [],
   ...over,
 })

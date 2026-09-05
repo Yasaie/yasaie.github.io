@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { screenLinks, screenText } from '@/testing/screen/screen'
+import { linksOf, textOf } from '#tests/helpers/rows'
 import { keyValueBlock, padLeft, padRight, widestLength } from '@/tty/align/align'
 
 const bootPairs = [
@@ -100,11 +100,9 @@ describe('keyValueBlock', () => {
       [{ key: 'github', value: 'github.com/yasaie', href: 'https://github.com/yasaie' }],
       bootColours,
     )
-    expect(screenLinks(block)).toEqual([['github.com/yasaie', 'https://github.com/yasaie']])
-    expect(screenLinks(block, 'narrow')).toEqual([
-      ['github.com/yasaie', 'https://github.com/yasaie'],
-    ])
-    expect(screenText(block, 'narrow')).toEqual(['github', 'github.com/yasaie'])
+    expect(linksOf(block)).toEqual([['github.com/yasaie', 'https://github.com/yasaie']])
+    expect(linksOf(block, 'narrow')).toEqual([['github.com/yasaie', 'https://github.com/yasaie']])
+    expect(textOf(block, 'narrow')).toEqual(['github', 'github.com/yasaie'])
   })
 
   it('produces no lines at all when there is nothing to lay out', () => {

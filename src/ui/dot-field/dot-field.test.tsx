@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { TerminalField } from './terminal-field'
+import { DotField } from './dot-field'
 
 describe('the surface the ripples are drawn on', () => {
   it('is decoration, so nothing in it is read out or clickable', () => {
-    const { container } = render(<TerminalField />)
+    const { container } = render(<DotField />)
 
     expect(container.firstElementChild?.tagName).toBe('CANVAS')
     expect(container.firstElementChild).toHaveClass('pointer-events-none')

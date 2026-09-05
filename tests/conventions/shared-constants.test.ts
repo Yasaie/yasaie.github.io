@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { diskIndexPath } from '@/fs/source/source'
+import { diskIndexPath } from '@/fs/disk-source/disk-source'
 import { wideBreakpointPx } from '@/hooks/use-narrow-layout/use-narrow-layout'
 
 const declaredIn = (file: string, pattern: RegExp): string | undefined =>

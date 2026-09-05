@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { DiskEntry } from '@/fs/source/source'
-import { byPath, diskIndexPath } from '@/fs/source/source'
+import type { DiskEntry } from '@/fs/disk-source/disk-source'
+import { byPath, diskIndexPath } from '@/fs/disk-source/disk-source'
 
 const secrets: DiskEntry = { kind: 'file', path: '/home/payam/eindhoven/.secrets', bytes: 1 }
 const work: DiskEntry = { kind: 'directory', path: '/home/payam/eindhoven/work' }

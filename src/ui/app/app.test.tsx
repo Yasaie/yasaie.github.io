@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import type { ReactElement } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { serveRealDisk } from '@/testing/disk/disk'
+import { serveRealDisk } from '#tests/helpers/disk-server'
 
 const freshApp = async (): Promise<() => ReactElement | null> => {
   vi.resetModules()

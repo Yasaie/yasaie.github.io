@@ -1,10 +1,10 @@
 import { act, renderHook } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { mountRealDisk } from '#tests/helpers/disk'
+import { textOf } from '#tests/helpers/rows'
+import { settle } from '#tests/helpers/settle'
+import { setViewportWidth } from '#tests/helpers/viewport'
 import { submitted, typed } from '@/session/actions/actions'
-import { mountRealDisk } from '@/testing/disk/disk'
-import { screenText } from '@/testing/screen/screen'
-import { settle } from '@/testing/settle/settle'
-import { setViewportWidth } from '@/testing/viewport/viewport'
 import { useTerminal } from './use-terminal'
 
 const volume = await mountRealDisk()
@@ -25,7 +25,7 @@ describe('the running terminal', () => {
 
     await settle()
 
-    expect(screenText(machine.current.state.lines)).toContain('name    Payam Yasaie')
+    expect(textOf(machine.current.state.lines)).toContain('name    Payam Yasaie')
   })
 
   it('runs what the visitor typed and prints the answer under the echo', async () => {
@@ -36,7 +36,7 @@ describe('the running terminal', () => {
     act(() => machine.current.dispatch(submitted()))
     await settle()
 
-    const printed = screenText(machine.current.state.lines)
+    const printed = textOf(machine.current.state.lines)
     expect(printed).toContain('payam@yasaie ~ $ whoami')
     expect(printed).toContain('full stack since 2010. Tabriz, then Eindhoven.')
   })
@@ -69,12 +69,12 @@ describe('the running terminal', () => {
   it('brings the machine back up by itself a moment after a reboot', async () => {
     const machine = terminal()
     await settle()
-    const bootedOnce = screenText(machine.current.state.lines)
+    const bootedOnce = textOf(machine.current.state.lines)
 
     act(() => machine.current.dispatch(typed('reboot', 6)))
     act(() => machine.current.dispatch(submitted()))
     await settle()
 
-    expect(screenText(machine.current.state.lines)).toEqual(bootedOnce)
+    expect(textOf(machine.current.state.lines)).toEqual(bootedOnce)
   })
 })

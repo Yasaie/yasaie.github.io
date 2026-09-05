@@ -23,7 +23,8 @@ export default defineConfig({
           environment: 'node',
           include: [
             'build/**/*.test.ts',
-            'src/{apps,conventions,fs,kernel,lib,session,tty}/**/*.test.ts',
+            'tests/conventions/*.test.ts',
+            'src/{apps,dot-field,fs,kernel,session,tty}/**/*.test.ts',
           ],
         },
       },
@@ -34,7 +35,7 @@ export default defineConfig({
           environment: 'jsdom',
           pool: 'vmThreads',
           css: true,
-          setupFiles: ['./src/testing/setup/setup.ts'],
+          setupFiles: ['./tests/helpers/setup.ts'],
           include: ['src/{hooks,ui}/**/*.test.{ts,tsx}'],
         },
       },
@@ -45,7 +46,6 @@ export default defineConfig({
       include: ['src/**/*.{ts,tsx}', 'build/**/*.ts'],
       exclude: [
         'src/main.tsx',
-        'src/testing/**',
         'src/kernel/contract/contract.ts',
         'src/**/*.test.{ts,tsx}',
         'build/**/*.test.ts',

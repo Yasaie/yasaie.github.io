@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it } from 'vitest'
-import type { DiskSource } from '@/fs/source/source'
+import { diskFiles, realBytes, realDiskSource, realText } from '#tests/helpers/disk'
+import type { DiskSource } from '@/fs/disk-source/disk-source'
 import type { Volume } from '@/fs/volume/volume'
 import { mount } from '@/fs/volume/volume'
-import { diskFiles, realBytes, realDiskSource, realText } from '@/testing/disk/disk'
 
 const home = '/home/payam/eindhoven'
 const work = `${home}/work`

@@ -1,8 +1,7 @@
 import { readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
+import type { DiskSource } from '@/fs/disk-source/disk-source'
 import { nodeSource } from '@/fs/node-source/node-source'
-import type { DiskSource } from '@/fs/source/source'
-import { diskIndexPath } from '@/fs/source/source'
 import { mount, type Volume } from '@/fs/volume/volume'
 
 export const diskRoot = join(process.cwd(), 'disk')
@@ -44,24 +43,3 @@ export const realText = (path: string): string => readFileSync(join(diskRoot, pa
 export const realDiskSource = (): DiskSource => nodeSource(diskRoot)
 
 export const mountRealDisk = (): Promise<Volume> => mount(realDiskSource())
-
-const superblock = async (): Promise<string> =>
-  JSON.stringify(
-    (await realDiskSource().enumerate()).map((entry) =>
-      entry.kind === 'directory'
-        ? { path: entry.path, directory: true }
-        : { path: entry.path, directory: false, bytes: entry.bytes },
-    ),
-  )
-
-const missing = (): Response =>
-  new Response('not found', { status: 404, statusText: 'File not found' })
-
-export const serveRealDisk = async (): Promise<(url: string) => Promise<Response>> => {
-  const index = await superblock()
-  const disk = realDiskSource()
-  return async (url: string) => {
-    if (url === diskIndexPath) return new Response(index)
-    return disk.read(url).then((body) => new Response(body), missing)
-  }
-}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { realBytes } from '@/testing/disk/disk'
+import { realBytes } from '#tests/helpers/disk'
 import { formatSize } from '@/tty/bytes/bytes'
 
 describe('formatSize, human', () => {

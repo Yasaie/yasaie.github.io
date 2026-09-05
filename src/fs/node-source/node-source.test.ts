@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { nodeSource } from '@/fs/node-source/node-source'
 import {
   diskDirectories,
   diskFiles,
@@ -7,7 +6,8 @@ import {
   diskRoot,
   realBytes,
   realText,
-} from '@/testing/disk/disk'
+} from '#tests/helpers/disk'
+import { nodeSource } from '@/fs/node-source/node-source'
 
 const source = nodeSource(diskRoot)
 

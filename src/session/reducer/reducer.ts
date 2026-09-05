@@ -74,10 +74,10 @@ const submit = (volume: Volume, state: TerminalState): TerminalState => {
   }
 }
 
-const boot = (volume: Volume, thisYear: number, state: TerminalState): TerminalState => ({
+const boot = (volume: Volume, pinnedYear: number, state: TerminalState): TerminalState => ({
   ...state,
   lines: [],
-  queue: bootSequence(volume, thisYear),
+  queue: bootSequence(volume, pinnedYear),
   cwd: homeDirectory,
 })
 
@@ -93,14 +93,14 @@ const withoutScheduled = (
 
 const consume = (
   volume: Volume,
-  thisYear: number,
+  pinnedYear: number,
   state: TerminalState,
   target: Scheduled,
 ): TerminalState => {
   const scheduled = withoutScheduled(state.scheduled, target.kind)
   switch (target.kind) {
     case 'reboot':
-      return { ...boot(volume, thisYear, state), scheduled }
+      return { ...boot(volume, pinnedYear, state), scheduled }
     case 'reward':
       return { ...state, scheduled, queue: [...state.queue, ...rewardSequence] }
   }
@@ -128,7 +128,7 @@ const drain = (state: TerminalState): TerminalState => {
 }
 
 export const sessionReducer =
-  (volume: Volume, thisYear: number): SessionReducer =>
+  (volume: Volume, pinnedYear: number): SessionReducer =>
   (state, action) => {
     switch (action.kind) {
       case 'typed':
@@ -150,6 +150,6 @@ export const sessionReducer =
       case 'cleared':
         return { ...state, lines: [], queue: [] }
       case 'scheduleConsumed':
-        return consume(volume, thisYear, state, action.scheduled)
+        return consume(volume, pinnedYear, state, action.scheduled)
     }
   }

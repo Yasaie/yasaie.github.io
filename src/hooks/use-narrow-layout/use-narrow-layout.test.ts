@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { setViewportWidth } from '@/testing/viewport/viewport'
+import { setViewportWidth } from '#tests/helpers/viewport'
 import { useNarrowLayout } from './use-narrow-layout'
 
 describe('the narrow layout', () => {

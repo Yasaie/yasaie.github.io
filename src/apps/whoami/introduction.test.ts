@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { screenText } from '@/testing/screen/screen'
+import { textOf } from '#tests/helpers/rows'
 import { introductionLines } from './introduction'
 
 const document = [
@@ -15,14 +15,12 @@ const document = [
 
 describe('the introduction a visitor reads', () => {
   it('breaks the headline once, so the role leads and the rest follows it', () => {
-    expect(screenText(introductionLines(document), 'narrow')).toContain('senior software engineer')
-    expect(screenText(introductionLines(document), 'narrow')).toContain(
-      'GoodHabitz · Eindhoven, NL',
-    )
+    expect(textOf(introductionLines(document), 'narrow')).toContain('senior software engineer')
+    expect(textOf(introductionLines(document), 'narrow')).toContain('GoodHabitz · Eindhoven, NL')
   })
 
   it('breaks the languages at every separator, since none of them leads the others', () => {
-    const narrow = screenText(introductionLines(document), 'narrow')
+    const narrow = textOf(introductionLines(document), 'narrow')
 
     expect(narrow).toContain('persian native')
     expect(narrow).toContain('english fluent')
@@ -34,10 +32,10 @@ describe('the introduction a visitor reads', () => {
       'engineer',
     )
 
-    expect(screenText(introductionLines(plain), 'narrow')).toContain('engineer')
+    expect(textOf(introductionLines(plain), 'narrow')).toContain('engineer')
   })
 
   it('still prints something when the document has lost its blocks', () => {
-    expect(screenText(introductionLines(''))).toEqual(['', '', '', '', '', '', ''])
+    expect(textOf(introductionLines(''))).toEqual(['', '', '', '', '', '', ''])
   })
 })

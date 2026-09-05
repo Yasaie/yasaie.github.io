@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { isTestPath, sourceFilesIn } from '@/testing/tree/tree'
+import { isTestPath, sourceFilesIn } from '#tests/helpers/tree'
 
 const specifier = /(?:from|import)\s*\(?\s*'([^']+)'/g
 

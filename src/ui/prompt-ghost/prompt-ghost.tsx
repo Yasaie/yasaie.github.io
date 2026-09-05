@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import { cn } from '@/lib/cn/cn'
+import { cn } from '@/ui/cn/cn'
 
 const caret =
   'inline-block h-[1.15em] w-[0.6em] -mr-[0.6em] animate-caret bg-terminal-accent align-text-bottom motion-reduce:animate-none'

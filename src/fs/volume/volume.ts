@@ -1,8 +1,8 @@
+import type { DiskEntry, DiskSource } from '@/fs/disk-source/disk-source'
+import { byPath } from '@/fs/disk-source/disk-source'
 import type { Owner, Permissions } from '@/fs/inode/inode'
 import { directoryBytes, inodeOf } from '@/fs/inode/inode'
 import { parentOf } from '@/fs/path/path'
-import type { DiskEntry, DiskSource } from '@/fs/source/source'
-import { byPath } from '@/fs/source/source'
 
 export type VolumeEntry = {
   readonly path: string

@@ -1,10 +1,10 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { mountRealDisk } from '#tests/helpers/disk'
+import { invocation } from '#tests/helpers/invocation'
+import { textOf } from '#tests/helpers/rows'
 import type { Volume } from '@/fs/volume/volume'
 import type { App } from '@/kernel/contract/contract'
 import { execute } from '@/kernel/execute/execute'
-import { mountRealDisk } from '@/testing/disk/disk'
-import { invocation } from '@/testing/invocation/invocation'
-import { textOf } from '@/testing/rows/rows'
 
 vi.mock('@/kernel/registry/registry', async (importOriginal) => {
   const real = await importOriginal<typeof import('@/kernel/registry/registry')>()

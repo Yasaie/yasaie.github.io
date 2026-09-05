@@ -1,9 +1,9 @@
 import { fireEvent, render } from '@testing-library/react'
 import type { ReactElement } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { preferStillness } from '@/testing/viewport/viewport'
-import { rippleBandPx, rippleLifeMs, rippleRadius } from '@/tty/ripple/ripple'
-import { traceLifeMs, traceReachPx } from '@/tty/trail/trail'
+import { preferStillness } from '#tests/helpers/viewport'
+import { rippleBandPx, rippleLifeMs, rippleRadius } from '@/dot-field/ripple/ripple'
+import { traceLifeMs, traceReachPx } from '@/dot-field/trail/trail'
 import { useDotField } from './use-dot-field'
 
 const painted: { x: number; y: number }[] = []

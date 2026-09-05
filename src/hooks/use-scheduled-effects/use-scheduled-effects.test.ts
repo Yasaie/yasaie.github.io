@@ -1,11 +1,11 @@
 import { renderHook } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { mountRealDisk } from '#tests/helpers/disk'
+import { pinnedYear } from '#tests/helpers/pinned-year'
 import type { Action } from '@/session/actions/actions'
 import { scheduleConsumed } from '@/session/actions/actions'
 import type { Scheduled, TerminalState } from '@/session/state/state'
 import { createSession } from '@/session/state/state'
-import { mountRealDisk } from '@/testing/disk/disk'
-import { thisYear } from '@/testing/year/year'
 import { useScheduledEffects } from './use-scheduled-effects'
 
 const volume = await mountRealDisk()
@@ -14,7 +14,7 @@ const replay: Scheduled = { kind: 'reboot', delayMs: 1400 }
 const congratulate: Scheduled = { kind: 'reward', delayMs: 600 }
 
 const session = (scheduled: readonly Scheduled[]): TerminalState => ({
-  ...createSession(volume, thisYear),
+  ...createSession(volume, pinnedYear),
   queue: [],
   scheduled,
 })

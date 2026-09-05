@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import { useParallax } from '@/hooks/use-parallax/use-parallax'
-import { TerminalField } from '@/ui/terminal-field/terminal-field'
+import { DotField } from '@/ui/dot-field/dot-field'
 
 const nearDepth = 10
 const middleDepth = 24
@@ -29,7 +29,7 @@ export const TerminalBackdrop = (): ReactElement => {
       <div ref={middleRef} className={`${layer} ${middle}`} />
       <div ref={farRef} className={`${layer} ${far}`} />
       <div className={vignette} />
-      <TerminalField />
+      <DotField />
     </div>
   )
 }

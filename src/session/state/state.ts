@@ -74,17 +74,17 @@ const banner = (volume: Volume): readonly Line[] =>
 const bootedKey = 'since'
 const uptimeKey = 'uptime'
 
-const asUptime = (pair: KeyValuePair, thisYear: number): KeyValuePair =>
+const asUptime = (pair: KeyValuePair, pinnedYear: number): KeyValuePair =>
   pair.key === bootedKey
-    ? { key: uptimeKey, value: `${thisYear - Number(pair.value)} years` }
+    ? { key: uptimeKey, value: `${pinnedYear - Number(pair.value)} years` }
     : pair
 
-const identity = (volume: Volume, thisYear: number): readonly Line[] =>
+const identity = (volume: Volume, pinnedYear: number): readonly Line[] =>
   keyValueBlock(
     brightenFirst(
       documentRows(volume.read(releasePath))
         .map(pairOf)
-        .map((pair) => asUptime(pair, thisYear)),
+        .map((pair) => asUptime(pair, pinnedYear)),
     ),
     bootColours,
   )
@@ -93,9 +93,9 @@ const hint = responsive(row([segment(hintWide, hintColour)]), [
   row([segment(hintNarrow, hintColour)]),
 ])
 
-export const bootSequence = (volume: Volume, thisYear: number): readonly QueuedLine[] =>
+export const bootSequence = (volume: Volume, pinnedYear: number): readonly QueuedLine[] =>
   queuedLines(
-    [...banner(volume), blank, ...identity(volume, thisYear), blank, hint, blank],
+    [...banner(volume), blank, ...identity(volume, pinnedYear), blank, hint, blank],
     bootSpeedMs,
   )
 
@@ -104,11 +104,11 @@ export const rewardSequence: readonly QueuedLine[] = queuedLines(
   outputSpeedMs,
 )
 
-export const createSession = (volume: Volume, thisYear: number): TerminalState => ({
+export const createSession = (volume: Volume, pinnedYear: number): TerminalState => ({
   typed: '',
   caret: 0,
   lines: [],
-  queue: bootSequence(volume, thisYear),
+  queue: bootSequence(volume, pinnedYear),
   history: [],
   historyIndex: noHistoryIndex,
   discovered: [],

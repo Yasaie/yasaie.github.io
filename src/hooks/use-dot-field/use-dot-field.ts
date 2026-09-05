@@ -6,8 +6,14 @@ import {
   rippleGlow,
   rippleRadius,
   stillSpreading,
-} from '@/tty/ripple/ripple'
-import { stillGlowing, type Trace, traceGlow, traceReachPx, worthTracing } from '@/tty/trail/trail'
+} from '@/dot-field/ripple/ripple'
+import {
+  stillGlowing,
+  type Trace,
+  traceGlow,
+  traceReachPx,
+  worthTracing,
+} from '@/dot-field/trail/trail'
 
 const gridPx = 28
 

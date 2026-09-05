@@ -3,13 +3,13 @@ import { mkdir, mkdtemp, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { mountRealDisk } from '#tests/helpers/disk'
+import { invocation } from '#tests/helpers/invocation'
+import { coloursOf, textOf } from '#tests/helpers/rows'
 import { ls } from '@/apps/ls/ls'
 import { nodeSource } from '@/fs/node-source/node-source'
 import { mount } from '@/fs/volume/volume'
 import { execute } from '@/kernel/execute/execute'
-import { mountRealDisk } from '@/testing/disk/disk'
-import { invocation } from '@/testing/invocation/invocation'
-import { coloursOf, textOf } from '@/testing/rows/rows'
 
 const volume = await mountRealDisk()
 

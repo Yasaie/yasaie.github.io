@@ -1,8 +1,16 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { isTestPath, type SourceFile, sourceFilesIn } from '@/testing/tree/tree'
+import { isTestPath, type SourceFile, sourceFilesIn } from '#tests/helpers/tree'
 
-const layers = ['src/kernel', 'src/fs', 'src/tty', 'src/session', 'src/hooks', 'src/ui'] as const
+const layers = [
+  'src/kernel',
+  'src/fs',
+  'src/tty',
+  'src/dot-field',
+  'src/session',
+  'src/hooks',
+  'src/ui',
+] as const
 
 const runtimeExport = /^export\s+(?!type\s|interface\s)/m
 

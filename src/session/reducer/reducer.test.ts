@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { mountRealDisk } from '@/testing/disk/disk'
-import { screenColours, screenText } from '@/testing/screen/screen'
-import { thisYear } from '@/testing/year/year'
+import { mountRealDisk } from '#tests/helpers/disk'
+import { pinnedYear } from '#tests/helpers/pinned-year'
+import { coloursOf, textOf } from '#tests/helpers/rows'
 import { text } from '@/tty/line/line'
 import type { Action } from '../actions/actions'
 import {
@@ -21,7 +21,7 @@ import { sessionReducer } from './reducer'
 
 const volume = await mountRealDisk()
 
-const reduce = sessionReducer(volume, thisYear)
+const reduce = sessionReducer(volume, pinnedYear)
 
 const dispatched = (state: TerminalState, ...actions: readonly Action[]): TerminalState =>
   actions.reduce(reduce, state)
@@ -29,13 +29,13 @@ const dispatched = (state: TerminalState, ...actions: readonly Action[]): Termin
 const drained = (state: TerminalState): TerminalState =>
   state.queue.length === 0 ? state : drained(reduce(state, lineDrained()))
 
-const booted = drained(createSession(volume, thisYear))
+const booted = drained(createSession(volume, pinnedYear))
 
 const run = (state: TerminalState, line: string): TerminalState =>
   drained(dispatched(state, typed(line, line.length), submitted()))
 
 const printedBy = (before: TerminalState, now: TerminalState): readonly string[] =>
-  screenText(now.lines.slice(before.lines.length))
+  textOf(now.lines.slice(before.lines.length))
 
 describe('running a command', () => {
   it('echoes the line, prints the answer under it and leaves a blank line before the next prompt', () => {
@@ -46,7 +46,7 @@ describe('running a command', () => {
   })
 
   it('greys the echo so it reads as something already said, not as an answer', () => {
-    const printed = screenColours(run(booted, 'whoami').lines.slice(booted.lines.length))
+    const printed = coloursOf(run(booted, 'whoami').lines.slice(booted.lines.length))
     expect(printed.at(0)).toEqual(['faint'])
   })
 
@@ -78,7 +78,7 @@ describe('running a command', () => {
 
 describe('clearing the screen', () => {
   it('leaves nothing printed and nothing waiting, not even its own echo', () => {
-    const wiped = dispatched(createSession(volume, thisYear), typed('clear', 5), submitted())
+    const wiped = dispatched(createSession(volume, pinnedYear), typed('clear', 5), submitted())
     expect(wiped.lines).toEqual([])
     expect(wiped.queue).toEqual([])
   })
@@ -117,8 +117,12 @@ describe('rebooting', () => {
   })
 
   it('drops the splash it was still printing, leaving only the shutdown notice', () => {
-    const interrupted = dispatched(createSession(volume, thisYear), typed('reboot', 6), submitted())
-    expect(screenText(drained(interrupted).lines)).toEqual([
+    const interrupted = dispatched(
+      createSession(volume, pinnedYear),
+      typed('reboot', 6),
+      submitted(),
+    )
+    expect(textOf(drained(interrupted).lines)).toEqual([
       'payam@yasaie ~ $ reboot',
       'broadcast message: the system is going down for reboot now',
       '',
@@ -130,7 +134,11 @@ describe('rebooting', () => {
   })
 
   it('prints the shutdown notice slowly, the way a machine going down does', () => {
-    const interrupted = dispatched(createSession(volume, thisYear), typed('reboot', 6), submitted())
+    const interrupted = dispatched(
+      createSession(volume, pinnedYear),
+      typed('reboot', 6),
+      submitted(),
+    )
     expect(interrupted.queue.map((queued) => queued.speedMs)).toEqual(
       interrupted.queue.map(() => 120),
     )
@@ -151,7 +159,7 @@ describe('rebooting', () => {
     expect(replayed.lines).toEqual([])
     expect(replayed.cwd).toBe('~')
     expect(replayed.scheduled).toEqual([])
-    expect(screenText(drained(replayed).lines)).toEqual(screenText(booted.lines))
+    expect(textOf(drained(replayed).lines)).toEqual(textOf(booted.lines))
   })
 })
 
@@ -160,8 +168,8 @@ describe('the scrollback', () => {
     const many = Array.from({ length: 500 }, (_, position) => text(String(position), 'body'))
     const filled = drained({ ...booted, lines: [], queue: queuedLines(many, 0) })
     expect(filled.lines).toHaveLength(400)
-    expect(screenText(filled.lines).at(0)).toBe('100')
-    expect(screenText(filled.lines).at(-1)).toBe('499')
+    expect(textOf(filled.lines).at(0)).toBe('100')
+    expect(textOf(filled.lines).at(-1)).toBe('499')
   })
 })
 

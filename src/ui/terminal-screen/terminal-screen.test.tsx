@@ -1,8 +1,8 @@
 import { configure, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { mountRealDisk } from '@/testing/disk/disk'
-import { settle, settleUntil } from '@/testing/settle/settle'
+import { mountRealDisk } from '#tests/helpers/disk'
+import { settle, settleUntil } from '#tests/helpers/settle'
 import { TerminalScreen } from './terminal-screen'
 
 const withoutWaitingOnRealTime = <Result,>(work: () => Promise<Result>): Promise<Result> => work()

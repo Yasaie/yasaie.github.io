@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { diskFiles, realBytes } from '@/testing/disk/disk'
-import { isTestPath, sourceFilesIn } from '@/testing/tree/tree'
+import { diskFiles, realBytes } from '#tests/helpers/disk'
+import { isTestPath, sourceFilesIn } from '#tests/helpers/tree'
 
 const measured = [...new Set(diskFiles.map(realBytes))].filter((size) => size > 0).toSorted()
 

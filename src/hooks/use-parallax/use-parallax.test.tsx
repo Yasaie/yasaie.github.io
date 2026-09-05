@@ -1,7 +1,7 @@
 import { act, fireEvent, render, renderHook } from '@testing-library/react'
 import type { ReactElement } from 'react'
 import { describe, expect, it } from 'vitest'
-import { preferStillness } from '@/testing/viewport/viewport'
+import { preferStillness } from '#tests/helpers/viewport'
 import { useParallax } from './use-parallax'
 
 const nearDepth = 10
