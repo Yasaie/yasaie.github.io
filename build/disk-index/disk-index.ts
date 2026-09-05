@@ -31,7 +31,7 @@ const recordOf = async (root: string, dirent: Dirent): Promise<DiskIndexRecord> 
 export const readDiskIndex = async (root: string): Promise<readonly DiskIndexRecord[]> => {
   const dirents = await readdir(root, { recursive: true, withFileTypes: true })
   const records = await Promise.all(dirents.map((dirent) => recordOf(root, dirent)))
-  return records.toSorted((left, right) => left.path.localeCompare(right.path))
+  return records.toSorted((left, right) => (left.path < right.path ? -1 : 1))
 }
 
 const publish = async (root: string): Promise<string> =>
