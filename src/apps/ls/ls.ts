@@ -1,5 +1,5 @@
 import { syntheticEntriesFor } from '@/fs/inode/inode'
-import { pathOf, resolve } from '@/fs/path/path'
+import { pathOf, resolve, workPath } from '@/fs/path/path'
 import type { Volume, VolumeEntry } from '@/fs/volume/volume'
 import type { App, Cwd, Invocation, Output } from '@/kernel/contract/contract'
 import { padLeft, padRight, widestLength } from '@/tty/align/align'
@@ -81,11 +81,12 @@ const colourOf = (entry: VolumeEntry): Colour => {
   return entry.locked ? 'muted' : 'body'
 }
 
-const yearWrittenIn = (contents: string | undefined): string =>
-  (contents === undefined ? undefined : /\b\d{4}\b/.exec(contents)?.[0]) ?? ''
+const isChapter = (entry: VolumeEntry): boolean => entry.path.startsWith(`${workPath}/`)
+
+const firstYearIn = (contents: string): string => /\b\d{4}\b/.exec(contents)?.[0] ?? ''
 
 const yearOf = (entry: VolumeEntry, volume: Volume): string =>
-  entry.year ?? yearWrittenIn(volume.read(entry.path))
+  entry.year ?? (isChapter(entry) ? firstYearIn(volume.require(entry.path)) : '')
 
 const sizedAs = (entry: VolumeEntry, format: SizeFormat, volume: Volume): Sized => ({
   entry,

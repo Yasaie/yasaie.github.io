@@ -5,6 +5,7 @@ import { scheduleConsumed } from '@/session/actions/actions'
 import type { Scheduled, TerminalState } from '@/session/state/state'
 import { createSession } from '@/session/state/state'
 import { mountRealDisk } from '@/testing/disk/disk'
+import { thisYear } from '@/testing/year/year'
 import { useScheduledEffects } from './use-scheduled-effects'
 
 const volume = await mountRealDisk()
@@ -13,7 +14,7 @@ const replay: Scheduled = { kind: 'reboot', delayMs: 1400 }
 const congratulate: Scheduled = { kind: 'reward', delayMs: 600 }
 
 const session = (scheduled: readonly Scheduled[]): TerminalState => ({
-  ...createSession(volume),
+  ...createSession(volume, thisYear),
   queue: [],
   scheduled,
 })

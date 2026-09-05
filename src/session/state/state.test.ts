@@ -5,17 +5,18 @@ import { mount } from '@/fs/volume/volume'
 import { totalCounted } from '@/session/progress/progress'
 import { diskRoot, mountRealDisk, realText } from '@/testing/disk/disk'
 import { screenColours, screenText } from '@/testing/screen/screen'
+import { thisYear } from '@/testing/year/year'
 import { createSession, rewardSequence } from './state'
 
 const volume = await mountRealDisk()
 
-const splash = createSession(volume).queue
+const splash = createSession(volume, thisYear).queue
 
 const splashLines = splash.map((queued) => queued.line)
 
 describe('a fresh session', () => {
   it('starts with an empty screen, an empty prompt and none of the game found', () => {
-    const session = createSession(volume)
+    const session = createSession(volume, thisYear)
     expect(session.lines).toEqual([])
     expect(session.typed).toBe('')
     expect(session.caret).toBe(0)
@@ -27,7 +28,7 @@ describe('a fresh session', () => {
 
   it('has the whole boot splash waiting to be typed out, nothing of it printed yet', () => {
     expect(splashLines.length).toBeGreaterThan(0)
-    expect(createSession(volume).lines).toEqual([])
+    expect(createSession(volume, thisYear).lines).toEqual([])
   })
 })
 
@@ -83,12 +84,9 @@ describe('the boot splash', () => {
 
   it('still boots on a disk that carries neither banner nor release block', async () => {
     const bootOnly = await mount(nodeSource(join(diskRoot, 'boot')))
-    expect(screenText(createSession(bootOnly).queue.map((queued) => queued.line))).toEqual([
-      '',
-      '',
-      'type  help  or press tab',
-      '',
-    ])
+    expect(
+      screenText(createSession(bootOnly, thisYear).queue.map((queued) => queued.line)),
+    ).toEqual(['', '', 'type  help  or press tab', ''])
   })
 })
 

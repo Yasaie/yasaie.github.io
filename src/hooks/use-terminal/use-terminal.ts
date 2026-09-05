@@ -18,8 +18,9 @@ export type Terminal = {
 }
 
 export const useTerminal = (volume: Volume): Terminal => {
-  const reducer = useMemo(() => sessionReducer(volume), [volume])
-  const [state, dispatch] = useReducer(reducer, volume, createSession)
+  const thisYear = useMemo(() => new Date().getFullYear(), [])
+  const reducer = useMemo(() => sessionReducer(volume, thisYear), [volume, thisYear])
+  const [state, dispatch] = useReducer(reducer, thisYear, (year) => createSession(volume, year))
   const isNarrow = useNarrowLayout()
 
   useTypewriter(state, dispatch)

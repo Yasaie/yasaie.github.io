@@ -1,7 +1,11 @@
 import { statSync } from 'node:fs'
+import { mkdir, mkdtemp, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { ls } from '@/apps/ls/ls'
+import { nodeSource } from '@/fs/node-source/node-source'
+import { mount } from '@/fs/volume/volume'
 import { execute } from '@/kernel/execute/execute'
 import { mountRealDisk } from '@/testing/disk/disk'
 import { invocation } from '@/testing/invocation/invocation'
@@ -138,6 +142,18 @@ describe('ls', () => {
     expect(textOf(ls.run(invocation('ls -l whoami.txt'), volume))).toEqual([
       'total 1',
       '-rw-r--r--  1 payam yasaie 399 2010  whoami.txt',
+    ])
+  })
+
+  it('leaves a chapter undated when no year is written inside it', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'disk-'))
+    await mkdir(join(root, 'home/payam/eindhoven/work'), { recursive: true })
+    await writeFile(join(root, 'home/payam/eindhoven/work/9-undated.md'), '# Undated\n')
+    const undated = await mount(nodeSource(root))
+
+    expect(textOf(ls.run(invocation('ls -l', '~/work'), undated))).toEqual([
+      'total 1',
+      '-rw-r--r--  1 payam yasaie 10   9-undated.md',
     ])
   })
 
