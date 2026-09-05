@@ -1,39 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Payam Yasaie — Senior Software Engineer. Sixteen years of building cool stuff trusted by millions across Europe."
+      content="Payam Yasaie · senior software engineer · GoodHabitz · Eindhoven, NL. Full stack since 2010. Tabriz, then Eindhoven."
     />
     <meta name="author" content="Payam Yasaie" />
-    <meta name="theme-color" content="#07080f" />
+    <meta name="theme-color" content="#0A0A0C" />
+    <meta name="color-scheme" content="dark" />
 
-    <meta property="og:title" content="Payam Yasaie — A Developer's Story" />
+    <link rel="canonical" href="https://yasaie.com/" />
+
+    <meta property="og:title" content="Payam Yasaie · senior software engineer" />
     <meta
       property="og:description"
-      content="Sixteen years of building awesome products trusted by millions across Europe. Come along for the ride!"
+      content="A terminal. Type help. Full stack since 2010. Tabriz, then Eindhoven."
     />
-    <meta property="og:image" content="/img/profile.jpg" />
-    <meta property="og:url" content="https://yasaie.github.io/" />
+    <meta property="og:url" content="https://yasaie.com/" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="yasaie.com" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content="https://yasaie.com/boot/preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A dark terminal showing the YASAIE banner above name, role and location."
+    />
 
     <meta name="twitter:card" content="summary_large_image" />
 
-    <title>Payam Yasaie — A Developer's Story</title>
+    <title>Payam Yasaie · senior software engineer</title>
 
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/boot/favicon.svg" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&family=Space+Grotesk:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Payam Yasaie",
+        "jobTitle": "Senior Software Engineer",
+        "url": "https://yasaie.com/",
+        "email": "payam@yasaie.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Eindhoven", "addressCountry": "NL" },
+        "sameAs": ["https://linkedin.com/in/yasaie", "https://github.com/yasaie"]
+      }
+    </script>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <div id="root"></div>
+    <noscript>
+      <h1>Payam Yasaie · senior software engineer</h1>
+      <p>
+        JavaScript is off, so the terminal will not start. The files it would have printed are
+        here:
+      </p>
+      <ul>
+        <li><a href="/home/payam/eindhoven/whoami.txt">whoami.txt</a></li>
+        <li><a href="/home/payam/eindhoven/stack.txt">stack.txt</a></li>
+        <li><a href="/home/payam/eindhoven/contact.txt">contact.txt</a></li>
+        <li><a href="/home/payam/eindhoven/work/1-goodhabitz.md">work/1-goodhabitz.md</a></li>
+        <li><a href="/home/payam/eindhoven/work/2-owow-agency.md">work/2-owow-agency.md</a></li>
+        <li><a href="/home/payam/eindhoven/work/3-tas-hil-gostar.md">work/3-tas-hil-gostar.md</a></li>
+        <li><a href="/home/payam/eindhoven/work/4-tahlilgaran.md">work/4-tahlilgaran.md</a></li>
+        <li>
+          <a href="/home/payam/eindhoven/work/5-tabesh-rayan-energy.md"
+            >work/5-tabesh-rayan-energy.md</a
+          >
+        </li>
+        <li><a href="/home/payam/eindhoven/work/6-freelance.md">work/6-freelance.md</a></li>
+      </ul>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

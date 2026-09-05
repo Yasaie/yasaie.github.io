@@ -1,0 +1,48 @@
+import { type ColumnPair, columnPairs } from '@/fs/document/document'
+import { homePath } from '@/fs/path/path'
+import type { Volume } from '@/fs/volume/volume'
+import type { App, Output } from '@/kernel/contract/contract'
+import { type KeyValuePair, keyValueBlock } from '@/tty/align/align'
+import type { Colour } from '@/tty/palette/palette'
+
+const contactPath = `${homePath}/contact.txt`
+
+const emphasis: ReadonlyMap<string, Colour> = new Map([
+  ['mail', 'text'],
+  ['where', 'muted'],
+])
+
+const reachable: ReadonlySet<string> = new Set(['mail', 'linkedin', 'github'])
+
+const hrefFor = (pair: ColumnPair): string | undefined => {
+  if (!reachable.has(pair.key)) return undefined
+  return pair.value.includes('@') ? `mailto:${pair.value}` : `https://${pair.value}`
+}
+
+const addressed = (pair: ColumnPair): KeyValuePair => {
+  const valueColour = emphasis.get(pair.key)
+  const href = hrefFor(pair)
+  return {
+    ...pair,
+    ...(valueColour === undefined ? {} : { valueColour }),
+    ...(href === undefined ? {} : { href }),
+  }
+}
+
+const render = (volume: Volume): Output => ({
+  lines: keyValueBlock(columnPairs(volume.require(contactPath)).map(addressed), {
+    key: 'muted',
+    value: 'body',
+  }),
+  effects: [],
+})
+
+export const contact: App = {
+  name: 'contact',
+  aliases: ['hi', 'hello', 'mail', 'email', 'linkedin', 'github'],
+  summary: 'say hi',
+  listed: 4,
+  counted: true,
+  handles: [contactPath],
+  run: (_invocation, volume) => render(volume),
+}

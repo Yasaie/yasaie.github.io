@@ -7,6 +7,12 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 indent_style = space
 indent_size = 2
+max_line_length = 100
 
 [*.md]
 trim_trailing_whitespace = false
+
+[disk/**]
+trim_trailing_whitespace = false
+insert_final_newline = false
+max_line_length = off

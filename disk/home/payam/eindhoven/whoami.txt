@@ -1,0 +1,9 @@
+Payam Yasaie
+senior software engineer · GoodHabitz · Eindhoven, NL
+full stack since 2010. Tabriz, then Eindhoven.
+
+before GoodHabitz: four years at OWOW in Eindhoven, building headless Shopify storefronts and client apps in Vue.
+before that, eleven years in Tabriz: led ten developers on Odoo, put a Vue front end on Moodle for five universities, moved a C++ HVAC calculator onto the web.
+
+Persian native · English fluent · Dutch intermediate
+BSc Information Technology, Payam Noor University, 2015

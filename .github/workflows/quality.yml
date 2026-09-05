@@ -1,0 +1,66 @@
+name: Quality
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  quality:
+    name: Lint, typecheck, test and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Find dead code
+        run: pnpm knip
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test:coverage
+
+      - name: Report coverage
+        if: ${{ !cancelled() }}
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          comment-on: ${{ github.event_name == 'pull_request' && 'pr' || 'none' }}
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Test in a browser
+        run: pnpm test:browser
+
+      - name: Build
+        run: pnpm build
+
+      - name: Verify the disk shipped whole
+        run: |
+          test -s dist/.superblock.json
+          node --input-type=module -e "
+            const index = JSON.parse(await (await import('node:fs/promises')).readFile('dist/.superblock.json', 'utf8'))
+            const wanted = ['/etc/issue', '/home/payam/eindhoven/whoami.txt']
+            const missing = wanted.filter((path) => !index.some((entry) => entry.path === path))
+            if (missing.length > 0) throw new Error(\`missing from the volume index: \${missing}\`)
+          "

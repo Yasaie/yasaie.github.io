@@ -1,0 +1,6 @@
+languages  typescript · php · python · java
+frontend   react · vue · nuxt · next
+backend    node · laravel · django · spring
+data       postgres · mysql · mongodb · redis
+infra      docker · aws · vercel · ci/cd · linux
+platforms  shopify · odoo · moodle
