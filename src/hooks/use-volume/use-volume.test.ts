@@ -50,7 +50,7 @@ describe('mounting the disk the site was deployed with', () => {
 
     await waitFor(() => expect(first.result.current.status).toBe('ready'))
     await waitFor(() => expect(second.result.current.status).toBe('ready'))
-    expect(requested.filter((url) => url === '/.superblock.json')).toHaveLength(1)
+    expect(requested.filter((url) => url === '/superblock.json')).toHaveLength(1)
   })
 
   it('waits without an answer while the disk is still being read', async () => {
@@ -81,6 +81,6 @@ describe('a disk the machine cannot read', () => {
     const { result } = renderHook(() => useVolume())
 
     await waitFor(() => expect(result.current.status).toBe('failed'))
-    expect(result.current.failure).toBe('cannot read /.superblock.json: 404 File not found')
+    expect(result.current.failure).toBe('cannot read /superblock.json: 404 File not found')
   })
 })

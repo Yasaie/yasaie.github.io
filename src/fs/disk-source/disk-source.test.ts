@@ -27,6 +27,6 @@ describe('byPath', () => {
 
 describe('diskIndexPath', () => {
   it('is the well-known path the build publishes the volume index at', () => {
-    expect(diskIndexPath).toBe('/.superblock.json')
+    expect(diskIndexPath).toBe('/superblock.json')
   })
 })

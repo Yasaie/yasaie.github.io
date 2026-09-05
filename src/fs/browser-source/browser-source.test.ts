@@ -75,7 +75,7 @@ describe('browserSource, when the machine cannot find its disk', () => {
   it('names the index and the status it got back, so the failure can be shown', async () => {
     answering(async () => new Response('', { status: 404, statusText: 'File not found' }))
     await expect(browserSource().enumerate()).rejects.toThrow(
-      'cannot read /.superblock.json: 404 File not found',
+      'cannot read /superblock.json: 404 File not found',
     )
   })
 
@@ -89,7 +89,7 @@ describe('browserSource, when the machine cannot find its disk', () => {
   it('refuses an index that is not a list at all', async () => {
     serving({ path: '/a', directory: true })
     await expect(browserSource().enumerate()).rejects.toThrow(
-      'volume index at /.superblock.json is not a list of disk entries',
+      'volume index at /superblock.json is not a list of disk entries',
     )
   })
 

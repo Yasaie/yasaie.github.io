@@ -49,7 +49,7 @@ describe('the site a visitor loads', () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText('mount: /: cannot read /.superblock.json: 404 File not found'),
+        screen.getByText('mount: /: cannot read /superblock.json: 404 File not found'),
       ).toBeInTheDocument(),
     )
   })

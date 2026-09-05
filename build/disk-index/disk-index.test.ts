@@ -114,7 +114,7 @@ describe('readDiskIndex', () => {
 
 describe('defaultDiskIndexPath', () => {
   it('is the well-known path the running machine looks for its superblock at', () => {
-    expect(defaultDiskIndexPath).toBe('/.superblock.json')
+    expect(defaultDiskIndexPath).toBe('/superblock.json')
   })
 })
 
@@ -154,7 +154,7 @@ describe('the plugin, building the site', () => {
       { emitFile: (file: { fileName: string }) => files.push(file.fileName) },
       [],
     )
-    expect(files).toEqual(['.superblock.json'])
+    expect(files).toEqual(['superblock.json'])
   })
 
   it('emits the index wherever the build was told to publish it', async () => {

@@ -7,7 +7,7 @@ export type DiskSource = {
   readonly read: (path: string) => Promise<string>
 }
 
-export const diskIndexPath = '/.superblock.json'
+export const diskIndexPath = '/superblock.json'
 
 export type Located = { readonly path: string }
 

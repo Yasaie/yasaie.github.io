@@ -12,7 +12,7 @@ export type DiskIndexOptions = {
   readonly path?: string
 }
 
-export const defaultDiskIndexPath = '/.superblock.json'
+export const defaultDiskIndexPath = '/superblock.json'
 
 const machinePath = (root: string, absolute: string): string =>
   `/${relative(root, absolute).split(sep).join('/')}`

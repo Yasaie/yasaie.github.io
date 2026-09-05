@@ -57,9 +57,9 @@ jobs:
 
       - name: Verify the disk shipped whole
         run: |
-          test -s dist/.superblock.json
+          test -s dist/superblock.json
           node --input-type=module -e "
-            const index = JSON.parse(await (await import('node:fs/promises')).readFile('dist/.superblock.json', 'utf8'))
+            const index = JSON.parse(await (await import('node:fs/promises')).readFile('dist/superblock.json', 'utf8'))
             const wanted = ['/etc/issue', '/home/payam/eindhoven/whoami.txt']
             const missing = wanted.filter((path) => !index.some((entry) => entry.path === path))
             if (missing.length > 0) throw new Error(\`missing from the volume index: \${missing}\`)

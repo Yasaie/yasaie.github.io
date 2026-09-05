@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
+import { diskPaths } from '#tests/helpers/disk'
 import { diskIndexPath } from '@/fs/disk-source/disk-source'
 import { wideBreakpointPx } from '@/hooks/use-narrow-layout/use-narrow-layout'
 
@@ -11,6 +12,14 @@ describe('a value the running machine and its build both have to know', () => {
     expect(diskIndexPath).toBe(
       declaredIn('build/disk-index/disk-index.ts', /defaultDiskIndexPath = '([^']+)'/),
     )
+  })
+
+  it('asks for the superblock at a path a static host will serve, which no dotfile is', () => {
+    expect(diskIndexPath.startsWith('/.')).toBe(false)
+  })
+
+  it('asks for it at a path the disk does not already carry, so neither can hide the other', () => {
+    expect(diskPaths).not.toContain(diskIndexPath)
   })
 })
 
