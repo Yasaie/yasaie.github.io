@@ -74,7 +74,6 @@ describe('readDiskIndex', () => {
 
   it('excludes no dotfile, because a machine lists its whole disk', async () => {
     const paths = (await readDiskIndex(diskRoot)).map((record) => record.path)
-    expect(paths).toContain('/.nojekyll')
     expect(paths).toContain('/home/payam/eindhoven/.secrets')
   })
 

@@ -36,7 +36,9 @@ describe('nodeSource', () => {
     )
   })
 
-  it('reads a dotfile as readily as any other file', async () => {
-    expect(await source.read('/.nojekyll')).toBe('')
+  it('reads a dotfile as readily as any other file, whatever a host would serve', async () => {
+    expect(await source.read('/home/payam/eindhoven/.secrets')).toHaveLength(
+      realBytes('/home/payam/eindhoven/.secrets'),
+    )
   })
 })

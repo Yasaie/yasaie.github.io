@@ -16,7 +16,6 @@ export const diskDirectories: readonly string[] = [
 ]
 
 export const diskFiles: readonly string[] = [
-  '/.nojekyll',
   '/CNAME',
   '/boot/favicon.svg',
   '/boot/preview.png',

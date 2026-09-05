@@ -9,7 +9,7 @@ describe('formatSize, human', () => {
   })
 
   it('prints nothing at all as zero', () => {
-    expect(formatSize(realBytes('/.nojekyll'), 'human')).toBe('0')
+    expect(formatSize(0, 'human')).toBe('0')
   })
 
   it('stays in bare bytes right up to the last byte below a kibibyte', () => {
