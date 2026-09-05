@@ -24,7 +24,7 @@ const chaptersOf = (volume: Volume): readonly Chapter[] =>
   volume
     .list(workPath)
     .filter((entry) => !entry.directory)
-    .map((entry, position) => parseChapter(position + 1, entry.path, volume.read(entry.path) ?? ''))
+    .map((entry, position) => parseChapter(position + 1, entry.path, volume.require(entry.path)))
 
 const listing = (chapters: readonly Chapter[]): readonly Line[] => {
   const yearsWidth = widestLength(chapters.map((chapter) => chapter.years))

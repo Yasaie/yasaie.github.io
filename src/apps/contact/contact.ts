@@ -17,16 +17,13 @@ const emphasised = (pair: ColumnPair): KeyValuePair => {
   return valueColour === undefined ? pair : { ...pair, valueColour }
 }
 
-const render = (volume: Volume): Output => {
-  const document = volume.read(contactPath)
-  return {
-    lines:
-      document === undefined
-        ? []
-        : keyValueBlock(columnPairs(document).map(emphasised), { key: 'muted', value: 'body' }),
-    effects: [],
-  }
-}
+const render = (volume: Volume): Output => ({
+  lines: keyValueBlock(columnPairs(volume.require(contactPath)).map(emphasised), {
+    key: 'muted',
+    value: 'body',
+  }),
+  effects: [],
+})
 
 export const contact: App = {
   name: 'contact',

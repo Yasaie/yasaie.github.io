@@ -36,10 +36,10 @@ const linesOf = (document: string): readonly Line[] => {
   ]
 }
 
-const render = (volume: Volume): Output => {
-  const document = volume.read(whoamiPath)
-  return { lines: document === undefined ? [] : linesOf(document), effects: [] }
-}
+const render = (volume: Volume): Output => ({
+  lines: linesOf(volume.require(whoamiPath)),
+  effects: [],
+})
 
 export const whoami: App = {
   name: 'whoami',

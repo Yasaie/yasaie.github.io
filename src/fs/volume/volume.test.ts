@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import type { DiskSource } from '@/fs/source/source'
 import type { Volume } from '@/fs/volume/volume'
 import { mount } from '@/fs/volume/volume'
-import { diskFiles, realBytes, realDiskSource, realText } from '@/test/disk/disk'
+import { diskFiles, realBytes, realDiskSource, realText } from '@/testing/disk/disk'
 
 const home = '/home/payam/eindhoven'
 const work = `${home}/work`
@@ -139,5 +139,15 @@ describe('a mounted volume, and the file it refuses to open', () => {
     const watched = watching(realDiskSource())
     await mount(watched.source)
     expect(watched.opened.toSorted()).toEqual(diskFiles.filter((path) => path !== secrets))
+  })
+})
+
+describe('a mounted volume, asked for a file a program promised was there', () => {
+  it('names the missing path rather than handing back nothing to render', () => {
+    expect(() => volume.require(`${home}/nowhere.txt`)).toThrow(`${home}/nowhere.txt`)
+  })
+
+  it('hands back the same content a plain read would, when the file is there', () => {
+    expect(volume.require('/etc/issue')).toBe(volume.read('/etc/issue'))
   })
 })

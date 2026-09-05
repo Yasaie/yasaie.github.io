@@ -6,16 +6,10 @@ import { keyValueBlock } from '@/tty/align/align'
 
 const stackPath = `${homePath}/stack.txt`
 
-const render = (volume: Volume): Output => {
-  const document = volume.read(stackPath)
-  return {
-    lines:
-      document === undefined
-        ? []
-        : keyValueBlock(columnPairs(document), { key: 'muted', value: 'body' }),
-    effects: [],
-  }
-}
+const render = (volume: Volume): Output => ({
+  lines: keyValueBlock(columnPairs(volume.require(stackPath)), { key: 'muted', value: 'body' }),
+  effects: [],
+})
 
 export const stack: App = {
   name: 'stack',

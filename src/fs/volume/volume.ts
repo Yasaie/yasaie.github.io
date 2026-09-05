@@ -19,6 +19,7 @@ export type Volume = {
   readonly stat: (path: string) => VolumeEntry | undefined
   readonly exists: (path: string) => boolean
   readonly read: (path: string) => string | undefined
+  readonly require: (path: string) => string
   readonly list: (path: string) => readonly VolumeEntry[]
 }
 
@@ -66,6 +67,11 @@ export const mount = async (source: DiskSource): Promise<Volume> => {
     stat: (path: string) => index.get(path),
     exists: (path: string) => index.has(path),
     read: (path: string) => contents.get(path),
+    require: (path: string) => {
+      const content = contents.get(path)
+      if (content === undefined) throw new Error(`read: ${path}: no such file or directory`)
+      return content
+    },
     list: (path: string) => children.get(path) ?? noEntries,
   })
 }
