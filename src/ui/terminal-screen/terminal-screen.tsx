@@ -1,0 +1,31 @@
+import type { ReactElement } from 'react'
+import type { Volume } from '@/fs/volume/volume'
+import { useClickToFocus } from '@/hooks/use-click-to-focus/use-click-to-focus'
+import { useTerminal } from '@/hooks/use-terminal/use-terminal'
+import { useTypeToFocus } from '@/hooks/use-type-to-focus/use-type-to-focus'
+import { TerminalBackdrop } from '@/ui/terminal-backdrop/terminal-backdrop'
+import { TerminalPrompt } from '@/ui/terminal-prompt/terminal-prompt'
+import { TerminalScrollback } from '@/ui/terminal-scrollback/terminal-scrollback'
+import { TerminalTitleBar } from '@/ui/terminal-title-bar/terminal-title-bar'
+
+const screenSurface =
+  'fixed inset-0 flex flex-col overflow-hidden bg-terminal-bg font-mono text-[length:clamp(13px,0.55vw_+_10px,17px)] leading-[1.6] text-terminal-text'
+
+export type TerminalScreenProps = {
+  readonly volume: Volume
+}
+
+export const TerminalScreen = ({ volume }: TerminalScreenProps): ReactElement => {
+  const terminal = useTerminal(volume)
+  const input = useTypeToFocus<HTMLInputElement>()
+  useClickToFocus(input)
+
+  return (
+    <div className={screenSurface}>
+      <TerminalBackdrop />
+      <TerminalTitleBar />
+      <TerminalScrollback lines={terminal.state.lines} />
+      <TerminalPrompt terminal={terminal} inputRef={input} />
+    </div>
+  )
+}
