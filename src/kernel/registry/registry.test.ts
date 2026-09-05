@@ -287,7 +287,7 @@ describe('the handled-path index', () => {
   })
 
   it('finds no app for a document nothing claims to render', () => {
-    expect(appHandling('/etc/os-release')).toBeUndefined()
+    expect(appHandling('/etc/yasaie-release')).toBeUndefined()
   })
 
   it('refuses two apps that claim to render the same document', () => {

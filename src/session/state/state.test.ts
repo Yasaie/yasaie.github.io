@@ -2,8 +2,8 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { nodeSource } from '@/fs/node-source/node-source'
 import { mount } from '@/fs/volume/volume'
-import { diskRoot, mountRealDisk, realText } from '@/test/disk/disk'
-import { screenColours, screenText } from '@/test/screen/screen'
+import { diskRoot, mountRealDisk, realText } from '@/testing/disk/disk'
+import { screenColours, screenText } from '@/testing/screen/screen'
 import { createSession, rewardSequence } from './state'
 
 const volume = await mountRealDisk()
@@ -39,7 +39,7 @@ describe('the boot splash', () => {
     )
   })
 
-  it('introduces the machine from /etc/os-release, in the order the file declares', () => {
+  it('introduces the machine from /etc/yasaie-release, in the order the file declares', () => {
     expect(screenText(splashLines).slice(7, 14)).toEqual([
       'name    Payam Yasaie',
       'role    senior software engineer',

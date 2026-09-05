@@ -34,7 +34,7 @@ export const outputSpeedMs = 28
 export const rewardDelayMs = 600
 
 const issuePath = '/etc/issue'
-const releasePath = '/etc/os-release'
+const releasePath = '/etc/yasaie-release'
 
 export const homeDirectory: Cwd = '~'
 
@@ -55,9 +55,14 @@ export const queuedLines = (lines: readonly Line[], speedMs: number): readonly Q
 const documentRows = (document: string | undefined): readonly string[] =>
   document === undefined ? [] : documentLines(document)
 
+const unquoted = (value: string): string => value.replace(/^"(.*)"$/, '$1')
+
 const pairOf = (declaration: string): KeyValuePair => {
   const separator = declaration.indexOf('=')
-  return { key: declaration.slice(0, separator), value: declaration.slice(separator + 1) }
+  return {
+    key: declaration.slice(0, separator).toLowerCase(),
+    value: unquoted(declaration.slice(separator + 1)),
+  }
 }
 
 const brightenFirst = (pairs: readonly KeyValuePair[]): readonly KeyValuePair[] =>

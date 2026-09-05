@@ -61,7 +61,7 @@ describe('inodeOf, the entries the specification assigns facts to', () => {
 
 describe('inodeOf, the entries the specification says nothing about', () => {
   it('leaves an undeclared file readable, unlocked and undated', () => {
-    expect(inodeOf('/etc/os-release', false)).toEqual({
+    expect(inodeOf('/etc/yasaie-release', false)).toEqual({
       permissions: '-rw-r--r--',
       owner: payam,
       year: null,

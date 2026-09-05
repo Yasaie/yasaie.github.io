@@ -1,11 +1,15 @@
+import { statSync } from 'node:fs'
+import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { ls } from '@/apps/ls/ls'
 import { execute } from '@/kernel/execute/execute'
-import { mountRealDisk } from '@/test/disk/disk'
-import { invocation } from '@/test/invocation/invocation'
-import { coloursOf, textOf } from '@/test/rows/rows'
+import { mountRealDisk } from '@/testing/disk/disk'
+import { invocation } from '@/testing/invocation/invocation'
+import { coloursOf, textOf } from '@/testing/rows/rows'
 
 const volume = await mountRealDisk()
+
+const bytesOf = (path: string): number => statSync(join('disk', path)).size
 
 describe('ls', () => {
   it('names what is in the home directory in the order it was written, not alphabetically', () => {
@@ -134,8 +138,8 @@ describe('ls', () => {
     expect(textOf(ls.run(invocation('ls -la /etc'), volume))).toEqual([
       'total 3',
       'drwxr-xr-x  1 payam yasaie 4096   ./',
-      '-rw-r--r--  1 payam yasaie  752   issue',
-      '-rw-r--r--  1 payam yasaie  138   os-release',
+      `-rw-r--r--  1 payam yasaie  ${bytesOf('/etc/issue')}   issue`,
+      `-rw-r--r--  1 payam yasaie  ${bytesOf('/etc/yasaie-release')}   yasaie-release`,
     ])
   })
 

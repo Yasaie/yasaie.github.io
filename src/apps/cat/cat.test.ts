@@ -1,8 +1,10 @@
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { execute } from '@/kernel/execute/execute'
-import { mountRealDisk } from '@/test/disk/disk'
-import { invocation } from '@/test/invocation/invocation'
-import { coloursOf, textOf } from '@/test/rows/rows'
+import { mountRealDisk } from '@/testing/disk/disk'
+import { invocation } from '@/testing/invocation/invocation'
+import { coloursOf, textOf } from '@/testing/rows/rows'
 
 const volume = await mountRealDisk()
 
@@ -59,16 +61,10 @@ describe('cat', () => {
   })
 
   it('dumps a file no program renders, line for line as the disk holds it', () => {
-    const dumped = execute(invocation('cat /etc/os-release'), volume)
-    expect(textOf(dumped)).toEqual([
-      'name=Payam Yasaie',
-      'role=senior software engineer',
-      'at=GoodHabitz',
-      'where=Eindhoven, NL',
-      'uptime=16 years',
-      'shell=zsh',
-      'langs=ts · php · py · java',
-    ])
+    const dumped = execute(invocation('cat /etc/yasaie-release'), volume)
+    expect(textOf(dumped)).toEqual(
+      readFileSync(join('disk', '/etc/yasaie-release'), 'utf8').trimEnd().split('\n'),
+    )
     expect(coloursOf(dumped)).toEqual([
       ['body'],
       ['body'],
