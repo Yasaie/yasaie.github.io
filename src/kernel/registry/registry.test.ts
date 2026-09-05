@@ -260,11 +260,12 @@ describe('the listing', () => {
 })
 
 describe('the counted set', () => {
-  it('counts exactly the nine apps the game asks a visitor to find', () => {
+  it('counts exactly the ten apps the game asks a visitor to find', () => {
     expect(countedApps.map((app) => app.name).toSorted()).toEqual([
       'coffee',
       'contact',
       'hire',
+      'ps',
       'stack',
       'sudo',
       'tabriz',
@@ -274,8 +275,8 @@ describe('the counted set', () => {
     ])
   })
 
-  it('counts nine apps, not nine words a visitor could type', () => {
-    expect(countedApps).toHaveLength(9)
+  it('counts ten apps, not the many words a visitor could type to reach them', () => {
+    expect(countedApps).toHaveLength(10)
   })
 })
 

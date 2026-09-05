@@ -96,14 +96,26 @@ describe('the boot splash', () => {
 describe('the reward for finding everything', () => {
   it('thanks the visitor in accent and leaves an address to reply to', () => {
     expect(textOf(rewardSequence.map((queued) => queued.line))).toEqual([
-      'all nine. anything the machine left out, ask me: payam@yasaie.com',
+      'all ten. anything the machine left out, ask me: payam@yasaie.com',
       '',
     ])
     expect(coloursOf(rewardSequence.map((queued) => queued.line)).at(0)).toEqual(['accent'])
   })
 
   it('congratulates the visitor on as many commands as the game actually counts', () => {
-    const spelled = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+    const spelled = [
+      'zero',
+      'one',
+      'two',
+      'three',
+      'four',
+      'five',
+      'six',
+      'seven',
+      'eight',
+      'nine',
+      'ten',
+    ]
 
     expect(textOf(rewardSequence.map((queued) => queued.line)).at(0)).toContain(
       `all ${spelled.at(totalCounted)}.`,

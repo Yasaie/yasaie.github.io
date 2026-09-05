@@ -54,16 +54,16 @@ describe('the running terminal', () => {
   it('counts the commands found, mentioning tab only where the hint fits', async () => {
     const machine = terminal()
     await settle()
-    expect(machine.current.statusLine).toBe('tab ↹ · 0/9')
+    expect(machine.current.statusLine).toBe('tab ↹ · 0/10')
 
     act(() => machine.current.dispatch(typed('whoami', 6)))
     act(() => machine.current.dispatch(submitted()))
     await settle()
-    expect(machine.current.statusLine).toBe('tab ↹ · 1/9')
+    expect(machine.current.statusLine).toBe('tab ↹ · 1/10')
 
     act(() => setViewportWidth(400))
     expect(machine.current.isNarrow).toBe(true)
-    expect(machine.current.statusLine).toBe('1/9')
+    expect(machine.current.statusLine).toBe('1/10')
   })
 
   it('brings the machine back up by itself a moment after a reboot', async () => {

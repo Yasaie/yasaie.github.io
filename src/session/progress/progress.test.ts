@@ -2,11 +2,12 @@ import { describe, expect, it } from 'vitest'
 import { countedNames, foundCount, isComplete, recordDiscovery, totalCounted } from './progress'
 
 describe('the set of commands the game counts', () => {
-  it('is the five worth naming plus the four hidden ones', () => {
+  it('is the four worth naming plus the six a visitor has to find', () => {
     expect([...countedNames].toSorted()).toEqual([
       'coffee',
       'contact',
       'hire',
+      'ps',
       'stack',
       'sudo',
       'tabriz',
@@ -16,8 +17,8 @@ describe('the set of commands the game counts', () => {
     ])
   })
 
-  it('is nine, which is the number the status line promises', () => {
-    expect(totalCounted).toBe(9)
+  it('is ten, which is the number the status line promises', () => {
+    expect(totalCounted).toBe(10)
   })
 })
 

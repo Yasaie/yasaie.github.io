@@ -88,9 +88,7 @@ describe('a visitor arriving at the terminal', () => {
     )
 
     await visitor.runs('work 2')
-    await settleUntil(
-      hasPrinted('- a housing platform MVP that sold 45 homes in ten weeks.'),
-    )
+    await settleUntil(hasPrinted('- a housing platform MVP that sold 45 homes in ten weeks.'))
 
     expect(printed()).toContain('2021 – 2025  OWOW Agency')
     expect(printed()).toContain('senior frontend developer · Eindhoven')
@@ -113,7 +111,7 @@ describe('a visitor arriving at the terminal', () => {
     expect(printed()).toContain('2021 – 2025  OWOW Agency')
   })
 
-  it('is thanked with an address to reply to once all nine commands are found', async () => {
+  it('is thanked with an address to reply to once every counted command is found', async () => {
     const visitor = arrives()
     await settle(20)
 
@@ -126,13 +124,14 @@ describe('a visitor arriving at the terminal', () => {
     await visitor.runs('coffee')
     await visitor.runs('hire')
     await visitor.runs('vim')
+    await visitor.runs('ps')
 
     await settleUntil(
-      hasPrinted('all nine. anything the machine left out, ask me: payam@yasaie.com'),
+      hasPrinted('all ten. anything the machine left out, ask me: payam@yasaie.com'),
       400,
     )
 
-    expect(screen.getByText('9/9')).toBeInTheDocument()
+    expect(screen.getByText('10/10')).toBeInTheDocument()
   })
 })
 

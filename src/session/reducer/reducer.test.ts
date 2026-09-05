@@ -232,10 +232,20 @@ describe('the game', () => {
     expect(run(booted, 'cat whoami.txt').discovered).toEqual(['whoami'])
   })
 
-  it('asks for the reward only once every one of the nine has been found', () => {
-    const eight = ['whoami', 'work', 'stack', 'contact', 'sudo', 'tabriz', 'coffee', 'hire']
-    const nearly = eight.reduce(run, booted)
-    expect(nearly.discovered).toHaveLength(8)
+  it('asks for the reward only once every one of the counted commands has been found', () => {
+    const allButOne = [
+      'whoami',
+      'work',
+      'stack',
+      'contact',
+      'sudo',
+      'tabriz',
+      'coffee',
+      'hire',
+      'ps',
+    ]
+    const nearly = allButOne.reduce(run, booted)
+    expect(nearly.discovered).toHaveLength(9)
     expect(nearly.scheduled).toEqual([])
 
     const complete = run(nearly, 'vim')
@@ -258,7 +268,7 @@ describe('the game', () => {
       dispatched(complete, scheduleConsumed({ kind: 'reward', delayMs: 600 })),
     )
     expect(printedBy(complete, rewarded)).toEqual([
-      'all nine. anything the machine left out, ask me: payam@yasaie.com',
+      'all ten. anything the machine left out, ask me: payam@yasaie.com',
       '',
     ])
     expect(rewarded.scheduled).toEqual([])

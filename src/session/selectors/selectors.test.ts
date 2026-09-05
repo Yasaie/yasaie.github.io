@@ -22,20 +22,20 @@ describe('the prompt a visitor types at', () => {
 
 describe('the status beside the prompt', () => {
   it('counts the commands found out of the nine there are', () => {
-    expect(progressLabel(session())).toBe('0/9')
-    expect(progressLabel(session({ discovered: ['whoami', 'work', 'stack'] }))).toBe('3/9')
+    expect(progressLabel(session())).toBe('0/10')
+    expect(progressLabel(session({ discovered: ['whoami', 'work', 'stack'] }))).toBe('3/10')
   })
 
   it('mentions the tab key on a wide screen while there is something to accept', () => {
-    expect(statusLine(session({ typed: 'sta' }), true)).toBe('tab ↹ · 0/9')
+    expect(statusLine(session({ typed: 'sta' }), true)).toBe('tab ↹ · 0/10')
   })
 
   it('drops the tab hint when there is nothing left to suggest', () => {
-    expect(statusLine(session({ typed: 'zzz' }), true)).toBe('0/9')
+    expect(statusLine(session({ typed: 'zzz' }), true)).toBe('0/10')
   })
 
   it('shows the count alone on a narrow screen, where the hint would not fit', () => {
-    expect(statusLine(session({ typed: 'sta' }), false)).toBe('0/9')
+    expect(statusLine(session({ typed: 'sta' }), false)).toBe('0/10')
   })
 })
 
