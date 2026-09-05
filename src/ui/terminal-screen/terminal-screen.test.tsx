@@ -99,6 +99,6 @@ describe('a visitor arriving at the terminal', () => {
       400,
     )
 
-    expect(screen.getByText('tab ↹ · 9/9')).toBeInTheDocument()
+    expect(screen.getByText('9/9')).toBeInTheDocument()
   })
 })

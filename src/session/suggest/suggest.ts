@@ -1,3 +1,5 @@
+import { listedApps } from '@/kernel/registry/registry'
+
 export type Suggestable = {
   readonly typed: string
   readonly history: readonly string[]
@@ -6,23 +8,14 @@ export type Suggestable = {
 
 export type Ghostable = Suggestable & { readonly caret: number }
 
-export const suggestionOrder: readonly string[] = Object.freeze([
-  'whoami',
-  'work',
-  'stack',
-  'contact',
-  'help',
-  'clear',
-])
-
-const fallback = 'help'
+export const suggestionOrder: readonly string[] = Object.freeze(listedApps.map((app) => app.name))
 
 const chapterlessWork = /^work\s+$/
 
 const firstChapter = '1'
 
 const firstUndiscovered = (discovered: readonly string[]): string =>
-  suggestionOrder.find((command) => !discovered.includes(command)) ?? fallback
+  suggestionOrder.find((command) => !discovered.includes(command)) ?? ''
 
 const extending = (candidates: readonly string[], prefix: string): string | undefined =>
   candidates.find((candidate) => candidate.startsWith(prefix) && candidate !== prefix)

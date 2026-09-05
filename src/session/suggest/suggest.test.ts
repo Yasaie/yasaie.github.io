@@ -9,8 +9,13 @@ describe('suggesting a command for an empty prompt', () => {
     expect(suggest({ ...nothingTyped, discovered: ['whoami', 'work'] })).toBe('stack')
   })
 
-  it('falls back to help once every command it knows of has been run', () => {
-    expect(suggest({ ...nothingTyped, discovered: suggestionOrder })).toBe('help')
+  it('offers nothing once every command it points at has been run', () => {
+    expect(suggest({ ...nothingTyped, discovered: suggestionOrder })).toBe('')
+  })
+
+  it('points only at the commands that lead somewhere, never at the housekeeping ones', () => {
+    expect(suggestionOrder).not.toContain('help')
+    expect(suggestionOrder).not.toContain('clear')
   })
 })
 
