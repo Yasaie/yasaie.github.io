@@ -5,11 +5,16 @@ import { ScrollbackLine } from '@/ui/scrollback-line/scrollback-line'
 
 export type TerminalScrollbackProps = {
   readonly lines: readonly Line[]
+  readonly asked: number
   readonly onRun: (command: string) => void
 }
 
-export const TerminalScrollback = ({ lines, onRun }: TerminalScrollbackProps): ReactElement => {
-  const scroller = useAutoScroll<HTMLDivElement>(lines)
+export const TerminalScrollback = ({
+  lines,
+  asked,
+  onRun,
+}: TerminalScrollbackProps): ReactElement => {
+  const scroller = useAutoScroll<HTMLDivElement>(lines, asked)
 
   return (
     <div

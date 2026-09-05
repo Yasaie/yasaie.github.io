@@ -33,7 +33,11 @@ export const TerminalScreen = ({ volume }: TerminalScreenProps): ReactElement =>
       <TerminalBackdrop />
       <div className={shell}>
         <TerminalTitleBar />
-        <TerminalScrollback lines={terminal.state.lines} onRun={run} />
+        <TerminalScrollback
+          lines={terminal.state.lines}
+          asked={terminal.state.history.length}
+          onRun={run}
+        />
         <TerminalPrompt terminal={terminal} inputRef={input} />
       </div>
     </div>

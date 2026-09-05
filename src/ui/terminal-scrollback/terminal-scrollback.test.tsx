@@ -8,6 +8,7 @@ describe('the printed history of the session', () => {
     const { container } = render(
       <TerminalScrollback
         lines={[text('payam@yasaie ~ $ whoami', 'faint'), text('Payam Yasaie', 'text'), blank]}
+        asked={0}
         onRun={() => undefined}
       />,
     )
@@ -18,7 +19,13 @@ describe('the printed history of the session', () => {
   })
 
   it('announces new output politely, without interrupting what is being read', () => {
-    render(<TerminalScrollback lines={[text('Payam Yasaie', 'text')]} onRun={() => undefined} />)
+    render(
+      <TerminalScrollback
+        lines={[text('Payam Yasaie', 'text')]}
+        asked={0}
+        onRun={() => undefined}
+      />,
+    )
     expect(screen.getByText('Payam Yasaie').closest('[aria-live]')).toHaveAttribute(
       'aria-live',
       'polite',

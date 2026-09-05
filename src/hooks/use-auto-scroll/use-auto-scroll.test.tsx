@@ -10,8 +10,14 @@ const measured = (element: HTMLElement): void => {
   Object.defineProperty(element, 'clientHeight', { configurable: true, value: 0 })
 }
 
-const Scrollback = ({ lines }: { readonly lines: readonly string[] }): ReactElement => {
-  const scroller = useAutoScroll<HTMLDivElement>(lines)
+const Scrollback = ({
+  lines,
+  asked = 0,
+}: {
+  readonly lines: readonly string[]
+  readonly asked?: number
+}): ReactElement => {
+  const scroller = useAutoScroll<HTMLDivElement>(lines, asked)
   return (
     <div data-testid="scrollback" ref={scroller}>
       {lines.join('\n')}
@@ -38,10 +44,23 @@ describe('a region that prints line after line', () => {
     const scrollback = screen.getByTestId('scrollback')
     measured(scrollback)
 
-    fireEvent.scroll(scrollback, { target: { scrollTop: 0 } })
+    fireEvent.wheel(scrollback)
+    scrollback.scrollTop = 0
     rerender(<Scrollback lines={['first', 'second']} />)
 
     expect(scrollback.scrollTop).toBe(0)
+  })
+
+  it('jumps to the answer when a command is run, wherever the visitor had scrolled to', () => {
+    const { rerender } = render(<Scrollback lines={['first']} asked={0} />)
+    const scrollback = screen.getByTestId('scrollback')
+    measured(scrollback)
+
+    fireEvent.wheel(scrollback)
+    scrollback.scrollTop = 0
+    rerender(<Scrollback lines={['first', 'second']} asked={1} />)
+
+    expect(scrollback.scrollTop).toBe(scrollbackHeight)
   })
 
   it('follows again once the visitor scrolls back to the newest line', () => {
@@ -49,15 +68,30 @@ describe('a region that prints line after line', () => {
     const scrollback = screen.getByTestId('scrollback')
     measured(scrollback)
 
-    fireEvent.scroll(scrollback, { target: { scrollTop: 0 } })
-    fireEvent.scroll(scrollback, { target: { scrollTop: scrollbackHeight } })
+    fireEvent.wheel(scrollback)
+    scrollback.scrollTop = 0
+    scrollback.scrollTop = scrollbackHeight
+    fireEvent.scroll(scrollback)
     rerender(<Scrollback lines={['first', 'second']} />)
 
     expect(scrollback.scrollTop).toBe(scrollbackHeight)
   })
 
+  it('stays put while the visitor is reading part way up, not only at the very top', () => {
+    const { rerender } = render(<Scrollback lines={['first']} />)
+    const scrollback = screen.getByTestId('scrollback')
+    measured(scrollback)
+
+    fireEvent.wheel(scrollback)
+    scrollback.scrollTop = 120
+    fireEvent.scroll(scrollback)
+    rerender(<Scrollback lines={['first', 'second']} />)
+
+    expect(scrollback.scrollTop).toBe(120)
+  })
+
   it('hands back an empty ref, so a terminal that is not on the page yet scrolls nothing', () => {
-    const { result } = renderHook(() => useAutoScroll<HTMLDivElement>([]))
+    const { result } = renderHook(() => useAutoScroll<HTMLDivElement>([], 0))
     expect(result.current.current).toBeNull()
   })
 })

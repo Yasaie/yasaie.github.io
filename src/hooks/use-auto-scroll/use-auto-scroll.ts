@@ -7,25 +7,39 @@ const atBottom = (element: HTMLElement): boolean =>
   element.scrollHeight - element.scrollTop - element.clientHeight <= withinReach
 
 export const useAutoScroll = <T extends HTMLElement>(
-  dependency: readonly unknown[],
+  printed: readonly unknown[],
+  asked: number,
 ): RefObject<T | null> => {
   const scroller = useRef<T | null>(null)
   const following = useRef(true)
 
   useIsomorphicLayoutEffect(() => {
+    following.current = true
+  }, [asked])
+
+  useIsomorphicLayoutEffect(() => {
     const element = scroller.current
     if (element === null || !following.current) return
     element.scrollTop = element.scrollHeight
-  }, [dependency])
+  }, [printed, asked])
 
   useIsomorphicLayoutEffect(() => {
     const element = scroller.current
     if (element === null) return
-    const watch = () => {
-      following.current = atBottom(element)
+    const taken = () => {
+      following.current = false
     }
-    element.addEventListener('scroll', watch, { passive: true })
-    return () => element.removeEventListener('scroll', watch)
+    const landed = () => {
+      if (atBottom(element)) following.current = true
+    }
+    element.addEventListener('wheel', taken, { passive: true })
+    element.addEventListener('touchmove', taken, { passive: true })
+    element.addEventListener('scroll', landed, { passive: true })
+    return () => {
+      element.removeEventListener('wheel', taken)
+      element.removeEventListener('touchmove', taken)
+      element.removeEventListener('scroll', landed)
+    }
   }, [])
 
   return scroller
