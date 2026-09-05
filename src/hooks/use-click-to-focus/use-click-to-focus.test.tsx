@@ -8,7 +8,7 @@ const Screen = (): ReactElement => {
   return (
     <div>
       <input aria-label="command" ref={field} />
-      <a href="https://example.test">linkedin.com/in/yasaie</a>
+      <a href="#contact">linkedin.com/in/yasaie</a>
       <p>some output</p>
     </div>
   )

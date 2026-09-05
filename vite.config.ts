@@ -1,24 +1,44 @@
 import { fileURLToPath } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react-swc'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitest/config'
 import { diskIndex } from './build/disk-index/disk-index.ts'
 
 const disk = fileURLToPath(new URL('./disk', import.meta.url))
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), tsconfigPaths(), diskIndex({ root: disk })],
+  plugins: [react(), tailwindcss(), diskIndex({ root: disk })],
+  resolve: { tsconfigPaths: true },
   publicDir: disk,
   build: {
     target: 'esnext',
   },
   test: {
-    environment: 'jsdom',
     globals: false,
-    css: true,
-    setupFiles: ['./src/testing/setup/setup.ts'],
-    include: ['src/**/*.test.{ts,tsx}', 'build/**/*.test.ts'],
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'machine',
+          environment: 'node',
+          include: [
+            'build/**/*.test.ts',
+            'src/{apps,conventions,fs,kernel,lib,session,tty}/**/*.test.ts',
+          ],
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'screen',
+          environment: 'jsdom',
+          pool: 'vmThreads',
+          css: true,
+          setupFiles: ['./src/testing/setup/setup.ts'],
+          include: ['src/{hooks,ui}/**/*.test.{ts,tsx}'],
+        },
+      },
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
