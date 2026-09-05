@@ -14,7 +14,7 @@ describe('work', () => {
   it('lists all six chapters newest first, in aligned year and company columns', () => {
     expect(textOf(listing)).toEqual([
       '[1]  2025 – now   GoodHabitz           senior software engineer',
-      '[2]  2021 – 2025  OWOW Agency          software developer, then senior',
+      '[2]  2021 – 2025  OWOW Agency          senior frontend developer',
       "[3]  2019 – 2021  Tas'hil Gostar       team lead, senior Python developer",
       '[4]  2018 – 2019  Tahlilgaran          senior full stack developer',
       '[5]  2017         Tabesh Rayan Energy  full stack developer',
@@ -42,7 +42,7 @@ describe('work', () => {
       '[1]  GoodHabitz',
       '2025 – now · senior software engineer',
       '[2]  OWOW Agency',
-      '2021 – 2025 · software developer, then senior',
+      '2021 – 2025 · senior frontend developer',
       "[3]  Tas'hil Gostar",
       '2019 – 2021 · team lead, senior Python developer',
       '[4]  Tahlilgaran',
@@ -78,12 +78,23 @@ describe('work', () => {
       '2025 – now  GoodHabitz',
       'senior software engineer · Eindhoven',
       '',
-      '- workplace learning platform, millions of users across Europe.',
-      '- learner-facing product work in Vue, React and Nuxt.',
-      '- led the front-end refactor. test coverage went up with it.',
+      '- workplace learning platform, millions of users across Europe. Vue, React, Nuxt.',
+      '- built the next-generation activity player from scratch.',
+      '- owned the auth overhaul: SSO, LMS integration, OTP and magic links.',
+      '- led an accessibility overhaul across the product; migrated analytics platform-wide.',
+      '- introduced agentic coding workflows with MCP.',
     ])
-    expect(coloursOf(chapter)).toEqual([['text'], ['muted'], [], ['body'], ['body'], ['body']])
-    expect(indentsOf(chapter)).toEqual(['0', '0', '0', '0', '0', '0'])
+    expect(coloursOf(chapter)).toEqual([
+      ['text'],
+      ['muted'],
+      [],
+      ['body'],
+      ['body'],
+      ['body'],
+      ['body'],
+      ['body'],
+    ])
+    expect(indentsOf(chapter)).toEqual(['0', '0', '0', '0', '0', '0', '0', '0'])
   })
 
   it('keeps a role that carries its own comma out of the place it was held in', () => {
@@ -92,8 +103,8 @@ describe('work', () => {
       'team lead, senior Python developer · Tabriz',
       '',
       '- led ten developers customising and rolling out Odoo ERP.',
-      '- 20+ custom modules: accounting, payroll, inventory.',
-      '- query optimisation: 10× faster. Git + CI/CD: deploys 70% quicker.',
+      '- 20+ custom modules: payroll, fleet, transport, finance.',
+      '- query optimisation: 10× faster. GitLab CI/CD: deploys 70% quicker.',
       '- migrated twenty clients across Odoo versions.',
     ])
   })

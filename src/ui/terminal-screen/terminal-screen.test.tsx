@@ -84,16 +84,16 @@ describe('a visitor arriving at the terminal', () => {
 
     await visitor.runs('work')
     await settleUntil(
-      hasPrinted('[2]  2021 – 2025  OWOW Agency          software developer, then senior'),
+      hasPrinted('[2]  2021 – 2025  OWOW Agency          senior frontend developer'),
     )
 
     await visitor.runs('work 2')
     await settleUntil(
-      hasPrinted('- headless Shopify builds; custom Shopify apps that lifted sales by 30%.'),
+      hasPrinted('- a housing platform MVP that sold 45 homes in ten weeks.'),
     )
 
     expect(printed()).toContain('2021 – 2025  OWOW Agency')
-    expect(printed()).toContain('software developer, then senior · Eindhoven')
+    expect(printed()).toContain('senior frontend developer · Eindhoven')
   })
 
   it('opens a chapter when the visitor presses the line naming it, without typing', async () => {
@@ -107,7 +107,7 @@ describe('a visitor arriving at the terminal', () => {
       ),
     )
     await visitor.presses('[2]')
-    await settleUntil(hasPrinted('software developer, then senior · Eindhoven'))
+    await settleUntil(hasPrinted('senior frontend developer · Eindhoven'))
 
     expect(printed()).toContain('payam@yasaie ~ $ work 2')
     expect(printed()).toContain('2021 – 2025  OWOW Agency')

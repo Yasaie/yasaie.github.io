@@ -2,6 +2,8 @@
 
 2025 – now · senior software engineer · Eindhoven
 
-- workplace learning platform, millions of users across Europe.
-- learner-facing product work in Vue, React and Nuxt.
-- led the front-end refactor. test coverage went up with it.
+- workplace learning platform, millions of users across Europe. Vue, React, Nuxt.
+- built the next-generation activity player from scratch.
+- owned the auth overhaul: SSO, LMS integration, OTP and magic links.
+- led an accessibility overhaul across the product; migrated analytics platform-wide.
+- introduced agentic coding workflows with MCP.
