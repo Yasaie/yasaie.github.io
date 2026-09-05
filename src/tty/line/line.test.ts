@@ -1,9 +1,36 @@
 import { describe, expect, it } from 'vitest'
-import { blank, plain, responsive, row, segment, text, wordmark } from '@/tty/line/line'
+import {
+  blank,
+  link,
+  plain,
+  responsive,
+  row,
+  runnable,
+  segment,
+  text,
+  wordmark,
+} from '@/tty/line/line'
 
 describe('segment', () => {
   it('pairs a run of text with the colour it is painted in', () => {
     expect(segment('payam@yasaie', 'accent')).toEqual({ text: 'payam@yasaie', colour: 'accent' })
+  })
+})
+
+describe('link', () => {
+  it('is a segment that also knows where it points, so the screen can offer it', () => {
+    expect(link('github.com/yasaie', 'body', 'https://github.com/yasaie')).toEqual({
+      text: 'github.com/yasaie',
+      colour: 'body',
+      href: 'https://github.com/yasaie',
+    })
+  })
+})
+
+describe('runnable', () => {
+  it('names the command a line stands for without disturbing what it prints', () => {
+    const listed = text('[1] goodhabitz', 'body')
+    expect(runnable(listed, 'work 1')).toEqual({ ...listed, runs: 'work 1' })
   })
 })
 
@@ -94,6 +121,13 @@ describe('every builder', () => {
     expect(Object.isFrozen(responsive(row([segment('where  ', 'muted')]), narrow))).toBe(true)
     expect(Object.isFrozen(narrow)).toBe(true)
     expect(Object.isFrozen(stacked)).toBe(true)
+  })
+
+  it('hands back a runnable line nothing downstream can mutate', () => {
+    const line = runnable(text('[1] goodhabitz', 'body'), 'work 1')
+    expect(() => {
+      ;(line as { runs: string }).runs = 'rm -rf /'
+    }).toThrow()
   })
 
   it('hands back a wordmark line nothing downstream can mutate', () => {

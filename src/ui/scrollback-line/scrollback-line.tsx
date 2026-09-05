@@ -1,4 +1,4 @@
-import type { ReactElement, ReactNode } from 'react'
+import type { ReactElement } from 'react'
 import { cn } from '@/lib/cn/cn'
 import type { Line, Row } from '@/tty/line/line'
 import { LineSegment } from '@/ui/line-segment/line-segment'
@@ -74,11 +74,11 @@ export type ScrollbackLineProps = {
 }
 
 export const ScrollbackLine = ({ line, onRun }: ScrollbackLineProps): ReactElement => {
-  const drawn: ReactNode = render(line.kind, line)
+  const drawn = render(line.kind, line)
   const command = commandOf(line)
 
   return command === undefined ? (
-    <>{drawn}</>
+    drawn
   ) : (
     <button
       type="button"

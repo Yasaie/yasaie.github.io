@@ -20,7 +20,7 @@ describe('work', () => {
       '[5]  2017         Tabesh Rayan Energy  full stack developer',
       '[6]  2010 – 2016  freelance            full stack developer',
       '',
-      'work <n> for details. all of it shipped behind logins; nothing to click.',
+      'work <n> for details, or press a line. all of it shipped behind logins; nothing to visit.',
     ])
   })
 
@@ -52,7 +52,7 @@ describe('work', () => {
       '[6]  freelance',
       '2010 – 2016 · full stack developer',
       '',
-      'work <n> for details. all of it shipped behind logins; nothing to click.',
+      'work <n> for details, or press a line. all of it shipped behind logins; nothing to visit.',
     ])
     expect(indentsOf(listing, 'narrow')).toEqual([
       '0',

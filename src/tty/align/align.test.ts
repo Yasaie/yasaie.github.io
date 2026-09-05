@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { screenLinks, screenText } from '@/testing/screen/screen'
 import { keyValueBlock, padLeft, padRight, widestLength } from '@/tty/align/align'
 
 const bootPairs = [
@@ -92,6 +93,18 @@ describe('keyValueBlock', () => {
     expect(keyValueBlock([{ key: 'shell', value: 'zsh' }], bootColours)).toMatchObject([
       { wide: { segments: [{ text: 'shell  ' }, { text: 'zsh' }] } },
     ])
+  })
+
+  it('lets a value point somewhere, on either reading of the same row', () => {
+    const block = keyValueBlock(
+      [{ key: 'github', value: 'github.com/yasaie', href: 'https://github.com/yasaie' }],
+      bootColours,
+    )
+    expect(screenLinks(block)).toEqual([['github.com/yasaie', 'https://github.com/yasaie']])
+    expect(screenLinks(block, 'narrow')).toEqual([
+      ['github.com/yasaie', 'https://github.com/yasaie'],
+    ])
+    expect(screenText(block, 'narrow')).toEqual(['github', 'github.com/yasaie'])
   })
 
   it('produces no lines at all when there is nothing to lay out', () => {

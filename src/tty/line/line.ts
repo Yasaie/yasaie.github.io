@@ -3,6 +3,7 @@ import type { Colour } from '@/tty/palette/palette'
 export type Segment = {
   readonly text: string
   readonly colour: Colour
+  readonly href?: string
 }
 
 export type Row = {
@@ -29,6 +30,9 @@ export type Runnable = PlainLine | ResponsiveLine
 const noIndent = '0'
 
 export const segment = (text: string, colour: Colour): Segment => Object.freeze({ text, colour })
+
+export const link = (text: string, colour: Colour, href: string): Segment =>
+  Object.freeze({ text, colour, href })
 
 export const row = (segments: readonly Segment[], indent: string = noIndent): Row =>
   Object.freeze({ segments: Object.freeze(segments), indent })

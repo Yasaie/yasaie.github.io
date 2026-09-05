@@ -30,3 +30,13 @@ export const coloursOf = (
 
 export const indentsOf = (output: Output, layout: Layout = 'wide'): readonly string[] =>
   rowsOf(output, layout).map((each) => each.indent)
+
+export const linksOf = (
+  output: Output,
+  layout: Layout = 'wide',
+): readonly (readonly [string, string])[] =>
+  rowsOf(output, layout).flatMap((each) =>
+    each.segments.flatMap((part) =>
+      part.href === undefined ? [] : [[part.text, part.href] as const],
+    ),
+  )

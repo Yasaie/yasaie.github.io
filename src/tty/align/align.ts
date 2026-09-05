@@ -1,10 +1,11 @@
-import { type Line, responsive, row, segment } from '@/tty/line/line'
+import { type Line, link, responsive, row, segment } from '@/tty/line/line'
 import type { Colour } from '@/tty/palette/palette'
 
 export type KeyValuePair = {
   readonly key: string
   readonly value: string
   readonly valueColour?: Colour
+  readonly href?: string
 }
 
 export type KeyValueColours = {
@@ -28,12 +29,13 @@ export const keyValueBlock = (
 ): readonly Line[] => {
   const keyWidth = widestLength(pairs.map((pair) => pair.key)) + keyGutter
   return Object.freeze(
-    pairs.map(({ key, value, valueColour }) => {
+    pairs.map(({ key, value, valueColour, href }) => {
       const colour = valueColour ?? colours.value
-      return responsive(
-        row([segment(padRight(key, keyWidth), colours.key), segment(value, colour)]),
-        [row([segment(key, colours.key)]), row([segment(value, colour)], stackedValueIndent)],
-      )
+      const shown = href === undefined ? segment(value, colour) : link(value, colour, href)
+      return responsive(row([segment(padRight(key, keyWidth), colours.key), shown]), [
+        row([segment(key, colours.key)]),
+        row([shown], stackedValueIndent),
+      ])
     }),
   )
 }

@@ -12,13 +12,25 @@ const emphasis: ReadonlyMap<string, Colour> = new Map([
   ['where', 'muted'],
 ])
 
-const emphasised = (pair: ColumnPair): KeyValuePair => {
+const reachable: ReadonlySet<string> = new Set(['mail', 'linkedin', 'github'])
+
+const hrefFor = (pair: ColumnPair): string | undefined => {
+  if (!reachable.has(pair.key)) return undefined
+  return pair.value.includes('@') ? `mailto:${pair.value}` : `https://${pair.value}`
+}
+
+const addressed = (pair: ColumnPair): KeyValuePair => {
   const valueColour = emphasis.get(pair.key)
-  return valueColour === undefined ? pair : { ...pair, valueColour }
+  const href = hrefFor(pair)
+  return {
+    ...pair,
+    ...(valueColour === undefined ? {} : { valueColour }),
+    ...(href === undefined ? {} : { href }),
+  }
 }
 
 const render = (volume: Volume): Output => ({
-  lines: keyValueBlock(columnPairs(volume.require(contactPath)).map(emphasised), {
+  lines: keyValueBlock(columnPairs(volume.require(contactPath)).map(addressed), {
     key: 'muted',
     value: 'body',
   }),

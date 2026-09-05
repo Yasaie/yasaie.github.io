@@ -60,6 +60,10 @@
     {
       "includes": ["src/ui/terminal-scrollback/**", "src/ui/scrollback-line/**"],
       "linter": { "rules": { "suspicious": { "noArrayIndexKey": "off" } } }
+    },
+    {
+      "includes": ["src/ui/terminal-scrollback/**"],
+      "linter": { "rules": { "a11y": { "noNoninteractiveTabindex": "off" } } }
     }
   ],
   "css": {

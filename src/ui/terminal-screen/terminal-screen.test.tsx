@@ -92,7 +92,9 @@ describe('a visitor arriving at the terminal', () => {
 
     await visitor.runs('work')
     await settleUntil(
-      hasPrinted('work <n> for details. all of it shipped behind logins; nothing to click.'),
+      hasPrinted(
+        'work <n> for details, or press a line. all of it shipped behind logins; nothing to visit.',
+      ),
     )
     await visitor.presses('[2]')
     await settleUntil(hasPrinted('software developer, then senior · Eindhoven'))

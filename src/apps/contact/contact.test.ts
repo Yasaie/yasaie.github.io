@@ -3,7 +3,7 @@ import { contact } from '@/apps/contact/contact'
 import { execute } from '@/kernel/execute/execute'
 import { mountRealDisk } from '@/testing/disk/disk'
 import { invocation } from '@/testing/invocation/invocation'
-import { coloursOf, indentsOf, textOf } from '@/testing/rows/rows'
+import { coloursOf, indentsOf, linksOf, textOf } from '@/testing/rows/rows'
 
 const volume = await mountRealDisk()
 
@@ -51,6 +51,18 @@ describe('contact', () => {
     for (const asked of ['mail', 'email', 'linkedin', 'github']) {
       expect(textOf(execute(invocation(asked), volume))).toEqual(textOf(details))
     }
+  })
+
+  it('points every way of reaching him at somewhere a browser can open', () => {
+    expect(linksOf(details)).toEqual([
+      ['payam@yasaie.com', 'mailto:payam@yasaie.com'],
+      ['linkedin.com/in/yasaie', 'https://linkedin.com/in/yasaie'],
+      ['github.com/yasaie', 'https://github.com/yasaie'],
+    ])
+  })
+
+  it('offers the same links when the rows are stacked on a narrow screen', () => {
+    expect(linksOf(details, 'narrow')).toEqual(linksOf(details))
   })
 
   it('only prints, so the terminal it runs in is left alone', () => {
