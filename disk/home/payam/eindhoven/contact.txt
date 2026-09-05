@@ -1,4 +1,4 @@
 mail      payam@yasaie.com
 linkedin  linkedin.com/in/yasaie
 github    github.com/yasaie
-where     Eindhoven, the Netherlands
+where     eindhoven, nederland

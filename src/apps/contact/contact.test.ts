@@ -15,7 +15,7 @@ describe('contact', () => {
       'mail      payam@yasaie.com',
       'linkedin  linkedin.com/in/yasaie',
       'github    github.com/yasaie',
-      'where     Eindhoven, the Netherlands',
+      'where     eindhoven, nederland',
     ])
   })
 
@@ -37,7 +37,7 @@ describe('contact', () => {
       'github',
       'github.com/yasaie',
       'where',
-      'Eindhoven, the Netherlands',
+      'eindhoven, nederland',
     ])
     expect(indentsOf(details, 'narrow')).toEqual(['0', '2ch', '0', '2ch', '0', '2ch', '0', '2ch'])
   })
@@ -45,6 +45,12 @@ describe('contact', () => {
   it('answers to hi and hello, the words a visitor reaches for first', () => {
     expect(textOf(execute(invocation('hi'), volume))).toEqual(textOf(details))
     expect(textOf(execute(invocation('hello'), volume))).toEqual(textOf(details))
+  })
+
+  it('answers to the name of any one way of reaching him, since that is what was asked for', () => {
+    for (const asked of ['mail', 'email', 'linkedin', 'github']) {
+      expect(textOf(execute(invocation(asked), volume))).toEqual(textOf(details))
+    }
   })
 
   it('only prints, so the terminal it runs in is left alone', () => {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { vim } from '@/apps/vim/vim'
+import { execute } from '@/kernel/execute/execute'
 import { mountRealDisk } from '@/testing/disk/disk'
 import { invocation } from '@/testing/invocation/invocation'
 import { coloursOf, textOf } from '@/testing/rows/rows'
@@ -15,7 +16,8 @@ describe('vim', () => {
     expect(answer.effects).toEqual([])
   })
 
-  it('declines under every name the argument has ever been had in', () => {
-    expect(vim.aliases).toEqual(['emacs', 'nano'])
+  it('refuses the editor that was actually asked for, not the one it is filed under', () => {
+    expect(textOf(execute(invocation('nano'), volume)).at(0)).toContain('no nano.')
+    expect(textOf(execute(invocation('emacs'), volume)).at(0)).toContain('no emacs.')
   })
 })

@@ -27,7 +27,7 @@ const render = (volume: Volume): Output => ({
 
 export const contact: App = {
   name: 'contact',
-  aliases: ['hi', 'hello'],
+  aliases: ['hi', 'hello', 'mail', 'email', 'linkedin', 'github'],
   summary: 'say hi',
   listed: 4,
   counted: true,

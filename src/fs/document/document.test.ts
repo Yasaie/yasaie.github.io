@@ -81,8 +81,8 @@ describe('columnPairs', () => {
   })
 
   it('keeps the single spaces inside a value, splitting only on the gutter', () => {
-    expect(columnPairs('where     Eindhoven, the Netherlands')).toEqual([
-      { key: 'where', value: 'Eindhoven, the Netherlands' },
+    expect(columnPairs('where     eindhoven, nederland')).toEqual([
+      { key: 'where', value: 'eindhoven, nederland' },
     ])
   })
 
