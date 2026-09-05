@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@import "@fontsource/geist-mono/400.css";
+@import "@fontsource/jetbrains-mono/400.css";
+
+@theme {
+  --color-terminal-bg: #0a0a0c;
+  --color-terminal-text: #ece8df;
+  --color-terminal-body: #b8b3a8;
+  --color-terminal-muted: #8a867d;
+  --color-terminal-faint: #5a574f;
+  --color-terminal-accent: #ffb020;
+
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-wordmark: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --animate-caret: caret 1.1s steps(1) infinite;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+    background: var(--color-terminal-bg);
+    color: var(--color-terminal-text);
+    font-family: var(--font-mono);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--color-terminal-accent);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  ::selection {
+    background: var(--color-terminal-accent);
+    color: var(--color-terminal-bg);
+  }
+
+  input::placeholder {
+    color: var(--color-terminal-faint);
+  }
+}
+
+@keyframes caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
