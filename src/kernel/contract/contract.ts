@@ -3,7 +3,7 @@ import type { Volume } from '@/fs/volume/volume'
 import type { Effect } from '@/kernel/effects/effects'
 import type { Line } from '@/tty/line/line'
 
-export type { Cwd, Effect }
+export type { Cwd }
 
 export type Invocation = {
   readonly name: string

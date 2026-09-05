@@ -30,6 +30,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Find dead code
+        run: pnpm knip
+
       - name: Typecheck
         run: pnpm typecheck
 

@@ -1,6 +1,6 @@
 import { vi } from 'vitest'
 
-export type Dot = { readonly x: number; readonly y: number; readonly ink: string }
+type Dot = { readonly x: number; readonly y: number; readonly ink: string }
 
 export type PaintedCanvas = {
   readonly painted: Dot[]
