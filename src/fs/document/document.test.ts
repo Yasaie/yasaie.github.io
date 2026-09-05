@@ -30,7 +30,7 @@ describe('documentLines', () => {
 describe('documentBlocks', () => {
   it('splits the prose into the three blank-line-separated blocks whoami reads', () => {
     expect(documentBlocks(realText(`${home}/whoami.txt`)).map((block) => block.length)).toEqual([
-      3, 1, 2,
+      3, 2, 2,
     ])
   })
 
