@@ -136,6 +136,18 @@ describe('a visitor arriving at the terminal', () => {
 })
 
 describe('the terminal a visitor is looking at', () => {
+  it('takes the suggestion when a thumb swipes right, since a phone has no tab key', async () => {
+    arrives()
+    await settle(20)
+    const output = screen.getByRole('log')
+
+    fireEvent.touchStart(output, { touches: [{ clientX: 40, clientY: 300 }] })
+    fireEvent.touchMove(output, { touches: [{ clientX: 240, clientY: 300 }] })
+    fireEvent.touchEnd(output, { touches: [{ clientX: 240, clientY: 300 }] })
+
+    expect(screen.getByLabelText('command')).toHaveValue('whoami')
+  })
+
   it('takes a click anywhere on its output as a click into the prompt', async () => {
     const visitor = arrives()
     await settleUntil(hasPrinted('name    Payam Yasaie'))

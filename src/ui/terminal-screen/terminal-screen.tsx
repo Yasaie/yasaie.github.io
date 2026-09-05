@@ -1,9 +1,10 @@
 import type { ReactElement } from 'react'
 import type { Volume } from '@/fs/volume/volume'
 import { useClickToFocus } from '@/hooks/use-click-to-focus/use-click-to-focus'
+import { useSwipeToAccept } from '@/hooks/use-swipe-to-accept/use-swipe-to-accept'
 import { useTerminal } from '@/hooks/use-terminal/use-terminal'
 import { useTypeToFocus } from '@/hooks/use-type-to-focus/use-type-to-focus'
-import { submitted, typed } from '@/session/actions/actions'
+import { submitted, suggestionAccepted, typed } from '@/session/actions/actions'
 import { TerminalBackdrop } from '@/ui/terminal-backdrop/terminal-backdrop'
 import { TerminalPrompt } from '@/ui/terminal-prompt/terminal-prompt'
 import { TerminalScrollback } from '@/ui/terminal-scrollback/terminal-scrollback'
@@ -27,9 +28,10 @@ export const TerminalScreen = ({ volume }: TerminalScreenProps): ReactElement =>
   }
   const input = useTypeToFocus<HTMLInputElement>()
   useClickToFocus(input)
+  const swipe = useSwipeToAccept(() => terminal.dispatch(suggestionAccepted()))
 
   return (
-    <div className={desktop}>
+    <div className={desktop} {...swipe}>
       <TerminalBackdrop />
       <div className={shell}>
         <TerminalTitleBar />
