@@ -7,7 +7,7 @@ afterEach(() => vi.useRealTimers())
 describe('the bar above the terminal', () => {
   it('names the machine and the shell the visitor is talking to', () => {
     render(<TerminalTitleBar />)
-    expect(screen.getByText('payam@yasaie.com — zsh')).toBeInTheDocument()
+    expect(screen.getByText('payam@yasaie.com · zsh')).toBeInTheDocument()
   })
 
   it('shows the time where the machine lives, not where the visitor does', () => {

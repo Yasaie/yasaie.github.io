@@ -44,7 +44,7 @@ const rewardColour: Colour = 'accent'
 
 const bootColours: KeyValueColours = { key: 'muted', value: 'body' }
 
-const hintWide = 'type  help  — or press tab'
+const hintWide = 'type  help  or press tab'
 const hintNarrow = 'type  help'
 
 const reward = 'all nine. you read the whole thing. that deserves a reply: payam@yasaie.com'

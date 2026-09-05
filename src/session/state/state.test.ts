@@ -73,7 +73,7 @@ describe('the boot splash', () => {
 
   it('closes by telling the visitor what to type, shortened when the screen is narrow', () => {
     const hint = splashLines.slice(15, 16)
-    expect(screenText(hint)).toEqual(['type  help  — or press tab'])
+    expect(screenText(hint)).toEqual(['type  help  or press tab'])
     expect(screenText(hint, 'narrow')).toEqual(['type  help'])
   })
 
@@ -86,7 +86,7 @@ describe('the boot splash', () => {
     expect(screenText(createSession(bootOnly).queue.map((queued) => queued.line))).toEqual([
       '',
       '',
-      'type  help  — or press tab',
+      'type  help  or press tab',
       '',
     ])
   })

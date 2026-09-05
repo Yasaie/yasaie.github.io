@@ -3,7 +3,7 @@
 My personal site, built as a small operating system. It boots, mounts a disk, and gives you a
 shell. Everything it can tell you about me is a file on that disk.
 
-**[yasaie.com](https://yasaie.com)** — type `help`, or press tab.
+**[yasaie.com](https://yasaie.com)**. Type `help`, or press tab.
 
 ## The disk is real
 
@@ -33,8 +33,8 @@ src/ui/        the React surface
 src/conventions/  tests that enforce the layout above
 ```
 
-Two rules hold the shape. Everything outside `src/hooks` and `src/ui` is framework-free — the test
-runner enforces it by running those layers in Node with no DOM. And a command is installed by
+Two rules hold the shape. Everything outside `src/hooks` and `src/ui` is framework-free, which the
+test runner enforces by running those layers in Node with no DOM. And a command is installed by
 existing: the kernel discovers `src/apps/*` at load, so adding one is adding a folder and deleting
 one is deleting a folder. No app imports another, and no app's name appears anywhere outside it.
 

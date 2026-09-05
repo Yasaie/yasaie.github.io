@@ -33,7 +33,7 @@ describe('a visitor arriving at the terminal', () => {
   it('watches the machine boot and introduce the person it belongs to', async () => {
     arrives()
 
-    await settleUntil(hasPrinted('type  help  — or press tab'))
+    await settleUntil(hasPrinted('type  help  or press tab'))
 
     expect(printed().at(0)).toContain('██╗')
     expect(printed()).toContain('name    Payam Yasaie')
