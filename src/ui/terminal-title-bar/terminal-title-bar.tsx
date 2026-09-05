@@ -8,7 +8,7 @@ export const TerminalTitleBar = (): ReactElement => {
   const time = useClock()
 
   return (
-    <div className="flex justify-between gap-4 pt-6 text-terminal-faint">
+    <div className="flex shrink-0 justify-between gap-4 border-b border-terminal-faint/20 px-gutter py-3 text-terminal-faint">
       <span className="truncate">{host}</span>
       <span className="whitespace-nowrap">{`${time} ${zone}`}</span>
     </div>
