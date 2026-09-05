@@ -3,8 +3,9 @@ import { realBytes } from '#tests/helpers/disk'
 import { formatSize } from '@/lib/bytes/bytes'
 
 describe('formatSize, human', () => {
-  it('prints a small file as a bare count with no unit', () => {
-    expect(formatSize(realBytes('/home/payam/eindhoven/whoami.txt'), 'human')).toBe('399')
+  it('prints a small file as the bare count of its own bytes', () => {
+    const bytes = realBytes('/home/payam/eindhoven/whoami.txt')
+    expect(formatSize(bytes, 'human')).toBe(`${bytes}`)
   })
 
   it('prints nothing at all as zero', () => {

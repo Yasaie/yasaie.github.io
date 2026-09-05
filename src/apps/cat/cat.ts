@@ -43,7 +43,7 @@ export const cat: App = {
   run: ({ name, args, cwd }, volume) => {
     const argument = args[0]
     if (argument === undefined)
-      return { lines: [text(`${name}: which file?`, 'muted')], effects: [] }
+      return { lines: [text(`usage: ${name} <file>`, 'muted')], effects: [] }
     const entry = locate(argument.toLowerCase(), cwd, volume)
     if (entry === undefined) return complaint(`${argument}: no such file or directory`)
     if (entry.locked) return complaint(`${argument}: permission denied`)

@@ -127,7 +127,7 @@ describe('rebooting', () => {
       'broadcast message: the system is going down for reboot now',
       '',
       '[  ok  ] stopped nothing in particular',
-      '[  ok  ] unmounted sixteen years',
+      '[  ok  ] unmounted everything since 2010',
       '[  ok  ] reached target power-off',
       '',
     ])
@@ -258,7 +258,7 @@ describe('the game', () => {
       dispatched(complete, scheduleConsumed({ kind: 'reward', delayMs: 600 })),
     )
     expect(printedBy(complete, rewarded)).toEqual([
-      'all nine. you read the whole thing. that deserves a reply: payam@yasaie.com',
+      'all nine. anything the machine left out, ask me: payam@yasaie.com',
       '',
     ])
     expect(rewarded.scheduled).toEqual([])

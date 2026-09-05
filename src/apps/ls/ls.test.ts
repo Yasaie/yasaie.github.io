@@ -64,7 +64,7 @@ describe('ls', () => {
       'total 7',
       'drwxr-xr-x  1 payam yasaie    4096 2010  ./',
       'd---------  1 root  root      4096 1993  ../',
-      '-r--------  1 payam yasaie 2040832 2010  .secrets',
+      `-r--------  1 payam yasaie ${sized(`${home}/.secrets`, 7)} 2010  .secrets`,
       `-rw-r--r--  1 payam yasaie ${sized(`${home}/whoami.txt`, 7)} 2010  whoami.txt`,
       'drwxr-xr-x  1 payam yasaie    4096 2024  work/',
       `-rw-r--r--  1 payam yasaie ${sized(`${home}/stack.txt`, 7)} 2026  stack.txt`,
@@ -141,7 +141,7 @@ describe('ls', () => {
     expect(textOf(ls.run(invocation('ls whoami.txt'), volume))).toEqual(['whoami.txt'])
     expect(textOf(ls.run(invocation('ls -l whoami.txt'), volume))).toEqual([
       'total 1',
-      '-rw-r--r--  1 payam yasaie 399 2010  whoami.txt',
+      `-rw-r--r--  1 payam yasaie ${sized(`${home}/whoami.txt`, 3)} 2010  whoami.txt`,
     ])
   })
 

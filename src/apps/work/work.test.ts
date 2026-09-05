@@ -20,7 +20,7 @@ describe('work', () => {
       '[5]  2017         Tabesh Rayan Energy  full stack developer',
       '[6]  2010 – 2016  freelance            full stack developer',
       '',
-      'work <n> for details, or press a line. all of it shipped behind logins; nothing to visit.',
+      'work <n> for one, or click a line. all of it shipped behind logins, nothing to visit.',
     ])
   })
 
@@ -52,7 +52,7 @@ describe('work', () => {
       '[6]  freelance',
       '2010 – 2016 · full stack developer',
       '',
-      'work <n> for details, or press a line. all of it shipped behind logins; nothing to visit.',
+      'work <n> for one, or click a line. all of it shipped behind logins, nothing to visit.',
     ])
     expect(indentsOf(listing, 'narrow')).toEqual([
       '0',
@@ -78,23 +78,12 @@ describe('work', () => {
       '2025 – now  GoodHabitz',
       'senior software engineer · Eindhoven',
       '',
-      '- learning platform used by millions of learners across Europe.',
-      '- learner-facing work for the learning experience team, in Vue, React and Nuxt.',
-      '- led the refactoring that let it scale, and kept it stable while it did.',
-      '- raised test coverage and reshaped the front-end architecture behind it.',
-      '- initiatives owned end to end, from the idea to the thing that ships.',
+      '- workplace learning platform, millions of users across Europe.',
+      '- learner-facing product work in Vue, React and Nuxt.',
+      '- led the front-end refactor. test coverage went up with it.',
     ])
-    expect(coloursOf(chapter)).toEqual([
-      ['text'],
-      ['muted'],
-      [],
-      ['body'],
-      ['body'],
-      ['body'],
-      ['body'],
-      ['body'],
-    ])
-    expect(indentsOf(chapter)).toEqual(['0', '0', '0', '0', '0', '0', '0', '0'])
+    expect(coloursOf(chapter)).toEqual([['text'], ['muted'], [], ['body'], ['body'], ['body']])
+    expect(indentsOf(chapter)).toEqual(['0', '0', '0', '0', '0', '0'])
   })
 
   it('keeps a role that carries its own comma out of the place it was held in', () => {

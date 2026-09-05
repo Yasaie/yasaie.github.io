@@ -9,7 +9,7 @@ const goingDown = Object.freeze({
     text('broadcast message: the system is going down for reboot now', 'body'),
     blank,
     text('[  ok  ] stopped nothing in particular', 'muted'),
-    text('[  ok  ] unmounted sixteen years', 'muted'),
+    text('[  ok  ] unmounted everything since 2010', 'muted'),
     text('[  ok  ] reached target power-off', 'muted'),
   ],
   effects: [{ kind: 'reboot', delayMs: powerOffDelayMs }],

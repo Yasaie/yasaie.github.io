@@ -2,7 +2,7 @@ import type { App, Output } from '@/kernel/contract/contract'
 import { text } from '@/tty/line/line'
 
 const refused = Object.freeze({
-  lines: [text('permission denied. respect, though.', 'accent')],
+  lines: [text('payam is not in the sudoers file. this incident will be reported.', 'accent')],
   effects: [],
 } satisfies Output)
 

@@ -22,7 +22,7 @@ const blocksAndShadow = (art: string): readonly string[] =>
 const SegmentRow = ({ row, className }: SegmentRowProps): ReactElement => (
   <span
     data-row=""
-    className={cn('block min-h-[1lh] whitespace-pre-wrap wrap-anywhere pb-0.5', className)}
+    className={cn('block min-h-lh whitespace-pre-wrap wrap-anywhere pb-0.5', className)}
     style={{ paddingLeft: row.indent }}
   >
     {row.segments.map((part, column) => (

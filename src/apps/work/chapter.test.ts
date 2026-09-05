@@ -6,7 +6,7 @@ const goodhabitz = [
   '',
   '2025 – now · senior software engineer · Eindhoven',
   '',
-  '- learning platform used by millions of learners across Europe.',
+  '- workplace learning platform, millions of users across Europe.',
   '- full stack, mostly TypeScript.',
 ].join('\n')
 
@@ -22,7 +22,7 @@ describe('a chapter of the work history', () => {
 
   it('keeps the bullets in the order the file lists them, without their markers', () => {
     expect(parseChapter(1, '/work/1-goodhabitz.md', goodhabitz).bullets).toEqual([
-      'learning platform used by millions of learners across Europe.',
+      'workplace learning platform, millions of users across Europe.',
       'full stack, mostly TypeScript.',
     ])
   })

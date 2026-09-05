@@ -9,14 +9,16 @@ const volume = await mountRealDisk()
 describe('sudo', () => {
   it('refuses the privilege it is asked for, in the machine’s brightest colour', () => {
     const answer = sudo.run(invocation('sudo'), volume)
-    expect(textOf(answer)).toEqual(['permission denied. respect, though.'])
+    expect(textOf(answer)).toEqual([
+      'payam is not in the sudoers file. this incident will be reported.',
+    ])
     expect(coloursOf(answer)).toEqual([['accent']])
     expect(answer.effects).toEqual([])
   })
 
   it('refuses the same way no matter what it was asked to run as root', () => {
     expect(textOf(sudo.run(invocation('sudo rm -rf /'), volume))).toEqual([
-      'permission denied. respect, though.',
+      'payam is not in the sudoers file. this incident will be reported.',
     ])
   })
 })

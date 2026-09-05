@@ -74,7 +74,7 @@ describe('a visitor arriving at the terminal', () => {
     await settleUntil(hasPrinted('there are a few more. guess.'))
 
     expect(printed()).toContain('payam@yasaie ~ $ help')
-    expect(printed()).toContain('whoami   who is typing on the other side')
+    expect(printed()).toContain('whoami   the short version')
     expect(printed()).toContain('work     six chapters, 2010 to now · work <n> for one')
   })
 
@@ -103,7 +103,7 @@ describe('a visitor arriving at the terminal', () => {
     await visitor.runs('work')
     await settleUntil(
       hasPrinted(
-        'work <n> for details, or press a line. all of it shipped behind logins; nothing to visit.',
+        'work <n> for one, or click a line. all of it shipped behind logins, nothing to visit.',
       ),
     )
     await visitor.presses('[2]')
@@ -128,7 +128,7 @@ describe('a visitor arriving at the terminal', () => {
     await visitor.runs('vim')
 
     await settleUntil(
-      hasPrinted('all nine. you read the whole thing. that deserves a reply: payam@yasaie.com'),
+      hasPrinted('all nine. anything the machine left out, ask me: payam@yasaie.com'),
       400,
     )
 

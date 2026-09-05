@@ -14,7 +14,7 @@ const render = (volume: Volume): Output => ({
 export const stack: App = {
   name: 'stack',
   aliases: [],
-  summary: 'what I build with',
+  summary: 'what i build with',
   listed: 3,
   counted: true,
   handles: [stackPath],

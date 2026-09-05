@@ -11,7 +11,7 @@ describe('vim', () => {
   it('turns the refusal into the offer, since wanting an editor is wanting something built', () => {
     const answer = vim.run(invocation('vim'), volume)
 
-    expect(textOf(answer)).toEqual(['no vim. you have the idea, i have the keyboard.'])
+    expect(textOf(answer)).toEqual(['no vim. bring the idea, i have the keyboard.'])
     expect(coloursOf(answer)).toEqual([['accent']])
     expect(answer.effects).toEqual([])
   })

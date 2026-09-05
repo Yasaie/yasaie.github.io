@@ -47,7 +47,7 @@ const bootColours: KeyValueColours = { key: 'muted', value: 'body' }
 const hintWide = 'type  help  or press tab'
 const hintNarrow = 'type  help'
 
-const reward = 'all nine. you read the whole thing. that deserves a reply: payam@yasaie.com'
+const reward = 'all nine. anything the machine left out, ask me: payam@yasaie.com'
 
 export const queuedLines = (lines: readonly Line[], speedMs: number): readonly QueuedLine[] =>
   Object.freeze(lines.map((line) => Object.freeze({ line, speedMs })))

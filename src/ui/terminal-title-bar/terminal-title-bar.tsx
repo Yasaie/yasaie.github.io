@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import { useClock } from '@/hooks/use-clock/use-clock'
 
-const host = 'payam@yasaie.com · zsh'
+const host = 'payam@yasaie · zsh'
 
 export const TerminalTitleBar = (): ReactElement => {
   const time = useClock()

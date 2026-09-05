@@ -11,9 +11,9 @@ const volume = await mountRealDisk()
 describe('cat', () => {
   it('asks which file, in the name the visitor actually typed', () => {
     const asked = execute(invocation('cat'), volume)
-    expect(textOf(asked)).toEqual(['cat: which file?'])
+    expect(textOf(asked)).toEqual(['usage: cat <file>'])
     expect(coloursOf(asked)).toEqual([['muted']])
-    expect(textOf(execute(invocation('less'), volume))).toEqual(['less: which file?'])
+    expect(textOf(execute(invocation('less'), volume))).toEqual(['usage: less <file>'])
   })
 
   it('prints exactly what the command behind a document would print, and nothing more', () => {

@@ -96,7 +96,7 @@ describe('the boot splash', () => {
 describe('the reward for finding everything', () => {
   it('thanks the visitor in accent and leaves an address to reply to', () => {
     expect(textOf(rewardSequence.map((queued) => queued.line))).toEqual([
-      'all nine. you read the whole thing. that deserves a reply: payam@yasaie.com',
+      'all nine. anything the machine left out, ask me: payam@yasaie.com',
       '',
     ])
     expect(coloursOf(rewardSequence.map((queued) => queued.line)).at(0)).toEqual(['accent'])

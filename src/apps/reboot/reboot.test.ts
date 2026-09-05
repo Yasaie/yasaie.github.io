@@ -15,7 +15,7 @@ describe('reboot', () => {
       'broadcast message: the system is going down for reboot now',
       '',
       '[  ok  ] stopped nothing in particular',
-      '[  ok  ] unmounted sixteen years',
+      '[  ok  ] unmounted everything since 2010',
       '[  ok  ] reached target power-off',
     ])
   })

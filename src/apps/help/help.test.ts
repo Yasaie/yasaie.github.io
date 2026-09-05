@@ -11,9 +11,9 @@ const listing = execute(invocation('help'), volume)
 describe('help', () => {
   it('lists the commands that lead somewhere, each with its own one-line summary', () => {
     expect(textOf(listing)).toEqual([
-      'whoami   who is typing on the other side',
+      'whoami   the short version',
       'work     six chapters, 2010 to now · work <n> for one',
-      'stack    what I build with',
+      'stack    what i build with',
       'contact  say hi',
       '',
       'there are a few more. guess.',
@@ -49,11 +49,11 @@ describe('help', () => {
   it('drops each summary under its command, indented, when the screen is narrow', () => {
     expect(textOf(listing, 'narrow')).toEqual([
       'whoami',
-      'who is typing on the other side',
+      'the short version',
       'work',
       'six chapters, 2010 to now · work <n> for one',
       'stack',
-      'what I build with',
+      'what i build with',
       'contact',
       'say hi',
       '',

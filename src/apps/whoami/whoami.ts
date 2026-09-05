@@ -7,7 +7,7 @@ const whoamiPath = `${homePath}/whoami.txt`
 export const whoami: App = {
   name: 'whoami',
   aliases: [],
-  summary: 'who is typing on the other side',
+  summary: 'the short version',
   listed: 1,
   counted: true,
   handles: [whoamiPath],

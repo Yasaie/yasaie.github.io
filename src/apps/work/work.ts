@@ -16,7 +16,7 @@ const chapterFiles: readonly string[] = [
 ]
 
 const invitation =
-  'work <n> for details, or press a line. all of it shipped behind logins; nothing to visit.'
+  'work <n> for one, or click a line. all of it shipped behind logins, nothing to visit.'
 
 const columnGutter = 2
 const stackedCreditsIndent = '5ch'

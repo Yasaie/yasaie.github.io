@@ -15,7 +15,7 @@ describe('contact', () => {
       'mail      payam@yasaie.com',
       'linkedin  linkedin.com/in/yasaie',
       'github    github.com/yasaie',
-      'where     eindhoven, nederland',
+      'where     eindhoven, nl',
     ])
   })
 
@@ -37,7 +37,7 @@ describe('contact', () => {
       'github',
       'github.com/yasaie',
       'where',
-      'eindhoven, nederland',
+      'eindhoven, nl',
     ])
     expect(indentsOf(details, 'narrow')).toEqual(['0', '2ch', '0', '2ch', '0', '2ch', '0', '2ch'])
   })
