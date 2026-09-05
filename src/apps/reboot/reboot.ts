@@ -1,4 +1,4 @@
-import type { App, Output } from '@/kernel/app/app'
+import type { App, Output } from '@/kernel/contract/contract'
 import { blank, text } from '@/tty/line/line'
 
 const shutdownSpeedMs = 120

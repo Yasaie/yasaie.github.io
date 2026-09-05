@@ -1,6 +1,6 @@
 import { resolve } from '@/fs/path/path'
 import type { Volume, VolumeEntry } from '@/fs/volume/volume'
-import type { App, Cwd, Output } from '@/kernel/app/app'
+import type { App, Cwd, Output } from '@/kernel/contract/contract'
 import { appHandling } from '@/kernel/registry/registry'
 import type { Line } from '@/tty/line/line'
 import { text } from '@/tty/line/line'

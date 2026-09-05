@@ -1,5 +1,5 @@
 import type { Volume } from '@/fs/volume/volume'
-import type { Invocation, Output } from '@/kernel/app/app'
+import type { Invocation, Output } from '@/kernel/contract/contract'
 import type { Delegation, Effect } from '@/kernel/effects/effects'
 import { isDelegation } from '@/kernel/effects/effects'
 import { routeApp } from '@/kernel/registry/registry'

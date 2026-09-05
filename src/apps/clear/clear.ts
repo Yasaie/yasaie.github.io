@@ -1,4 +1,4 @@
-import type { App, Output } from '@/kernel/app/app'
+import type { App, Output } from '@/kernel/contract/contract'
 
 const wiped = Object.freeze({ lines: [], effects: [{ kind: 'clear' }] } satisfies Output)
 

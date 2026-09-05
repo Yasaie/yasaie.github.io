@@ -1,4 +1,4 @@
-import type { Cwd, Invocation } from '@/kernel/app/app'
+import type { Cwd, Invocation } from '@/kernel/contract/contract'
 
 export type ParsedLine =
   | { readonly kind: 'blank' }

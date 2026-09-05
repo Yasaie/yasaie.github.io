@@ -1,7 +1,7 @@
 import { type ColumnPair, columnPairs } from '@/fs/document/document'
 import { homePath } from '@/fs/path/path'
 import type { Volume } from '@/fs/volume/volume'
-import type { App, Output } from '@/kernel/app/app'
+import type { App, Output } from '@/kernel/contract/contract'
 import { type KeyValuePair, keyValueBlock } from '@/tty/align/align'
 import type { Colour } from '@/tty/palette/palette'
 

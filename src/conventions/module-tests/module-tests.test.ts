@@ -1,9 +1,12 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { isTestPath, type SourceFile, sourceFilesIn } from '@/testing/tree/tree'
 
 const layers = ['src/kernel', 'src/fs', 'src/tty', 'src/session', 'src/hooks', 'src/ui'] as const
 
 const runtimeExport = /^export\s+(?!type\s|interface\s)/m
+
+const buildConfig = readFileSync('vite.config.ts', 'utf8')
 
 const everyFile: readonly SourceFile[] = layers.flatMap(sourceFilesIn)
 
@@ -36,8 +39,11 @@ describe('every layer of the machine', () => {
     expect(untested.map((file) => file.path)).toEqual([])
   })
 
-  it('asks for no test of a module that only declares types, since types cannot run', () => {
-    const typesOnly = modules.filter((file) => !runtimeExport.test(file.text))
-    expect(typesOnly.map((file) => file.path)).toEqual(['src/kernel/app/app.ts'])
+  it('keeps a module that only declares types out of the coverage figure, since types cannot run', () => {
+    const measured = modules
+      .filter((file) => !runtimeExport.test(file.text))
+      .filter((file) => !buildConfig.includes(file.path))
+
+    expect(measured.map((file) => file.path)).toEqual([])
   })
 })

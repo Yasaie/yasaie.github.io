@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest'
 import type { Volume } from '@/fs/volume/volume'
-import type { App } from '@/kernel/app/app'
+import type { App } from '@/kernel/contract/contract'
 import { execute } from '@/kernel/execute/execute'
 import { mountRealDisk } from '@/testing/disk/disk'
 import { invocation } from '@/testing/invocation/invocation'

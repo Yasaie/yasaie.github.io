@@ -1,5 +1,5 @@
 import { homePath, resolve, workPath } from '@/fs/path/path'
-import type { App, Cwd, Output } from '@/kernel/app/app'
+import type { App, Cwd, Output } from '@/kernel/contract/contract'
 import { text } from '@/tty/line/line'
 
 const unreachable: readonly string[] = ['/', '/root']

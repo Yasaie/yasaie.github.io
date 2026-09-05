@@ -1,6 +1,6 @@
 import { workPath } from '@/fs/path/path'
 import type { Volume } from '@/fs/volume/volume'
-import type { App, Invocation, Output } from '@/kernel/app/app'
+import type { App, Invocation, Output } from '@/kernel/contract/contract'
 import { padRight, widestLength } from '@/tty/align/align'
 import { blank, type Line, responsive, row, segment, text } from '@/tty/line/line'
 import type { Colour } from '@/tty/palette/palette'

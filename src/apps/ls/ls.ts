@@ -1,7 +1,7 @@
 import { syntheticEntriesFor } from '@/fs/inode/inode'
 import { pathOf, resolve } from '@/fs/path/path'
 import type { Volume, VolumeEntry } from '@/fs/volume/volume'
-import type { App, Cwd, Invocation, Output } from '@/kernel/app/app'
+import type { App, Cwd, Invocation, Output } from '@/kernel/contract/contract'
 import { padLeft, padRight, widestLength } from '@/tty/align/align'
 import type { SizeFormat } from '@/tty/bytes/bytes'
 import { formatSize } from '@/tty/bytes/bytes'

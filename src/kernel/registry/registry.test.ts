@@ -1,7 +1,7 @@
 import { readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import type { App } from '@/kernel/app/app'
+import type { App } from '@/kernel/contract/contract'
 import {
   appHandling,
   canonicalNameOf,

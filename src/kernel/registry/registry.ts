@@ -1,4 +1,4 @@
-import type { App } from '@/kernel/app/app'
+import type { App } from '@/kernel/contract/contract'
 
 const anyName = '*'
 

@@ -1,4 +1,4 @@
-import type { App, Output } from '@/kernel/app/app'
+import type { App, Output } from '@/kernel/contract/contract'
 import { listedApps } from '@/kernel/registry/registry'
 import { keyValueBlock } from '@/tty/align/align'
 import { blank, text } from '@/tty/line/line'

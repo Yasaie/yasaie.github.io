@@ -1,7 +1,7 @@
 import { columnPairs } from '@/fs/document/document'
 import { homePath } from '@/fs/path/path'
 import type { Volume } from '@/fs/volume/volume'
-import type { App, Output } from '@/kernel/app/app'
+import type { App, Output } from '@/kernel/contract/contract'
 import { keyValueBlock } from '@/tty/align/align'
 
 const stackPath = `${homePath}/stack.txt`

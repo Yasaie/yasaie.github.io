@@ -1,4 +1,4 @@
-import type { Cwd, Invocation } from '@/kernel/app/app'
+import type { Cwd, Invocation } from '@/kernel/contract/contract'
 import { parse } from '@/kernel/parse/parse'
 
 export const invocation = (raw: string, cwd: Cwd = '~'): Invocation => {
