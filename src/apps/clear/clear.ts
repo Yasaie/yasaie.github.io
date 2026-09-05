@@ -6,7 +6,7 @@ export const clear: App = {
   name: 'clear',
   aliases: [],
   summary: 'wipe the screen',
-  listed: 5,
+  listed: null,
   counted: false,
   handles: [],
   run: () => wiped,

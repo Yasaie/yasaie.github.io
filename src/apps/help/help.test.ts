@@ -1,25 +1,29 @@
 import { describe, expect, it } from 'vitest'
 import { execute } from '@/kernel/execute/execute'
-import { mountRealDisk } from '@/test/disk/disk'
-import { invocation } from '@/test/invocation/invocation'
-import { coloursOf, indentsOf, textOf } from '@/test/rows/rows'
+import { mountRealDisk } from '@/testing/disk/disk'
+import { invocation } from '@/testing/invocation/invocation'
+import { coloursOf, indentsOf, textOf } from '@/testing/rows/rows'
 
 const volume = await mountRealDisk()
 
 const listing = execute(invocation('help'), volume)
 
 describe('help', () => {
-  it('lists the six commands worth naming, each with its own one-line summary', () => {
+  it('lists the commands that lead somewhere, each with its own one-line summary', () => {
     expect(textOf(listing)).toEqual([
       'whoami   who is typing on the other side',
       'work     six chapters, 2010 to now · work <n> for one',
       'stack    what I build with',
       'contact  say hi',
-      'clear    wipe the screen',
-      'reboot   you know what this does',
       '',
       'there are a few more. guess.',
     ])
+  })
+
+  it('leaves the housekeeping commands out, so the listing only offers things to read', () => {
+    const printed = textOf(listing).join('\n')
+    expect(printed).not.toContain('clear')
+    expect(printed).not.toContain('reboot')
   })
 
   it('leaves the hidden commands to be guessed rather than naming them', () => {
@@ -33,8 +37,6 @@ describe('help', () => {
 
   it('brightens the command names above their descriptions', () => {
     expect(coloursOf(listing)).toEqual([
-      ['text', 'body'],
-      ['text', 'body'],
       ['text', 'body'],
       ['text', 'body'],
       ['text', 'body'],
@@ -54,18 +56,10 @@ describe('help', () => {
       'what I build with',
       'contact',
       'say hi',
-      'clear',
-      'wipe the screen',
-      'reboot',
-      'you know what this does',
       '',
       'there are a few more. guess.',
     ])
     expect(indentsOf(listing, 'narrow')).toEqual([
-      '0',
-      '2ch',
-      '0',
-      '2ch',
       '0',
       '2ch',
       '0',

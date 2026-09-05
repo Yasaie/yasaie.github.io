@@ -20,7 +20,7 @@ export const reboot: App = {
   name: 'reboot',
   aliases: ['restart', 'shutdown'],
   summary: 'you know what this does',
-  listed: 6,
+  listed: null,
   counted: false,
   handles: [],
   run: () => goingDown,
