@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
       content="Payam Yasaie — senior software engineer · GoodHabitz · Eindhoven, NL. Full stack since 2010. Tabriz, then Eindhoven."
@@ -11,22 +11,68 @@
     <meta name="theme-color" content="#0A0A0C" />
     <meta name="color-scheme" content="dark" />
 
+    <link rel="canonical" href="https://yasaie.com/" />
+
     <meta property="og:title" content="Payam Yasaie — senior software engineer" />
     <meta
       property="og:description"
-      content="A terminal. Type help, or press tab. Sixteen years of full stack, from Tabriz to Eindhoven."
+      content="A terminal. Type help, or press tab. Full stack since 2010, from Tabriz to Eindhoven."
     />
-    <meta property="og:url" content="https://yasaie.github.io/" />
+    <meta property="og:url" content="https://yasaie.com/" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="yasaie.com" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content="https://yasaie.com/boot/preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A dark terminal showing the YASAIE banner above name, role and location."
+    />
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <title>Payam Yasaie — senior software engineer</title>
 
     <link rel="icon" type="image/svg+xml" href="/boot/favicon.svg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Payam Yasaie",
+        "jobTitle": "Senior Software Engineer",
+        "url": "https://yasaie.com/",
+        "email": "payam@yasaie.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Eindhoven", "addressCountry": "NL" },
+        "sameAs": ["https://linkedin.com/in/yasaie", "https://github.com/yasaie"]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <h1>Payam Yasaie — senior software engineer</h1>
+      <p>
+        This terminal runs on JavaScript. Its filesystem does not — every document it prints is a
+        real file, served at the path the terminal reports:
+      </p>
+      <ul>
+        <li><a href="/home/payam/eindhoven/whoami.txt">whoami.txt</a></li>
+        <li><a href="/home/payam/eindhoven/stack.txt">stack.txt</a></li>
+        <li><a href="/home/payam/eindhoven/contact.txt">contact.txt</a></li>
+        <li><a href="/home/payam/eindhoven/work/1-goodhabitz.md">work/1-goodhabitz.md</a></li>
+        <li><a href="/home/payam/eindhoven/work/2-owow-agency.md">work/2-owow-agency.md</a></li>
+        <li><a href="/home/payam/eindhoven/work/3-tas-hil-gostar.md">work/3-tas-hil-gostar.md</a></li>
+        <li><a href="/home/payam/eindhoven/work/4-tahlilgaran.md">work/4-tahlilgaran.md</a></li>
+        <li>
+          <a href="/home/payam/eindhoven/work/5-tabesh-rayan-energy.md"
+            >work/5-tabesh-rayan-energy.md</a
+          >
+        </li>
+        <li><a href="/home/payam/eindhoven/work/6-freelance.md">work/6-freelance.md</a></li>
+      </ul>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
