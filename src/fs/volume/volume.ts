@@ -42,7 +42,10 @@ const entryOf = (disk: DiskEntry): VolumeEntry => {
   })
 }
 
-const isLegible = (entry: VolumeEntry): boolean => !entry.directory && !entry.locked
+const binary = /\.(png|ico|jpe?g|gif|webp|woff2?)$/
+
+const isLegible = (entry: VolumeEntry): boolean =>
+  !entry.directory && !entry.locked && !binary.test(entry.path)
 
 const childrenOf = (entries: readonly VolumeEntry[]): ReadonlyMap<string, readonly VolumeEntry[]> =>
   new Map(

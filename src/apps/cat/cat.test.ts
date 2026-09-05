@@ -54,6 +54,13 @@ describe('cat', () => {
     ])
   })
 
+  it('will not print a file that is not text, rather than spilling bytes at the reader', () => {
+    const refusal = execute(invocation('cat /boot/preview.png'), volume)
+
+    expect(textOf(refusal)).toEqual(['cat: /boot/preview.png: binary file'])
+    expect(coloursOf(refusal)).toEqual([['muted']])
+  })
+
   it('refuses the sealed file rather than pretending it is not there', () => {
     const refusal = execute(invocation('cat .secrets'), volume)
     expect(textOf(refusal)).toEqual(['cat: .secrets: permission denied'])

@@ -19,6 +19,7 @@ export const diskDirectories: readonly string[] = [
 export const diskFiles: readonly string[] = [
   '/.nojekyll',
   '/boot/favicon.svg',
+  '/boot/preview.png',
   '/etc/issue',
   '/etc/yasaie-release',
   '/home/payam/eindhoven/.secrets',

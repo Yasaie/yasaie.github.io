@@ -1,5 +1,5 @@
 import type { Dirent } from 'node:fs'
-import { readdir, stat } from 'node:fs/promises'
+import { lstat, readdir } from 'node:fs/promises'
 import { join, relative, sep } from 'node:path'
 import type { Plugin } from 'vite'
 
@@ -17,17 +17,21 @@ export const defaultDiskIndexPath = '/.superblock.json'
 const machinePath = (root: string, absolute: string): string =>
   `/${relative(root, absolute).split(sep).join('/')}`
 
+const urlSafe = /^[A-Za-z0-9._/-]+$/
+
 const recordOf = async (root: string, dirent: Dirent): Promise<DiskIndexRecord> => {
   const absolute = join(dirent.parentPath, dirent.name)
   const path = machinePath(root, absolute)
+  if (!urlSafe.test(path)) throw new Error(`disk: ${path} is not addressable as a url`)
   if (dirent.isDirectory()) return { path, directory: true }
-  return { path, directory: false, bytes: (await stat(absolute)).size }
+  if (!dirent.isFile()) throw new Error(`disk: ${path} is not a regular file or a directory`)
+  return { path, directory: false, bytes: (await lstat(absolute)).size }
 }
 
 export const readDiskIndex = async (root: string): Promise<readonly DiskIndexRecord[]> => {
   const dirents = await readdir(root, { recursive: true, withFileTypes: true })
   const records = await Promise.all(dirents.map((dirent) => recordOf(root, dirent)))
-  return records.toSorted((left, right) => (left.path < right.path ? -1 : 1))
+  return records.toSorted((left, right) => left.path.localeCompare(right.path))
 }
 
 const publish = async (root: string): Promise<string> =>
@@ -37,7 +41,10 @@ export const diskIndex = ({ root, path = defaultDiskIndexPath }: DiskIndexOption
   name: 'disk-index',
   configureServer(server) {
     server.middlewares.use((request, response, next) => {
-      if ((request.url ?? '').split('?')[0] !== path) return next()
+      const asked = new URL(request.url ?? '/', 'http://disk').pathname
+      const reads =
+        request.method === undefined || request.method === 'GET' || request.method === 'HEAD'
+      if (asked !== path || !reads) return next()
       publish(root)
         .then((body) => {
           response.setHeader('content-type', 'application/json')

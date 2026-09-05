@@ -1,4 +1,6 @@
 import { readdirSync, statSync } from 'node:fs'
+import { mkdtemp, symlink, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
 import { join, relative, sep } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import type { DiskIndexRecord } from './disk-index.ts'
@@ -33,6 +35,7 @@ const emitted = async (root: string): Promise<string> => {
 const served = async (
   url: string | undefined,
   root = diskRoot,
+  method?: string,
 ): Promise<{
   readonly body: string
   readonly headers: readonly string[]
@@ -49,7 +52,7 @@ const served = async (
           handler: (request: unknown, response: unknown, next: (error?: unknown) => void) => void,
         ) =>
           handler(
-            { url },
+            { url, method },
             {
               setHeader: (name: string, value: string) => headers.push(`${name}: ${value}`),
               end: (body: string) => settle({ body, headers, passedOn: false }),
@@ -112,6 +115,28 @@ describe('readDiskIndex', () => {
 describe('defaultDiskIndexPath', () => {
   it('is the well-known path the running machine looks for its superblock at', () => {
     expect(defaultDiskIndexPath).toBe('/.superblock.json')
+  })
+})
+
+describe('the plugin, asked to do something other than read', () => {
+  it('passes a write straight on, since the superblock is only ever published', async () => {
+    expect((await served(defaultDiskIndexPath, diskRoot, 'POST')).passedOn).toBe(true)
+  })
+})
+
+describe('readDiskIndex, given a disk it cannot describe', () => {
+  it('names the entry it refuses rather than failing with a path from the build machine', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'disk-'))
+    await symlink(join(root, 'nowhere'), join(root, 'dangling'))
+
+    await expect(readDiskIndex(root)).rejects.toThrow('/dangling')
+  })
+
+  it('refuses a name the browser could not ask for, since every path is fetched as a url', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'disk-'))
+    await writeFile(join(root, 'we ird#?.txt'), 'x')
+
+    await expect(readDiskIndex(root)).rejects.toThrow('addressable as a url')
   })
 })
 

@@ -7,6 +7,9 @@ import { diskFiles, realBytes, realDiskSource, realText } from '@/testing/disk/d
 const home = '/home/payam/eindhoven'
 const work = `${home}/work`
 const secrets = `${home}/.secrets`
+const preview = '/boot/preview.png'
+
+const isDocument = (path: string): boolean => path !== secrets && path !== preview
 
 const watching = (
   source: DiskSource,
@@ -135,10 +138,20 @@ describe('a mounted volume, and the file it refuses to open', () => {
     expect(mounted.read(secrets)).toBeUndefined()
   })
 
-  it('opens every other file on the disk exactly once while mounting', async () => {
+  it('opens the documents and nothing else, so mounting costs only what it reads', async () => {
     const watched = watching(realDiskSource())
     await mount(watched.source)
-    expect(watched.opened.toSorted()).toEqual(diskFiles.filter((path) => path !== secrets))
+
+    expect(new Set(watched.opened)).toEqual(new Set(diskFiles.filter(isDocument)))
+  })
+
+  it('leaves a file that is not text unread, however small the disk makes it look', async () => {
+    const watched = watching(realDiskSource())
+    const mounted = await mount(watched.source)
+
+    expect(watched.opened).not.toContain(preview)
+    expect(mounted.stat(preview)?.bytes).toBeGreaterThan(0)
+    expect(mounted.read(preview)).toBeUndefined()
   })
 })
 
