@@ -25,11 +25,14 @@ disk/          the documents the machine serves, at the paths it reports them at
 build/         the Vite plugin that publishes the volume index
 src/kernel/    finds the installed programs, parses a line, runs one
 src/fs/        mounts the disk and resolves paths against it
-src/tty/       what a terminal can draw: lines, colours, alignment
+src/tty/       what a terminal can draw: lines, colours, alignment, the dot field
 src/session/   the pure reducer that is a running session
 src/apps/      one folder per command, each an independent program
-src/hooks/     the React edge: timers, the mount, the pointer
+src/hooks/     the React edge: timers, the mount, the pointer, the canvas
 src/ui/        the React surface
+src/styles/    the theme tokens and the handful of resets under them
+src/lib/       the one helper that is not part of any layer
+src/testing/   helpers that exist only so the tests can use the real machine
 src/conventions/  tests that enforce the layout above
 ```
 

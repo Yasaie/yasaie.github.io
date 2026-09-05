@@ -8,9 +8,9 @@ export const traceLifeMs = 700
 
 export const traceReachPx = 46
 
-export const traceStepPx = 18
+const traceStepPx = 18
 
-export const traceFade = (trace: Trace, now: number): number =>
+const traceFade = (trace: Trace, now: number): number =>
   Math.max(0, 1 - (now - trace.bornAt) / traceLifeMs) ** 2.4
 
 export const traceGlow = (trace: Trace, now: number, x: number, y: number): number => {
