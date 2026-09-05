@@ -17,6 +17,7 @@
     "lint:fix": "biome check --write",
     "knip": "knip",
     "format": "biome format --write",
+    "screenshot": "node scripts/preview.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage --project machine --project screen",
