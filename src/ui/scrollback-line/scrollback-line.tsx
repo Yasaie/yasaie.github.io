@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
+import { cn } from '@/lib/cn/cn'
 import type { Line, Row } from '@/tty/line/line'
-import { cn } from '@/ui/cn/cn'
 import { LineSegment } from '@/ui/line-segment/line-segment'
 
 type LineOf<Kind extends Line['kind']> = Extract<Line, { readonly kind: Kind }>

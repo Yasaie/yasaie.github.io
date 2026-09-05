@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { realBytes } from '#tests/helpers/disk'
-import { formatSize } from '@/tty/bytes/bytes'
+import { formatSize } from '@/lib/bytes/bytes'
 
 describe('formatSize, human', () => {
   it('prints a small file as a bare count with no unit', () => {

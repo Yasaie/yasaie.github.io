@@ -24,7 +24,7 @@ export default defineConfig({
           include: [
             'build/**/*.test.ts',
             'tests/conventions/*.test.ts',
-            'src/{apps,dot-field,fs,kernel,session,tty}/**/*.test.ts',
+            'src/{apps,fs,kernel,lib,session,tty}/**/*.test.ts',
           ],
         },
       },

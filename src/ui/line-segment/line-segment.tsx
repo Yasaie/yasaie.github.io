@@ -1,8 +1,8 @@
 import type { ReactElement } from 'react'
 import { useFollowKey } from '@/hooks/use-follow-key/use-follow-key'
+import { cn } from '@/lib/cn/cn'
 import type { Segment } from '@/tty/line/line'
 import { colourClass } from '@/tty/palette/palette'
-import { cn } from '@/ui/cn/cn'
 
 export type LineSegmentProps = {
   readonly segment: Segment

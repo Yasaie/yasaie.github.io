@@ -6,7 +6,7 @@ const layers = [
   'src/kernel',
   'src/fs',
   'src/tty',
-  'src/dot-field',
+  'src/lib',
   'src/session',
   'src/hooks',
   'src/ui',

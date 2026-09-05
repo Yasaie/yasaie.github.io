@@ -3,8 +3,8 @@ import type { ReactElement } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { withoutACanvasEngine } from '#tests/helpers/canvas'
 import { preferStillness } from '#tests/helpers/viewport'
-import { rippleBandPx, rippleLifeMs, rippleRadius } from '@/dot-field/ripple/ripple'
-import { traceLifeMs, traceReachPx } from '@/dot-field/trail/trail'
+import { rippleBandPx, rippleLifeMs, rippleRadius } from '@/lib/ripple/ripple'
+import { traceLifeMs, traceReachPx } from '@/lib/trail/trail'
 import { useDotField } from './use-dot-field'
 
 const Field = (): ReactElement => <canvas ref={useDotField()} />

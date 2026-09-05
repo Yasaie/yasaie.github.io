@@ -42,6 +42,6 @@ describe('every app', () => {
   })
 
   it('is built only on the layers beneath it, never on the session or the screen', () => {
-    expect([...new Set(layersReached)].toSorted()).toEqual(['fs', 'kernel', 'tty'])
+    expect([...new Set(layersReached)].toSorted()).toEqual(['fs', 'kernel', 'lib', 'tty'])
   })
 })
