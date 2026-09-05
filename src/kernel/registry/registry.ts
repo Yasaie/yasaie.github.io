@@ -1,3 +1,4 @@
+import * as z from 'zod/mini'
 import type { App } from '@/kernel/contract/contract'
 
 const anyName = '*'
@@ -6,7 +7,6 @@ export type Registry = {
   readonly installed: readonly App[]
   readonly listed: readonly App[]
   readonly counted: readonly App[]
-  readonly find: (name: string) => App | undefined
   readonly route: (name: string) => App | undefined
   readonly canonicalName: (name: string) => string | undefined
   readonly handling: (path: string) => App | undefined
@@ -23,22 +23,17 @@ const folderOf = (modulePath: string): string => segmentsOf(modulePath).at(-2) ?
 const moduleNameOf = (modulePath: string): string =>
   modulePath.slice(modulePath.lastIndexOf('/') + 1).replace(/\.ts$/, '')
 
-const isStringList = (value: unknown): value is readonly string[] =>
-  Array.isArray(value) && value.every((item) => typeof item === 'string')
+const appShape = z.object({
+  name: z.string(),
+  aliases: z.array(z.string()),
+  summary: z.string(),
+  listed: z.nullable(z.number()),
+  counted: z.boolean(),
+  handles: z.array(z.string()),
+  run: z.custom<App['run']>((value) => typeof value === 'function'),
+})
 
-const isApp = (value: unknown): value is App => {
-  if (typeof value !== 'object' || value === null) return false
-  const candidate = value as Record<string, unknown>
-  return (
-    typeof candidate.name === 'string' &&
-    isStringList(candidate.aliases) &&
-    typeof candidate.summary === 'string' &&
-    (candidate.listed === null || typeof candidate.listed === 'number') &&
-    typeof candidate.counted === 'boolean' &&
-    isStringList(candidate.handles) &&
-    typeof candidate.run === 'function'
-  )
-}
+const isApp = (value: unknown): value is App => z.safeParse(appShape, value).success
 
 const appOf = (modulePath: string, module: unknown): App => {
   const folder = folderOf(modulePath)
@@ -87,7 +82,6 @@ export const registryOf = (modules: Readonly<Record<string, unknown>>): Registry
         .map(([app]) => app),
     ),
     counted: Object.freeze(installed.filter((app) => app.counted)),
-    find: (name: string) => byName.get(name),
     route: (name: string) => byName.get(name) ?? byName.get(anyName),
     canonicalName: (name: string) => byName.get(name)?.name,
     handling: (path: string) => byHandledPath.get(path),
@@ -101,7 +95,6 @@ const installedRegistry = registryOf(
 export const installedApps = installedRegistry.installed
 export const listedApps = installedRegistry.listed
 export const countedApps = installedRegistry.counted
-export const findApp = installedRegistry.find
 export const routeApp = installedRegistry.route
 export const canonicalNameOf = installedRegistry.canonicalName
 export const appHandling = installedRegistry.handling

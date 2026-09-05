@@ -6,7 +6,6 @@ import {
   appHandling,
   canonicalNameOf,
   countedApps,
-  findApp,
   installedApps,
   listedApps,
   registryOf,
@@ -167,12 +166,13 @@ describe('discovery, when a folder is not a working app', () => {
 
 describe('the name index', () => {
   it('finds every installed app by the name it calls itself', () => {
-    expect(installedApps.every((app) => findApp(app.name) === app)).toBe(true)
+    const missed = installedApps.filter((app) => routeApp(app.name) !== app)
+    expect(missed.map((app) => app.name)).toEqual([])
   })
 
   it('finds every installed app by each alias it answers to', () => {
     const missed = installedApps.flatMap((app) =>
-      app.aliases.filter((alias) => findApp(alias) !== app),
+      app.aliases.filter((alias) => routeApp(alias) !== app),
     )
     expect(missed).toEqual([])
   })
@@ -197,10 +197,6 @@ describe('the name index', () => {
     ).toThrow('app "head" claims "less", already taken by "cat"')
   })
 
-  it('knows nothing about a word no app claims', () => {
-    expect(findApp('rm')).toBeUndefined()
-  })
-
   it('resolves an alias to the app it belongs to, so the game counts apps not words', () => {
     expect(canonicalNameOf('cv')).toBe('work')
     expect(canonicalNameOf('hi')).toBe('contact')
@@ -218,7 +214,7 @@ describe('the name index', () => {
 
 describe('routing', () => {
   it('routes a typed word to the app that claims it', () => {
-    expect(routeApp('cv')).toBe(findApp('work'))
+    expect(routeApp('cv')?.name).toBe('work')
   })
 
   it('routes a word no app claims to whichever app volunteered for the rest', () => {
