@@ -7,7 +7,8 @@ type LineOf<Kind extends Line['kind']> = Extract<Line, { readonly kind: Kind }>
 
 const block = '█'
 
-const blocksAndShadow = (art: string): readonly string[] => art.match(/█+|[^█]+/g) ?? []
+const blocksAndShadow = (art: string): readonly string[] =>
+  art.split(/(█+)/).filter((run) => run !== '')
 
 type Renderers = {
   readonly [Kind in Line['kind']]: (line: LineOf<Kind>) => ReactElement

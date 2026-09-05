@@ -166,3 +166,14 @@ describe('what the prompt reports back', () => {
     expect(dispatched).toEqual([focusChanged(true), focusChanged(false)])
   })
 })
+
+describe('a field that reports no selection of its own', () => {
+  it('treats the caret as sitting at the end, so the suggestion is still offered', () => {
+    const { dispatched, field } = prompt(typing('sta', 3, 'stack'))
+    Object.defineProperty(field, 'selectionStart', { get: () => null })
+
+    fireEvent.keyDown(field, { key: 'ArrowRight' })
+
+    expect(dispatched).toEqual([suggestionAccepted()])
+  })
+})

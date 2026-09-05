@@ -21,7 +21,7 @@ const segmentsOf = (modulePath: string): readonly string[] => modulePath.split('
 const folderOf = (modulePath: string): string => segmentsOf(modulePath).at(-2) ?? ''
 
 const moduleNameOf = (modulePath: string): string =>
-  (segmentsOf(modulePath).at(-1) ?? '').replace(/\.ts$/, '')
+  modulePath.slice(modulePath.lastIndexOf('/') + 1).replace(/\.ts$/, '')
 
 const isStringList = (value: unknown): value is readonly string[] =>
   Array.isArray(value) && value.every((item) => typeof item === 'string')

@@ -67,6 +67,14 @@ describe('a line of the boot wordmark', () => {
     expect(container.textContent).toBe(' ╚████╔╝  ')
   })
 
+  it('draws the shadow apart from the blocks, so the letterforms read against it', () => {
+    const { container } = render(<ScrollbackLine line={wordmark('██╗')} />)
+    const runs = [...container.querySelectorAll('span')]
+
+    expect(runs.map((run) => run.textContent)).toEqual(['██', '╗'])
+    expect(runs.at(0)?.className).not.toBe(runs.at(1)?.className)
+  })
+
   it('is drawn in the accent colour, like everything the machine wants read first', () => {
     const { container } = render(<ScrollbackLine line={wordmark('██╗   ██╗')} />)
     expect(container.querySelector('span')).toHaveClass(colourClass.accent)

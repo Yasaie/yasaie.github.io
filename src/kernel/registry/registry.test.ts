@@ -47,6 +47,12 @@ describe('discovery', () => {
     expect(installedApps).toHaveLength(appFolders.length)
   })
 
+  it('ignores a module that sits outside any app folder, since nothing owns it', () => {
+    const registry = registryOf({ 'ls.ts': { ls: anApp('ls') } })
+
+    expect(registry.installed).toEqual([])
+  })
+
   it('installs only the module named after its folder', () => {
     const registry = registryOf({
       '/src/apps/ls/ls.ts': { ls: anApp('ls') },

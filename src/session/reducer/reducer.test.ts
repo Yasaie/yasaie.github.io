@@ -135,6 +135,15 @@ describe('rebooting', () => {
     )
   })
 
+  it('leaves a pending reboot alone when some other timer reports back', () => {
+    const shutdown = run(booted, 'reboot')
+
+    const unrelated = dispatched(shutdown, scheduleConsumed({ kind: 'reward', delayMs: 600 }))
+
+    expect(unrelated.scheduled).toEqual(shutdown.scheduled)
+    expect(unrelated.lines).toEqual(shutdown.lines)
+  })
+
   it('wipes the screen, returns home and starts the splash again when the moment comes', () => {
     const shutdown = run(run(booted, 'cd work'), 'reboot')
     const replayed = dispatched(shutdown, scheduleConsumed({ kind: 'reboot', delayMs: 1400 }))

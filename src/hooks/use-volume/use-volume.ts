@@ -32,20 +32,10 @@ export const useVolume = (): VolumeMount => {
   const [state, setState] = useState<VolumeMount>(mounting)
 
   useEffect(() => {
-    let abandoned = false
-
     mountOnce().then(
-      (volume) => {
-        if (!abandoned) setState(mounted(volume))
-      },
-      (reason: unknown) => {
-        if (!abandoned) setState(failed(reason))
-      },
+      (volume) => setState(mounted(volume)),
+      (reason: unknown) => setState(failed(reason)),
     )
-
-    return () => {
-      abandoned = true
-    }
   }, [])
 
   return state

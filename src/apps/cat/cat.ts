@@ -52,9 +52,6 @@ export const cat: App = {
       return { lines: [], effects: [{ kind: 'delegate', name: renderer.name, args: [entry.path] }] }
     }
     if (entry.directory) return complaint(`${argument}: is a directory`)
-    const contents = volume.read(entry.path)
-    return contents === undefined
-      ? complaint(`${argument}: no such file or directory`)
-      : { lines: dump(contents), effects: [] }
+    return { lines: dump(volume.require(entry.path)), effects: [] }
   },
 }
