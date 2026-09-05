@@ -61,6 +61,14 @@
     background: var(--color-terminal-accent);
     color: var(--color-terminal-bg);
   }
+
+  * {
+    scrollbar-width: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @keyframes caret {

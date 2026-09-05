@@ -27,18 +27,40 @@ const caretCentre = (): { readonly x: number; readonly y: number } => {
 
 const alignedFrom = (edge: number): number => Math.max(0, Math.floor(edge / gridPx) * gridPx)
 
-const paintAround = (
+type Spread = {
+  readonly x: number
+  readonly y: number
+  readonly reach: number
+}
+
+const spreadOf = (ripples: readonly Ripple[], traces: readonly Trace[], now: number): Spread[] => [
+  ...ripples.map((ripple) => ({
+    x: ripple.x,
+    y: ripple.y,
+    reach: rippleRadius(ripple, now) + rippleBandPx,
+  })),
+  ...traces.map((trace) => ({ x: trace.x, y: trace.y, reach: traceReachPx })),
+]
+
+const paint = (
   brush: CanvasRenderingContext2D,
   canvas: HTMLCanvasElement,
-  centre: { readonly x: number; readonly y: number },
-  reach: number,
-  glowAt: (x: number, y: number) => number,
+  ripples: readonly Ripple[],
+  traces: readonly Trace[],
+  now: number,
 ): void => {
-  const right = Math.min(canvas.width, centre.x + reach)
-  const bottom = Math.min(canvas.height, centre.y + reach)
-  for (let x = alignedFrom(centre.x - reach); x <= right; x += gridPx) {
-    for (let y = alignedFrom(centre.y - reach); y <= bottom; y += gridPx) {
-      const glow = glowAt(x, y)
+  brush.clearRect(0, 0, canvas.width, canvas.height)
+  const spread = spreadOf(ripples, traces, now)
+  if (spread.length === 0) return
+  const left = alignedFrom(Math.min(...spread.map((one) => one.x - one.reach)))
+  const top = alignedFrom(Math.min(...spread.map((one) => one.y - one.reach)))
+  const right = Math.min(canvas.width, Math.max(...spread.map((one) => one.x + one.reach)))
+  const bottom = Math.min(canvas.height, Math.max(...spread.map((one) => one.y + one.reach)))
+  for (let x = left; x <= right; x += gridPx) {
+    for (let y = top; y <= bottom; y += gridPx) {
+      let glow = 0
+      for (const ripple of ripples) glow = Math.max(glow, rippleGlow(ripple, now, x, y))
+      for (const trace of traces) glow = Math.max(glow, traceGlow(trace, now, x, y))
       if (glow === 0) continue
       brush.fillStyle = `rgba(${ink}, ${glow})`
       brush.fillRect(x - dotPx / 2, y - dotPx / 2, dotPx, dotPx)
@@ -61,15 +83,7 @@ export const useDotField = (): RefObject<HTMLCanvasElement | null> => {
     const now = performance.now()
     ripples.current = stillSpreading(ripples.current, now)
     traces.current = stillGlowing(traces.current, now)
-    brush.clearRect(0, 0, surface.width, surface.height)
-    for (const ripple of ripples.current) {
-      paintAround(brush, surface, ripple, rippleRadius(ripple, now) + rippleBandPx, (x, y) =>
-        rippleGlow(ripple, now, x, y),
-      )
-    }
-    for (const trace of traces.current) {
-      paintAround(brush, surface, trace, traceReachPx, (x, y) => traceGlow(trace, now, x, y))
-    }
+    paint(brush, surface, ripples.current, traces.current, now)
     if (ripples.current.length === 0 && traces.current.length === 0) return
     drawing.current = true
     frame.current = requestAnimationFrame(draw)
