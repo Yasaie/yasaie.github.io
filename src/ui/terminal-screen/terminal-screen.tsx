@@ -8,8 +8,11 @@ import { TerminalPrompt } from '@/ui/terminal-prompt/terminal-prompt'
 import { TerminalScrollback } from '@/ui/terminal-scrollback/terminal-scrollback'
 import { TerminalTitleBar } from '@/ui/terminal-title-bar/terminal-title-bar'
 
-const screenSurface =
-  'fixed inset-0 flex flex-col overflow-hidden bg-terminal-bg font-mono text-screen leading-relaxed text-terminal-text'
+const surface =
+  'fixed inset-0 flex flex-col justify-center overflow-hidden bg-terminal-bg font-mono text-screen leading-relaxed text-terminal-text'
+
+const frame =
+  'relative z-10 mx-auto flex h-full max-h-[900px] w-full max-w-measure min-h-0 flex-1 flex-col px-gutter'
 
 export type TerminalScreenProps = {
   readonly volume: Volume
@@ -21,12 +24,13 @@ export const TerminalScreen = ({ volume }: TerminalScreenProps): ReactElement =>
   useClickToFocus(input)
 
   return (
-    <div className={screenSurface}>
+    <div className={surface}>
       <TerminalBackdrop />
-      <TerminalTitleBar />
-      <TerminalScrollback lines={terminal.state.lines}>
+      <div className={frame}>
+        <TerminalTitleBar />
+        <TerminalScrollback lines={terminal.state.lines} />
         <TerminalPrompt terminal={terminal} inputRef={input} />
-      </TerminalScrollback>
+      </div>
     </div>
   )
 }

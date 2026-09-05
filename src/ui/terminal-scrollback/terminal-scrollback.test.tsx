@@ -8,9 +8,7 @@ describe('the printed history of the session', () => {
     const { container } = render(
       <TerminalScrollback
         lines={[text('payam@yasaie ~ $ whoami', 'faint'), text('Payam Yasaie', 'text'), blank]}
-      >
-        <input aria-label="command" />
-      </TerminalScrollback>,
+      />,
     )
     expect([...container.querySelectorAll('span')].map((part) => part.textContent)).toEqual([
       'payam@yasaie ~ $ whoami',
@@ -19,23 +17,10 @@ describe('the printed history of the session', () => {
   })
 
   it('announces new output politely, without interrupting what is being read', () => {
-    render(
-      <TerminalScrollback lines={[text('Payam Yasaie', 'text')]}>
-        <input aria-label="command" />
-      </TerminalScrollback>,
-    )
+    render(<TerminalScrollback lines={[text('Payam Yasaie', 'text')]} />)
     expect(screen.getByText('Payam Yasaie').closest('[aria-live]')).toHaveAttribute(
       'aria-live',
       'polite',
     )
-  })
-
-  it('keeps the prompt with the output rather than announcing it as new text', () => {
-    render(
-      <TerminalScrollback lines={[text('Payam Yasaie', 'text')]}>
-        <input aria-label="command" />
-      </TerminalScrollback>,
-    )
-    expect(screen.getByLabelText('command').closest('[aria-live]')).toBeNull()
   })
 })

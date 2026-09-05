@@ -65,7 +65,7 @@ export const TerminalPrompt = ({ terminal, inputRef }: TerminalPromptProps): Rea
   }
 
   return (
-    <div className="pt-2">
+    <div className="pt-2 pb-7">
       <div className="flex items-center gap-2.5">
         <span className="text-terminal-accent">payam@yasaie</span>
         <span className="text-terminal-faint">{state.cwd}</span>
