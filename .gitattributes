@@ -1,2 +1,2 @@
 disk/** -text
-disk/home/payam/eindhoven/.secrets linguist-generated
+disk/home/payam/eindhoven/.secrets -diff linguist-generated
