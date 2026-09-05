@@ -1,5 +1,9 @@
 # yasaie.com
 
+[![Deploy](https://github.com/Yasaie/yasaie.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/Yasaie/yasaie.github.io/actions/workflows/deploy.yml)
+[![Coverage](https://img.shields.io/badge/coverage-100%25-4c9a2a)](https://github.com/Yasaie/yasaie.github.io/actions/workflows/ci.yml)
+[![Licence](https://img.shields.io/badge/licence-all%20rights%20reserved-8a867d)](LICENSE)
+
 My personal site, built as a small operating system. It boots, mounts a disk, and gives you a
 shell. Everything it can tell you about me is a file on that disk.
 
@@ -49,7 +53,9 @@ pnpm dev
 pnpm check     # lint, dead code, types, tests with coverage, tests in a browser, build
 ```
 
-Node 24 and pnpm 11, both pinned. `pnpm check` is what CI runs.
+Node 24 and pnpm 11, both pinned. `pnpm check` is what CI runs. Coverage is gated at 100% of
+statements, branches, functions and lines, so the build fails before it drops; every run posts
+the table to its job summary, and to the pull request when there is one.
 
 The suite runs in three places, because the three parts of the machine answer to different
 things. `machine` runs the kernel, the filesystem and every program in Node with no DOM, which

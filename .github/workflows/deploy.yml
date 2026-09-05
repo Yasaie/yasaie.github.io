@@ -16,6 +16,9 @@ concurrency:
 jobs:
   quality:
     name: Quality
+    permissions:
+      contents: read
+      pull-requests: write
     uses: ./.github/workflows/quality.yml
 
   build:
