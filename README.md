@@ -53,4 +53,5 @@ Node 24 and pnpm 11, both pinned. `pnpm check` is what CI runs.
 
 ## Licence
 
-Code is [MIT](LICENSE). The documents under `disk/` are my CV; please do not reuse those.
+None. This is published to be read, not reused: see [LICENSE](LICENSE). The documents under
+`disk/` are my CV.
