@@ -4,6 +4,10 @@ type WidthBound = { readonly atLeast: boolean; readonly pixels: number }
 
 const widthQuery = /\((min|max)-width:\s*(\d+)px\)/
 
+const motionQuery = /prefers-reduced-motion:\s*reduce/
+
+let stillnessPreferred = false
+
 const boundOf = (query: string): WidthBound | undefined => {
   const found = widthQuery.exec(query)
   return found === null
@@ -12,6 +16,7 @@ const boundOf = (query: string): WidthBound | undefined => {
 }
 
 const matchesViewport = (query: string): boolean => {
+  if (motionQuery.test(query)) return stillnessPreferred
   const bound = boundOf(query)
   if (bound === undefined) return false
   return bound.atLeast ? window.innerWidth >= bound.pixels : window.innerWidth <= bound.pixels
@@ -44,8 +49,14 @@ export const setViewportWidth = (pixels: number): void => {
   for (const announce of announcers) announce()
 }
 
+export const preferStillness = (preferred: boolean): void => {
+  stillnessPreferred = preferred
+  for (const announce of announcers) announce()
+}
+
 export const installViewport = (): void => {
   Object.defineProperty(window, 'matchMedia', { configurable: true, value: listFor })
   announcers.clear()
+  stillnessPreferred = false
   setViewportWidth(wideViewportWidth)
 }

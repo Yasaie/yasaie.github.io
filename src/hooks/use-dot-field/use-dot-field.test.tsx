@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react'
 import type { ReactElement } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { preferStillness } from '@/testing/viewport/viewport'
 import { rippleBandPx, rippleLifeMs, rippleRadius } from '@/tty/ripple/ripple'
 import { traceLifeMs, traceReachPx } from '@/tty/trail/trail'
 import { useDotField } from './use-dot-field'
@@ -79,6 +80,19 @@ describe('the dot field under the terminal, disturbed by typing', () => {
     render(<Field />)
 
     fireEvent.keyDown(window, { key: 'l', ctrlKey: true })
+    drawOneFrame()
+
+    expect(painted).toEqual([])
+  })
+})
+
+describe('the dot field, for a visitor who asked for less movement', () => {
+  it('draws nothing at all, rather than animating out of sight', () => {
+    preferStillness(true)
+    render(<Field />)
+
+    fireEvent.keyDown(window, { key: 'w' })
+    fireEvent.pointerMove(window, { clientX: 300, clientY: 200 })
     drawOneFrame()
 
     expect(painted).toEqual([])

@@ -12,9 +12,10 @@ describe('the printed history of the session', () => {
         onRun={() => undefined}
       />,
     )
-    expect([...container.querySelectorAll('span')].map((part) => part.textContent)).toEqual([
+    expect([...container.querySelectorAll('[data-row]')].map((row) => row.textContent)).toEqual([
       'payam@yasaie ~ $ whoami',
       'Payam Yasaie',
+      '',
     ])
   })
 

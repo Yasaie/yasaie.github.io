@@ -20,14 +20,15 @@ const blocksAndShadow = (art: string): readonly string[] =>
   art.split(/(█+)/).filter((run) => run !== '')
 
 const SegmentRow = ({ row, className }: SegmentRowProps): ReactElement => (
-  <div
-    className={cn('min-h-[1lh] whitespace-pre-wrap wrap-anywhere pb-0.5', className)}
+  <span
+    data-row=""
+    className={cn('block min-h-[1lh] whitespace-pre-wrap wrap-anywhere pb-0.5', className)}
     style={{ paddingLeft: row.indent }}
   >
     {row.segments.map((part, column) => (
       <LineSegment key={column} segment={part} />
     ))}
-  </div>
+  </span>
 )
 
 const renderers: Renderers = Object.freeze({
@@ -41,7 +42,11 @@ const renderers: Renderers = Object.freeze({
     </>
   ),
   wordmark: (line) => (
-    <div className="font-wordmark text-wordmark leading-none whitespace-pre">
+    <div
+      aria-hidden="true"
+      data-row=""
+      className="font-wordmark text-wordmark leading-none whitespace-pre"
+    >
       {blocksAndShadow(line.text).map((run, at) => (
         <span
           key={at}

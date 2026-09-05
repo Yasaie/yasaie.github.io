@@ -23,4 +23,5 @@ export const settleUntil = async (
       await vi.advanceTimersByTimeAsync(stepMs)
     })
   }
+  throw new Error('the terminal never printed what the test was waiting for')
 }

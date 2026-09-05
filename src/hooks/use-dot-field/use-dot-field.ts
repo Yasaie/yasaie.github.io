@@ -1,5 +1,5 @@
 import { type RefObject, useCallback, useEffect, useRef } from 'react'
-import { useEventListener } from 'usehooks-ts'
+import { useEventListener, useMediaQuery } from 'usehooks-ts'
 import {
   type Ripple,
   rippleBandPx,
@@ -68,8 +68,11 @@ const paint = (
   }
 }
 
+const stillness = '(prefers-reduced-motion: reduce)'
+
 export const useDotField = (): RefObject<HTMLCanvasElement | null> => {
   const canvas = useRef<HTMLCanvasElement | null>(null)
+  const settled = useMediaQuery(stillness)
   const ripples = useRef<readonly Ripple[]>([])
   const traces = useRef<readonly Trace[]>([])
   const frame = useRef<number | undefined>(undefined)
@@ -103,7 +106,7 @@ export const useDotField = (): RefObject<HTMLCanvasElement | null> => {
 
   useEventListener('keydown', (event) => {
     const surface = canvas.current
-    if (surface === null || !stirredBy(event)) return
+    if (surface === null || settled || !stirredBy(event)) return
     resize(surface)
     ripples.current = [...ripples.current, { ...caretCentre(), bornAt: performance.now() }]
     wake()
@@ -111,7 +114,8 @@ export const useDotField = (): RefObject<HTMLCanvasElement | null> => {
 
   useEventListener('pointermove', (event) => {
     const surface = canvas.current
-    if (surface === null || !worthTracing(traces.current, event.clientX, event.clientY)) return
+    if (surface === null || settled || !worthTracing(traces.current, event.clientX, event.clientY))
+      return
     resize(surface)
     traces.current = [
       ...traces.current,

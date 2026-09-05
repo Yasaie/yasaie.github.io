@@ -6,7 +6,7 @@ import { colourClass } from '@/tty/palette/palette'
 import { ScrollbackLine } from './scrollback-line'
 
 const rowsIn = (container: HTMLElement): readonly HTMLElement[] => [
-  ...container.querySelectorAll('div'),
+  ...container.querySelectorAll<HTMLElement>('[data-row]'),
 ]
 
 describe('a plain printed line', () => {

@@ -12,7 +12,7 @@ configure({ asyncWrapper: withoutWaitingOnRealTime })
 const volume = await mountRealDisk()
 
 const printed = (): readonly string[] =>
-  [...document.querySelectorAll('[aria-live] div')].map((row) => row.textContent ?? '')
+  [...document.querySelectorAll('[data-row]')].map((row) => row.textContent ?? '')
 
 const hasPrinted = (line: string) => (): boolean => printed().includes(line)
 
@@ -79,11 +79,10 @@ describe('a visitor arriving at the terminal', () => {
 
     await visitor.runs('work 2')
     await settleUntil(
-      hasPrinted('- headless Shopify builds; custom Shopify apps that lifted sales 30%.'),
+      hasPrinted('- headless Shopify builds; custom Shopify apps that lifted sales by 30%.'),
     )
 
     expect(printed()).toContain('2021 – 2025  OWOW Agency')
-    ;(await import('node:fs')).writeFileSync('/tmp/clicked.txt', printed().join('\n'))
     expect(printed()).toContain('software developer, then senior · Eindhoven')
   })
 

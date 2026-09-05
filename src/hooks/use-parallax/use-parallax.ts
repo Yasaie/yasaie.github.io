@@ -1,17 +1,28 @@
 import { type RefObject, useEffect, useRef } from 'react'
+import { useMediaQuery } from 'usehooks-ts'
 
 type Pointer = { readonly x: number; readonly y: number }
 
 type Layer = (pointer: Pointer) => void
 
+const stillness = '(prefers-reduced-motion: reduce)'
+
 const layers = new Set<Layer>()
+
+let queued: number | undefined
+
+const drift = (pointer: Pointer) => () => {
+  queued = undefined
+  for (const layer of layers) layer(pointer)
+}
 
 const broadcast = (event: MouseEvent): void => {
   const pointer: Pointer = {
     x: event.clientX / window.innerWidth - 0.5,
     y: event.clientY / window.innerHeight - 0.5,
   }
-  for (const layer of layers) layer(pointer)
+  if (queued !== undefined) cancelAnimationFrame(queued)
+  queued = requestAnimationFrame(drift(pointer))
 }
 
 const track = (layer: Layer): (() => void) => {
@@ -26,16 +37,16 @@ const track = (layer: Layer): (() => void) => {
 
 export const useParallax = <T extends HTMLElement>(depth: number): RefObject<T | null> => {
   const layer = useRef<T | null>(null)
+  const settled = useMediaQuery(stillness)
 
-  useEffect(
-    () =>
-      track(({ x, y }) => {
-        const element = layer.current
-        if (element === null) return
-        element.style.transform = `translate(${-x * depth}px,${-y * depth}px)`
-      }),
-    [depth],
-  )
+  useEffect(() => {
+    if (settled) return
+    return track(({ x, y }) => {
+      const element = layer.current
+      if (element === null) return
+      element.style.transform = `translate(${-x * depth}px,${-y * depth}px)`
+    })
+  }, [depth, settled])
 
   return layer
 }

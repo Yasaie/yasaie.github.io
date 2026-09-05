@@ -21,7 +21,10 @@ export const TerminalScrollback = ({
   return (
     <div
       ref={scroller}
+      aria-label="terminal output"
       aria-live="polite"
+      role="log"
+      tabIndex={0}
       className="min-h-0 flex-1 overflow-auto overscroll-contain px-gutter pt-6 pb-2 [mask-image:linear-gradient(transparent,black_24px,black_calc(100%_-_24px),transparent)]"
     >
       {lines.map((line, position) => (
