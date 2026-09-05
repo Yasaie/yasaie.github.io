@@ -6,11 +6,11 @@ describe('the set of commands the game counts', () => {
     expect([...countedNames].toSorted()).toEqual([
       'coffee',
       'contact',
-      'help',
-      'impossible',
+      'hire',
       'stack',
       'sudo',
       'tabriz',
+      'vim',
       'whoami',
       'work',
     ])
@@ -29,7 +29,6 @@ describe('crediting a command a visitor has run', () => {
   it('credits the command an alias stands for, not the alias itself', () => {
     expect(recordDiscovery([], 'cv').discovered).toEqual(['work'])
     expect(recordDiscovery([], 'hi').discovered).toEqual(['contact'])
-    expect(recordDiscovery([], '?').discovered).toEqual(['help'])
   })
 
   it('counts the same command twice as one discovery, whichever name it was typed under', () => {

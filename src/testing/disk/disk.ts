@@ -21,6 +21,7 @@ export const diskFiles: readonly string[] = [
   '/boot/favicon.svg',
   '/boot/preview.png',
   '/etc/issue',
+  '/etc/motd',
   '/etc/yasaie-release',
   '/home/payam/eindhoven/.secrets',
   '/home/payam/eindhoven/contact.txt',

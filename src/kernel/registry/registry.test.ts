@@ -268,11 +268,11 @@ describe('the counted set', () => {
     expect(countedApps.map((app) => app.name).toSorted()).toEqual([
       'coffee',
       'contact',
-      'help',
-      'impossible',
+      'hire',
       'stack',
       'sudo',
       'tabriz',
+      'vim',
       'whoami',
       'work',
     ])

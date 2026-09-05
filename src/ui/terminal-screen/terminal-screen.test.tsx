@@ -88,11 +88,11 @@ describe('a visitor arriving at the terminal', () => {
     await visitor.runs('work')
     await visitor.runs('stack')
     await visitor.runs('contact')
-    await visitor.runs('help')
     await visitor.runs('sudo')
-    await visitor.runs('impossible')
     await visitor.runs('tabriz')
     await visitor.runs('coffee')
+    await visitor.runs('hire')
+    await visitor.runs('vim')
 
     await settleUntil(
       hasPrinted('all nine. you read the whole thing. that deserves a reply: payam@yasaie.com'),

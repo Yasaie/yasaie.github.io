@@ -224,12 +224,12 @@ describe('the game', () => {
   })
 
   it('asks for the reward only once every one of the nine has been found', () => {
-    const eight = ['whoami', 'work', 'stack', 'contact', 'help', 'sudo', 'impossible', 'tabriz']
+    const eight = ['whoami', 'work', 'stack', 'contact', 'sudo', 'tabriz', 'coffee', 'hire']
     const nearly = eight.reduce(run, booted)
     expect(nearly.discovered).toHaveLength(8)
     expect(nearly.scheduled).toEqual([])
 
-    const complete = run(nearly, 'coffee')
+    const complete = run(nearly, 'vim')
     expect(complete.scheduled).toEqual([{ kind: 'reward', delayMs: 600 }])
   })
 
@@ -239,11 +239,11 @@ describe('the game', () => {
       'work',
       'stack',
       'contact',
-      'help',
       'sudo',
-      'impossible',
       'tabriz',
       'coffee',
+      'hire',
+      'vim',
     ].reduce(run, booted)
     const rewarded = drained(
       dispatched(complete, scheduleConsumed({ kind: 'reward', delayMs: 600 })),

@@ -3,7 +3,10 @@ import { text } from '@/tty/line/line'
 
 const origin = Object.freeze({
   lines: [
-    text('38.08° N, 46.29° E. where it started. best kebab in iran, not up for debate.', 'accent'),
+    text(
+      '38.08° N, 46.29° E. where it started. carpets, the largest covered bazaar on earth, and iran’s first of nearly everything.',
+      'accent',
+    ),
   ],
   effects: [],
 } satisfies Output)

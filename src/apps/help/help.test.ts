@@ -31,7 +31,7 @@ describe('help', () => {
     expect(printed).not.toContain('sudo')
     expect(printed).not.toContain('tabriz')
     expect(printed).not.toContain('coffee')
-    expect(printed).not.toContain('impossible')
+    expect(printed).not.toContain('hire')
     expect(printed).not.toContain('help')
   })
 

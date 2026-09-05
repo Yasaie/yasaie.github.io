@@ -143,9 +143,10 @@ describe('ls', () => {
 
   it('leaves the year column empty for a directory the machine dates nothing in', () => {
     expect(textOf(ls.run(invocation('ls -la /etc'), volume))).toEqual([
-      'total 3',
+      'total 4',
       'drwxr-xr-x  1 payam yasaie 4096   ./',
       `-rw-r--r--  1 payam yasaie  ${bytesOf('/etc/issue')}   issue`,
+      `-rw-r--r--  1 payam yasaie   ${bytesOf('/etc/motd')}   motd`,
       `-rw-r--r--  1 payam yasaie  ${bytesOf('/etc/yasaie-release')}   yasaie-release`,
     ])
   })

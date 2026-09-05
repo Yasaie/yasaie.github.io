@@ -22,7 +22,7 @@ export const help: App = {
   aliases: ['?'],
   summary: 'the listing you are reading',
   listed: null,
-  counted: true,
+  counted: false,
   handles: [],
   run: render,
 }
