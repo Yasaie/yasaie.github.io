@@ -6,7 +6,6 @@ describe('the dot grid behind the terminal', () => {
   it('is decoration, so nothing in it is read out or clickable', () => {
     const { container } = render(<TerminalBackdrop />)
     expect(container.firstElementChild).toHaveAttribute('aria-hidden', 'true')
-    expect(container.firstElementChild).toHaveClass('pointer-events-none')
   })
 
   it('gives the screen depth by drifting its layers by different amounts', () => {

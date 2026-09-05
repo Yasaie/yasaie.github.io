@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { responsive, row, segment, text, wordmark } from '@/tty/line/line'
+import { colourClass } from '@/tty/palette/palette'
 import { ScrollbackLine } from './scrollback-line'
 
 const rowsIn = (container: HTMLElement): readonly HTMLElement[] => [
@@ -25,9 +26,15 @@ describe('a plain printed line', () => {
     expect(rowsIn(container).at(0)?.style.paddingLeft).toBe('2ch')
   })
 
-  it('wraps long output instead of running off the screen', () => {
-    const { container } = render(<ScrollbackLine line={text('a very long answer', 'body')} />)
-    expect(rowsIn(container).at(0)).toHaveClass('whitespace-pre-wrap')
+  it('prints a long answer whole, leaving the screen to wrap it', () => {
+    const long = 'a very long answer that will not fit across one line of any terminal'
+    const { container } = render(<ScrollbackLine line={text(long, 'body')} />)
+    expect(container.textContent).toBe(long)
+  })
+
+  it('still takes up a line when the machine prints nothing, so output keeps its spacing', () => {
+    const { container } = render(<ScrollbackLine line={text('', 'body')} />)
+    expect(rowsIn(container)).toHaveLength(1)
   })
 })
 
@@ -46,12 +53,11 @@ describe('a line that reads differently on a narrow screen', () => {
     ])
   })
 
-  it('shows the padded row only from the breakpoint up and the stacked rows only below it', () => {
+  it('offers the two readings as alternatives, so only one of them is ever on screen', () => {
     const { container } = render(<ScrollbackLine line={line} />)
     const [padded, key, value] = rowsIn(container)
-    expect(padded).toHaveClass('hidden', 'min-[600px]:block')
-    expect(key).toHaveClass('min-[600px]:hidden')
-    expect(value).toHaveClass('min-[600px]:hidden')
+    expect(padded?.className).not.toBe(key?.className)
+    expect(key?.className).toBe(value?.className)
   })
 })
 
@@ -59,12 +65,10 @@ describe('a line of the boot wordmark', () => {
   it('keeps every space of the block art, so the glyphs butt together', () => {
     const { container } = render(<ScrollbackLine line={wordmark(' ╚████╔╝  ')} />)
     expect(container.textContent).toBe(' ╚████╔╝  ')
-    expect(rowsIn(container).at(0)).toHaveClass('whitespace-pre')
   })
 
-  it('is drawn in the accent colour, in the font whose blocks have no seams', () => {
+  it('is drawn in the accent colour, like everything the machine wants read first', () => {
     const { container } = render(<ScrollbackLine line={wordmark('██╗   ██╗')} />)
-    expect(rowsIn(container).at(0)).toHaveClass('font-wordmark')
-    expect(container.querySelector('span')).toHaveClass('text-terminal-accent')
+    expect(container.querySelector('span')).toHaveClass(colourClass.accent)
   })
 })

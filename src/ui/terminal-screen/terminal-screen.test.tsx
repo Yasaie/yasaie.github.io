@@ -1,8 +1,8 @@
 import { configure, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { mountRealDisk } from '@/test/disk/disk'
-import { settle, settleUntil } from '@/test/settle/settle'
+import { mountRealDisk } from '@/testing/disk/disk'
+import { settle, settleUntil } from '@/testing/settle/settle'
 import { TerminalScreen } from './terminal-screen'
 
 const withoutWaitingOnRealTime = <Result,>(work: () => Promise<Result>): Promise<Result> => work()
@@ -12,7 +12,7 @@ configure({ asyncWrapper: withoutWaitingOnRealTime })
 const volume = await mountRealDisk()
 
 const printed = (): readonly string[] =>
-  [...document.querySelectorAll('[aria-live] > div > div')].map((row) => row.textContent ?? '')
+  [...document.querySelectorAll('[aria-live] div')].map((row) => row.textContent ?? '')
 
 const hasPrinted = (line: string) => (): boolean => printed().includes(line)
 

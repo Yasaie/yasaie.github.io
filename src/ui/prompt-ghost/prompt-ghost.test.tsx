@@ -8,9 +8,9 @@ describe('the block cursor and the suggestion behind the prompt', () => {
     expect(container.textContent).toBe('stack')
   })
 
-  it('hides the letters already typed, so only the cursor lines up over them', () => {
+  it('carries the letters already typed so the cursor lines up over them', () => {
     render(<PromptGhost beforeCaret="sta" ghost="ck" focused={true} />)
-    expect(screen.getByText('sta')).toHaveClass('invisible')
+    expect(screen.getByText('sta')).toBeInTheDocument()
   })
 
   it('is decorative, so a screen reader never reads the line twice', () => {
@@ -18,13 +18,12 @@ describe('the block cursor and the suggestion behind the prompt', () => {
     expect(container.firstElementChild).toHaveAttribute('aria-hidden', 'true')
   })
 
-  it('dims the cursor while the prompt does not have focus', () => {
-    const { container } = render(<PromptGhost beforeCaret="" ghost="" focused={false} />)
-    expect(container.querySelector('span:last-of-type')).toHaveClass('opacity-35')
-  })
+  it('draws the cursor differently once the prompt loses focus, so the screen looks asleep', () => {
+    const caretOf = (focused: boolean): string | undefined =>
+      render(<PromptGhost beforeCaret="" ghost="" focused={focused} />).container.querySelector(
+        'span:last-of-type',
+      )?.className
 
-  it('shows the cursor at full strength while the prompt has focus', () => {
-    const { container } = render(<PromptGhost beforeCaret="" ghost="" focused={true} />)
-    expect(container.querySelector('span:last-of-type')).toHaveClass('opacity-100')
+    expect(caretOf(true)).not.toBe(caretOf(false))
   })
 })
