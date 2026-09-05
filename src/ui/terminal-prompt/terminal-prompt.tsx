@@ -65,8 +65,8 @@ export const TerminalPrompt = ({ terminal, inputRef }: TerminalPromptProps): Rea
   }
 
   return (
-    <div className="relative z-[3] px-[clamp(20px,4vw,40px)] pt-[8px] pb-[28px]">
-      <div className="flex max-w-[960px] items-center gap-[10px]">
+    <div className="pt-2">
+      <div className="flex items-center gap-2.5">
         <span className="text-terminal-accent">payam@yasaie</span>
         <span className="text-terminal-faint">{state.cwd}</span>
         <span className="text-terminal-text">$</span>
@@ -82,7 +82,7 @@ export const TerminalPrompt = ({ terminal, inputRef }: TerminalPromptProps): Rea
             autoCapitalize="off"
             autoComplete="off"
             autoCorrect="off"
-            className="relative w-full border-0 bg-transparent p-0 text-terminal-text caret-transparent outline-none [font:inherit]"
+            className="w-full border-0 bg-transparent p-0 text-terminal-text caret-transparent outline-none"
             enterKeyHint="go"
             onBlur={() => dispatch(focusChanged(false))}
             onChange={(event) => dispatch(typed(event.target.value, caretIn(event.target)))}

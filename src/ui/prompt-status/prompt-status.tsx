@@ -5,5 +5,5 @@ export type PromptStatusProps = {
 }
 
 export const PromptStatus = ({ label }: PromptStatusProps): ReactElement => (
-  <span className="whitespace-nowrap text-[11px] text-terminal-faint">{label}</span>
+  <span className="whitespace-nowrap text-status text-terminal-faint">{label}</span>
 )

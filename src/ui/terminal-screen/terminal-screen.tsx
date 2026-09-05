@@ -9,7 +9,7 @@ import { TerminalScrollback } from '@/ui/terminal-scrollback/terminal-scrollback
 import { TerminalTitleBar } from '@/ui/terminal-title-bar/terminal-title-bar'
 
 const screenSurface =
-  'fixed inset-0 flex flex-col overflow-hidden bg-terminal-bg font-mono text-[length:clamp(13px,0.55vw_+_10px,17px)] leading-[1.6] text-terminal-text'
+  'fixed inset-0 flex flex-col overflow-hidden bg-terminal-bg font-mono text-screen leading-relaxed text-terminal-text'
 
 export type TerminalScreenProps = {
   readonly volume: Volume
@@ -24,8 +24,9 @@ export const TerminalScreen = ({ volume }: TerminalScreenProps): ReactElement =>
     <div className={screenSurface}>
       <TerminalBackdrop />
       <TerminalTitleBar />
-      <TerminalScrollback lines={terminal.state.lines} />
-      <TerminalPrompt terminal={terminal} inputRef={input} />
+      <TerminalScrollback lines={terminal.state.lines}>
+        <TerminalPrompt terminal={terminal} inputRef={input} />
+      </TerminalScrollback>
     </div>
   )
 }
