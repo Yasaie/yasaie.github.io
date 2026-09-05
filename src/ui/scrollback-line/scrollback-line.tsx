@@ -77,7 +77,7 @@ export const ScrollbackLine = ({ line, onRun }: ScrollbackLineProps): ReactEleme
   ) : (
     <button
       type="button"
-      className="block w-full cursor-pointer text-left"
+      className="block w-full cursor-text text-left"
       onClick={() => onRun(command)}
     >
       {drawn}

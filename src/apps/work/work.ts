@@ -55,7 +55,7 @@ const detail = (chapter: Chapter): readonly Line[] => [
   text(`${chapter.years}  ${chapter.company}`, 'text'),
   text(`${chapter.role} · ${chapter.place}`, 'muted'),
   blank,
-  ...chapter.bullets.map((point) => text(`- ${point}`, 'body', '2ch')),
+  ...chapter.bullets.map((point) => text(`- ${point}`, 'body')),
 ]
 
 const chapterFor = (requested: string, chapters: readonly Chapter[]): Chapter | undefined => {

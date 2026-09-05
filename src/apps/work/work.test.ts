@@ -72,7 +72,7 @@ describe('work', () => {
     ])
   })
 
-  it('opens the chapter a visitor asks for by number, bullets indented under its credits', () => {
+  it('opens the chapter a visitor asks for by number, printed as the machine prints anything', () => {
     const chapter = work.run(invocation('work 1'), volume)
     expect(textOf(chapter)).toEqual([
       '2025 – now  GoodHabitz',
@@ -94,7 +94,7 @@ describe('work', () => {
       ['body'],
       ['body'],
     ])
-    expect(indentsOf(chapter)).toEqual(['0', '0', '0', '2ch', '2ch', '2ch', '2ch', '2ch'])
+    expect(indentsOf(chapter)).toEqual(['0', '0', '0', '0', '0', '0', '0', '0'])
   })
 
   it('keeps a role that carries its own comma out of the place it was held in', () => {
