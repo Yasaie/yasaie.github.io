@@ -1,10 +1,15 @@
 import { fileURLToPath } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
+import { playwright } from '@vitest/browser-playwright'
 import { defineConfig } from 'vitest/config'
 import { diskIndex } from './build/disk-index/disk-index.ts'
 
 const disk = fileURLToPath(new URL('./disk', import.meta.url))
+
+const browserTests = 'src/**/*.browser.test.tsx'
+
+const wideViewport = { width: 1280, height: 800 }
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), diskIndex({ root: disk })],
@@ -37,6 +42,21 @@ export default defineConfig({
           css: true,
           setupFiles: ['./tests/helpers/setup.ts'],
           include: ['src/{hooks,ui}/**/*.test.{ts,tsx}'],
+          exclude: [browserTests],
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'browser',
+          setupFiles: ['./tests/helpers/browser-setup.ts'],
+          include: [browserTests],
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright(),
+            instances: [{ browser: 'chromium', viewport: wideViewport }],
+          },
         },
       },
     ],

@@ -46,10 +46,17 @@ one is deleting a folder. No app imports another, and no app's name appears anyw
 ```sh
 pnpm install
 pnpm dev
-pnpm check     # lint, types, tests with coverage, build
+pnpm check     # lint, dead code, types, tests with coverage, tests in a browser, build
 ```
 
 Node 24 and pnpm 11, both pinned. `pnpm check` is what CI runs.
+
+The suite runs in three places, because the three parts of the machine answer to different
+things. `machine` runs the kernel, the filesystem and every program in Node with no DOM, which
+is what keeps those layers framework-free. `screen` runs the React surface in jsdom. `browser`
+runs a handful of tests in real Chromium, where a stylesheet, a hovered link and a canvas
+behave the way they will for a visitor. Those files are named `*.browser.test.tsx`, and they
+need `pnpm exec playwright install chromium` once.
 
 ## Licence
 

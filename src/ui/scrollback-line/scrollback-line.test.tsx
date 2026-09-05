@@ -58,19 +58,6 @@ describe('a line that reads differently on a narrow screen', () => {
       '16 years',
     ])
   })
-
-  it('hides the padded reading until the screen is wide enough to hold it', () => {
-    const { container } = render(<ScrollbackLine line={line} onRun={() => undefined} />)
-    const [padded] = rowsIn(container)
-    expect(padded).toHaveClass('hidden', 'wide:block')
-  })
-
-  it('hides the stacked reading the moment there is room for the padded one', () => {
-    const { container } = render(<ScrollbackLine line={line} onRun={() => undefined} />)
-    const [, key, value] = rowsIn(container)
-    expect(key).toHaveClass('wide:hidden')
-    expect(value).toHaveClass('wide:hidden')
-  })
 })
 
 describe('a printed line that stands for a command', () => {

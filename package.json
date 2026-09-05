@@ -19,8 +19,9 @@
     "format": "biome format --write",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "check": "pnpm lint && pnpm knip && pnpm typecheck && pnpm test:coverage && pnpm build"
+    "test:coverage": "vitest run --coverage --project machine --project screen",
+    "test:browser": "vitest run --project browser",
+    "check": "pnpm lint && pnpm knip && pnpm typecheck && pnpm test:coverage && pnpm test:browser && pnpm build"
   },
   "dependencies": {
     "@fontsource/geist-mono": "5.3.0",
@@ -42,8 +43,11 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.7",
     "@vitejs/plugin-react": "6.1.1",
+    "@vitest/browser-playwright": "^5.0.0",
     "@vitest/coverage-v8": "5.0.0",
     "jsdom": "30.0.1",
+    "knip": "^6.34.0",
+    "playwright": "^1.62.1",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2",
     "vite": "8.2.2",
