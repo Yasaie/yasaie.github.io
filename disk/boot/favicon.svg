@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <title>payam@yasaie</title>
+  <rect width="32" height="32" fill="#0A0A0C" />
+  <g
+    fill="none"
+    stroke="#FFB020"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M7 9.5 14 16 7 22.5" />
+    <path d="M17.5 23.5h8" />
+  </g>
+</svg>
