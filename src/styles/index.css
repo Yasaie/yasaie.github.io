@@ -13,7 +13,7 @@
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-wordmark: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --text-screen: clamp(14px, 0.55vw + 10px, 17px);
+  --text-screen: 16px;
   --text-wordmark: min(var(--text-screen), calc((100vw - 2 * var(--spacing-gutter)) / 28.8));
 
   --spacing-gutter: clamp(20px, 4vw, 40px);

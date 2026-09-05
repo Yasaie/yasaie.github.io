@@ -11,6 +11,10 @@ const printing = { timeout: 5_000 }
 
 const shortScreen = { width: 1280, height: 300 }
 
+const phone = { width: 390, height: 844 }
+
+const safariZoomsBelow = 16
+
 const onScreen = (text: string): Promise<HTMLElement> =>
   waitFor(() => {
     const readable = screen.getAllByText(text).filter((drawn) => drawn.checkVisibility())
@@ -41,5 +45,15 @@ describe('the terminal a visitor lands on', () => {
 
     expect(lineHeight).toBeGreaterThan(0)
     expect((bottom - region.scrollTop) / lineHeight).toBeCloseTo(2, 1)
+  })
+
+  it('sets type no smaller than safari will read without zooming the prompt', async () => {
+    await page.viewport(phone.width, phone.height)
+    render(<TerminalScreen volume={servedDisk} />)
+    await onScreen('Payam Yasaie')
+
+    const typed = Number.parseFloat(getComputedStyle(screen.getByLabelText('command')).fontSize)
+
+    expect(typed).toBeGreaterThanOrEqual(safariZoomsBelow)
   })
 })
